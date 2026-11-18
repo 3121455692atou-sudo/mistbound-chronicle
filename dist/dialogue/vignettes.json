@@ -1,0 +1,518 @@
+[
+  {
+    "id": "vignette.turn.bocchi_kita.tuning",
+    "slot": "turn.random",
+    "who": "bocchi",
+    "with": "kita",
+    "lines": [
+      {
+        "speaker": "kita",
+        "expr": "happy",
+        "text": "波奇酱！今天按弦的手型我练了一百遍，快帮我看看对不对！"
+      },
+      {
+        "speaker": "bocchi",
+        "expr": "smile",
+        "text": "小、小指再稍微收一点点音色就会超清亮了……喜多酱进步好快……"
+      },
+      {
+        "speaker": "kita",
+        "expr": "blush",
+        "text": "嘿嘿，因为有波奇酱在身边手把手教我嘛！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.kita_bocchi.patrol",
+    "slot": "turn.random",
+    "who": "kita",
+    "with": "bocchi",
+    "lines": [
+      {
+        "speaker": "kita",
+        "expr": "smile",
+        "text": "领主大人！我和波奇酱刚巡视完西城墙回来咯！"
+      },
+      {
+        "speaker": "bocchi",
+        "expr": "sleepy",
+        "text": "喜多酱跟每一个站岗的罪袋都热情寒暄……我的社交体力已经归零了……"
+      }
+    ],
+    "choices": [
+      {
+        "label": "发冰麦茶给两人解乏",
+        "reply": {
+          "speaker": "bocchi",
+          "expr": "happy",
+          "text": "呜哇活过来了……谢谢领主大人……"
+        },
+        "effect": {
+          "supply": -2,
+          "bond": 5
+        }
+      },
+      {
+        "label": "夸奖喜多带动士气",
+        "reply": {
+          "speaker": "kita",
+          "expr": "happy",
+          "text": "Kita——n！明天也继续照亮整条城墙！"
+        },
+        "effect": {
+          "bond": 4
+        }
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.bocchi.kita",
+    "slot": "join.reunion",
+    "who": "kita",
+    "with": "bocchi",
+    "lines": [
+      {
+        "speaker": "kita",
+        "expr": "happy",
+        "text": "波奇酱——！在雾海里找了你好久，果然跟着吉他声就找到你了！"
+      },
+      {
+        "speaker": "bocchi",
+        "expr": "cry",
+        "text": "喜、喜多酱……！太好了，大家平平安安重逢真是太好了……！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.kita.bocchi",
+    "slot": "join.reunion",
+    "who": "bocchi",
+    "with": "kita",
+    "lines": [
+      {
+        "speaker": "bocchi",
+        "expr": "surprised",
+        "text": "那、那道刺眼的阳角光芒……难道是喜多酱？！"
+      },
+      {
+        "speaker": "kita",
+        "expr": "happy",
+        "text": "是我是我！波奇酱欢迎来到领地，以后又可以每天一起练琴啦！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.rival.bocchi.kita",
+    "slot": "battle.rival",
+    "who": "bocchi",
+    "with": "kita",
+    "lines": [
+      {
+        "speaker": "kita",
+        "expr": "surprised",
+        "text": "诶？！对面阵前抱吉他发抖的是波奇酱？！我下不去手啦！"
+      },
+      {
+        "speaker": "bocchi",
+        "expr": "cry",
+        "text": "喜多酱对不起……但是领主交代的防线，我咬碎后槽牙也会守住的！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.nijika_ryo",
+    "slot": "turn.random",
+    "who": "nijika",
+    "with": "ryo",
+    "lines": [
+      {
+        "speaker": "nijika",
+        "expr": "pout",
+        "text": "凉，伙房大叔刚来告状，说有人拿军用压缩饼干去喂城护河的鲤鱼？"
+      },
+      {
+        "speaker": "ryo",
+        "expr": "smile",
+        "text": "放长线钓大鱼，等鲤鱼长肥了，我们就有生鱼片吃了。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.nina_momoka",
+    "slot": "turn.random",
+    "who": "nina",
+    "with": "momoka",
+    "lines": [
+      {
+        "speaker": "nina",
+        "expr": "pout",
+        "text": "桃香小姐，你刚写的这句号子太消极了，改成‘就算折断也要刺穿浓雾’！"
+      },
+      {
+        "speaker": "momoka",
+        "expr": "smile",
+        "text": "好好好，主唱大人说了算，伴奏给你升半个调。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.sakiko_uika",
+    "slot": "turn.random",
+    "who": "uika",
+    "with": "sakiko",
+    "lines": [
+      {
+        "speaker": "uika",
+        "expr": "happy",
+        "text": "小祥，今晚没有战事，我带了观星望远镜来钟楼陪你值班哦。"
+      },
+      {
+        "speaker": "sakiko",
+        "expr": "smile",
+        "text": "……多谢你，初华。那今晚的防务日志就一起写吧。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.kasumi_saaya",
+    "slot": "turn.random",
+    "who": "kasumi",
+    "with": "saaya",
+    "lines": [
+      {
+        "speaker": "kasumi",
+        "expr": "happy",
+        "text": "沙绫烤的星星形红豆包超好吃！领主快张嘴，啊——！"
+      },
+      {
+        "speaker": "saaya",
+        "expr": "smile",
+        "text": "哈哈，慢点吃香澄，锅里还温着一整笼呢。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.yukina_sayo",
+    "slot": "turn.random",
+    "who": "yukina",
+    "with": "sayo",
+    "lines": [
+      {
+        "speaker": "sayo",
+        "expr": "smile",
+        "text": "凑小姐，弓弦松香与备用琴弦均已按战备标准清点完毕。"
+      },
+      {
+        "speaker": "yukina",
+        "expr": "smile",
+        "text": "很好，纱夜。有你在侧翼把关，我只需专注最顶点的歌声。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.ran_moca",
+    "slot": "turn.random",
+    "who": "ran",
+    "with": "moca",
+    "lines": [
+      {
+        "speaker": "moca",
+        "expr": "sleepy",
+        "text": "呼啊……巡逻完晒着夕阳，眼皮开始打架了呢，兰～"
+      },
+      {
+        "speaker": "ran",
+        "expr": "smile",
+        "text": "真是跟以前一点没变。靠在长椅上歇十分钟吧，我替你看着哨塔。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.aya_hina",
+    "slot": "turn.random",
+    "who": "aya",
+    "with": "hina",
+    "lines": [
+      {
+        "speaker": "aya",
+        "expr": "happy",
+        "text": "领主！我做了全军姓名速记卡，连三十八号罪袋先生的特长都记住了哦！"
+      },
+      {
+        "speaker": "hina",
+        "expr": "happy",
+        "text": "小彩还是那么拼命，超有趣的！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.kokoro_misaki",
+    "slot": "turn.random",
+    "who": "kokoro",
+    "with": "misaki",
+    "lines": [
+      {
+        "speaker": "kokoro",
+        "expr": "happy",
+        "text": "美咲！我们给护城河修一座彩虹滑梯吧，出兵速度肯定快十倍！"
+      },
+      {
+        "speaker": "misaki",
+        "expr": "pout",
+        "text": "那样士兵会直接滑进水里喂鱼吧……领主快管管她。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.chu2_lock",
+    "slot": "turn.random",
+    "who": "lock",
+    "with": "chu2",
+    "lines": [
+      {
+        "speaker": "lock",
+        "expr": "happy",
+        "text": "呜哇，这把经过工坊强化的战地吉他音色太震撼了！"
+      },
+      {
+        "speaker": "chu2",
+        "expr": "smile",
+        "text": "当然，也不看看是谁调校的设备，尽情弹出最强Solo吧LOCK！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.mashiro_rui",
+    "slot": "turn.random",
+    "who": "mashiro",
+    "with": "rui",
+    "lines": [
+      {
+        "speaker": "mashiro",
+        "expr": "smile",
+        "text": "瑠唯同学，我把今天巡逻看到的雾中白花写进了新词里。"
+      },
+      {
+        "speaker": "rui",
+        "expr": "smile",
+        "text": "意象很清澈。傍晚收操后，我用小提琴为你配一段旋律。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.ichika_saki",
+    "slot": "turn.random",
+    "who": "ichika",
+    "with": "saki",
+    "lines": [
+      {
+        "speaker": "saki",
+        "expr": "happy",
+        "text": "一歌快看！市集进了酸酸甜甜的柠檬糖，分给领主一颗！"
+      },
+      {
+        "speaker": "ichika",
+        "expr": "smile",
+        "text": "嗯，行军路上含一颗，嗓子和心情都清爽起来了。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.minori_haruka",
+    "slot": "turn.random",
+    "who": "minori",
+    "with": "haruka",
+    "lines": [
+      {
+        "speaker": "minori",
+        "expr": "blush",
+        "text": "能和遥前辈并肩守卫同一座城池，我是不是在做梦呀……！"
+      },
+      {
+        "speaker": "haruka",
+        "expr": "smile",
+        "text": "不是梦哦，实乃理。现在我们是彼此最可靠的战友。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.kohane_an",
+    "slot": "turn.random",
+    "who": "an",
+    "with": "kohane",
+    "lines": [
+      {
+        "speaker": "an",
+        "expr": "happy",
+        "text": "心羽！刚出炉的培根芝士三明治，趁热一人一半！"
+      },
+      {
+        "speaker": "kohane",
+        "expr": "happy",
+        "text": "谢、谢谢杏酱！拉丝好长，好好吃！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.emu_nene",
+    "slot": "turn.random",
+    "who": "emu",
+    "with": "nene",
+    "lines": [
+      {
+        "speaker": "emu",
+        "expr": "happy",
+        "text": "宁宁酱你看，罪袋先生们排成了大大的笑脸队形哦！"
+      },
+      {
+        "speaker": "nene",
+        "expr": "blush",
+        "text": "……偶尔这样胡闹一下，倒也不讨厌。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.kanade_ena",
+    "slot": "turn.random",
+    "who": "ena",
+    "with": "kanade",
+    "lines": [
+      {
+        "speaker": "ena",
+        "expr": "pout",
+        "text": "奏，今天太阳这么好，跟我去城墙花园透透气，顺便给我当速写模特！"
+      },
+      {
+        "speaker": "kanade",
+        "expr": "cry",
+        "text": "呜……阳光有点刺眼……能戴着兜帽坐在树荫下吗……"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.miku_luka",
+    "slot": "turn.random",
+    "who": "miku",
+    "with": "luka",
+    "lines": [
+      {
+        "speaker": "miku",
+        "expr": "happy",
+        "text": "流歌姐姐，城门口的风铃我已经按五声音阶挂好啦！"
+      },
+      {
+        "speaker": "luka",
+        "expr": "smile",
+        "text": "起风的时候整条街道都在伴奏，领主听着也觉得舒心吧？"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.emilia_rem",
+    "slot": "turn.random",
+    "who": "emilia",
+    "with": "rem",
+    "lines": [
+      {
+        "speaker": "emilia",
+        "expr": "smile",
+        "text": "蕾姆，这束刚采的雾白铃兰插在议事厅窗台好不好？"
+      },
+      {
+        "speaker": "rem",
+        "expr": "happy",
+        "text": "非常相衬！蕾姆这就去换一瓶清冽的井水来养花。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.rem.ram",
+    "slot": "join.reunion",
+    "who": "rem",
+    "with": "ram",
+    "lines": [
+      {
+        "speaker": "rem",
+        "expr": "cry",
+        "text": "姐姐大人！蕾姆终于找到姐姐大人了！"
+      },
+      {
+        "speaker": "ram",
+        "expr": "smile",
+        "text": "乖，蕾姆。既然姐妹合流，这领地的内务就彻底稳当了。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.tooka_kotori",
+    "slot": "turn.random",
+    "who": "tooka",
+    "with": "kotori",
+    "lines": [
+      {
+        "speaker": "kotori",
+        "expr": "smile",
+        "text": "十香，今天的战略沙盘推演结束了，表现不错，赏你两串团子。"
+      },
+      {
+        "speaker": "tooka",
+        "expr": "happy",
+        "text": "不愧是琴里司令！明天打仗也尽管包在我身上！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.kaguya.yuzuru",
+    "slot": "join.reunion",
+    "who": "kaguya",
+    "with": "yuzuru",
+    "lines": [
+      {
+        "speaker": "kaguya",
+        "expr": "happy",
+        "text": "夕弦！吾之半身哟，双翼合璧之时终于降临！"
+      },
+      {
+        "speaker": "yuzuru",
+        "expr": "happy",
+        "text": "欢喜。夕弦亦为重逢深感欣慰。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.hinatsuru_ginko",
+    "slot": "turn.random",
+    "who": "hinatsuru",
+    "with": "ginko",
+    "lines": [
+      {
+        "speaker": "hinatsuru",
+        "expr": "happy",
+        "text": "银子师姐！领主刚夸我排的巡逻表一步不漏呢！"
+      },
+      {
+        "speaker": "ginko",
+        "expr": "blush",
+        "text": "哼……别骄傲得太早，来跟我复盘一局快棋。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.hana_hinata",
+    "slot": "turn.random",
+    "who": "hana",
+    "with": "hinata",
+    "lines": [
+      {
+        "speaker": "hinata",
+        "expr": "happy",
+        "text": "小花做的布丁摇起来噗噜噗噜的，领主也快尝一口！"
+      },
+      {
+        "speaker": "hana",
+        "expr": "blush",
+        "text": "慢点吃别噎着……焦糖我还多熬了一小罐留给领主。"
+      }
+    ]
+  }
+]

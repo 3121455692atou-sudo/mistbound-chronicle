@@ -1,0 +1,10 @@
+/
+  Cache-Control: no-store
+/index.html
+  Cache-Control: no-store
+/multiplayer.html
+  Cache-Control: no-store
+/version.txt
+  Cache-Control: no-store
+/assets/*
+  Cache-Control: public, max-age=86400

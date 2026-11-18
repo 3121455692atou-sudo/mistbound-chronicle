@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "example.iris-pack",
+  "name": "边境测绘师 · 伊莉丝",
+  "characters": [
+    {
+      "id": "example.iris",
+      "name": "伊莉丝",
+      "title": "边境测绘师",
+      "color": "#b8a4d8",
+      "stats": { "attack": 2, "defense": 2, "scout": 2, "economy": 1 },
+      "description": "把没走过的道路画在地图留白里。她相信领土的边界始于理解，而非旗帜。",
+      "trait": "更适合担任探索领队。"
+    }
+  ]
+}

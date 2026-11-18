@@ -1,0 +1,80 @@
+/* Inherits the original ink, paper, display font, manga framing and safe areas. */
+.app-shell{overflow:clip}
+body .sheet-mode .screen-head,body .talk-scene .screen-head{top:var(--sa-t)}
+.campaign-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px;border-bottom:3px solid var(--ink);padding-bottom:10px}
+.campaign-tabs button{min-height:44px;min-width:64px;padding:7px 12px;font:700 14px var(--display);color:var(--on-paper);background:var(--paper-2);border:2px solid var(--ink);transform:skewX(-5deg)}
+.campaign-tabs button.on{background:var(--gold);box-shadow:2px 3px 0 var(--ink)}
+.campaign-purse{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:16px;margin:0 0 12px;font-size:16px;color:var(--on-paper);font-variant-numeric:tabular-nums}
+.campaign-purse span{display:flex;align-items:center;gap:4px}.campaign-purse img{width:20px;height:20px;object-fit:contain}
+.campaign-budget dl>div{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px dashed var(--ink-3)}
+.campaign-budget dt,.campaign-budget dd{margin:0;color:var(--on-paper)}
+#city-preview{white-space:pre-line}
+.campaign-city,.campaign-subject{display:flex;gap:12px;border-bottom:2px dashed var(--ink-3);padding:12px 0;align-items:center}
+.campaign-subject{display:block}.campaign-city .building-thumb{width:100px;height:90px;object-fit:contain}.campaign-city h4{margin-top:0!important}
+.campaign-tech-tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 10px}
+.campaign-tech{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;min-height:150px;padding:10px 5px;border:0;border-bottom:2px dotted var(--ink-3);background:transparent;color:var(--on-paper);font:inherit}
+.campaign-tech .hx{display:grid;place-items:center;width:60px;height:60px;background:var(--paper-2);border:0;clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%);color:var(--on-paper)}
+.campaign-tech .hx svg{width:25px;height:25px}.campaign-tech.known .hx{background:#8dc4a6}.campaign-tech.ready .hx,.campaign-tech.active .hx{background:var(--gold)}.campaign-tech.locked{opacity:.65}
+.campaign-tech b{font:700 17px var(--display)}.campaign-tech small,.campaign-tech em{font-size:12px;line-height:1.4;font-style:normal}
+.campaign-money{display:grid!important;grid-template-columns:repeat(3,1fr);gap:12px}.campaign-money span{min-width:0}
+.cs .campaign-money b{color:var(--on-paper)}
+.campaign-countries{display:grid;grid-template-columns:1fr 1fr;gap:8px}.campaign-country{display:flex;align-items:center;gap:10px;padding:8px;border-bottom:2px dashed var(--ink-3);min-height:60px}
+.campaign-country input{width:24px;height:24px;accent-color:var(--gold)}.campaign-country img{width:44px;height:52px;object-fit:cover;object-position:50% 12%}.campaign-country span{min-width:0}.campaign-country small{display:block;font-size:12px}.campaign-country.locked{opacity:.6}
+.campaign-prison{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.campaign-prison article{display:flex;flex-direction:column;align-items:center;border-bottom:2px solid var(--ink);padding:8px}.campaign-prison img{width:100%;height:130px;object-fit:contain;filter:grayscale(1)}
+.campaign-locations .cs-link img{width:34px;height:34px;object-fit:contain}.campaign-locations .cs-link{min-height:50px}
+.campaign-page .form-row,.campaign-city-tools .form-row{flex-wrap:wrap}.campaign-page .field,.campaign-confirm .field{min-width:140px;flex:1}
+.campaign-page .cs-cap{flex-wrap:wrap;gap:12px}.campaign-page .cs-cap>div{min-width:180px;flex:1}
+.campaign-entry{margin:8px 0;min-height:44px}.campaign-order-button{min-height:44px}
+.b-cell[data-kind="deck"]{--cell:#b99b68}.b-cell[data-kind="deckCover"]{--cell:#8e7958}.b-cell[data-kind="cargo"]{--cell:#846142}.b-cell[data-kind="slipperyDeck"]{--cell:#8fa9a5}.b-cell[data-kind="rigging"]{--cell:#ad9f81}
+.b-cell[data-kind="sky"]{--cell:#85b5d0}.b-cell[data-kind="cloud"]{--cell:#e2edf0}.b-cell[data-kind="turbulence"]{--cell:#6c8fa6}.b-cell[data-kind="updraft"]{--cell:#b6d5df}
+.campaign-test-label{position:fixed;left:calc(12px + var(--sa-l));top:calc(5px + var(--sa-t));z-index:101;font:700 12px var(--display);color:var(--gold);pointer-events:none;text-shadow:1px 1px 2px var(--ink)}
+@media(max-width:600px){.campaign-tech-tree{grid-template-columns:repeat(2,minmax(0,1fr))}.campaign-countries{grid-template-columns:1fr}.campaign-money{grid-template-columns:repeat(2,1fr)}.campaign-prison{grid-template-columns:repeat(2,minmax(0,1fr))}.campaign-tabs button{padding:6px 8px;min-width:58px;font-size:13px}.campaign-city .building-thumb{width:64px;height:64px}.campaign-page .cs-leaf{padding-bottom:calc(26px + var(--sa-b))}}
+
+/* A cropped standing portrait must meet the viewport edge, including tall desktop windows. */
+@media(min-width:721px),(max-height:520px) and (orientation:landscape){
+  .cs:not(.peek) .cs-girl{top:auto!important;bottom:0;height:calc(100% - 18px - var(--sa-t,0px));width:auto;max-width:none;aspect-ratio:560/818}
+  .cs.talk:not(.peek) .cs-girl{height:calc(100% - 30px - var(--sa-t,0px))}
+}
+.campaign-page .cs-cap,.campaign-confirm .cs-cap{color:var(--paper)}
+.campaign-page .cs-cap p,.campaign-page .cs-cap small,.campaign-confirm .cs-cap p{color:var(--paper)}
+.campaign-page .cs-cap h3,.campaign-page .cs-cap h4,.campaign-confirm .cs-cap h4{color:var(--gold)}
+.campaign-page .cs-leaf .comic-sheet{padding:0;background:transparent;color:var(--on-paper);border:0;box-shadow:none}
+.campaign-page .cs-leaf .comic-sheet .form-hint{color:var(--on-paper-2)}
+.campaign-page .cs-link{color:var(--paper)}
+.campaign-place{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:130px;flex:1}
+.campaign-place>b{font:400 19px var(--display);color:var(--on-paper)}.campaign-place>small{font-size:12px;color:var(--on-paper-2)}
+.campaign-place button{margin-top:4px;min-height:44px}
+.picking-campaign-tile [aria-label="主导航"],.picking-campaign-tile #end-turn,.picking-campaign-tile #undo,.picking-campaign-tile #leader{pointer-events:none;opacity:.4}
+.picking-campaign-tile #army-panel{z-index:35}.picking-campaign-tile #army-panel .ap-goal{min-width:0}.picking-campaign-tile #army-panel p{overflow-wrap:anywhere}
+
+.campaign-policy-choices{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}
+.campaign-policy-choices>.hx{position:relative;inset:auto;width:78px;height:86px;display:grid;place-items:center;flex:none;color:var(--on-paper);background:var(--paper-2);font:700 14px var(--display);clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%)}
+.campaign-policy-choices>.hx.on{background:var(--gold)}
+.campaign-peace-tiles{display:flex;gap:8px;flex-wrap:wrap}.campaign-peace-tiles>span{display:flex;align-items:center;gap:8px;padding:4px 8px;border-bottom:2px solid var(--ink)}.campaign-peace-tiles button{width:44px;height:44px;color:var(--on-paper)}
+.campaign-mayors{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}.campaign-mayors .cs-seatwrap{position:relative;width:84px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;color:var(--on-paper)}
+.campaign-mayors .cs-seat{position:relative;display:block;width:66px;height:74px;overflow:hidden;background:var(--paper-2)}.campaign-mayors .cs-seat img{width:100%;height:100%;object-fit:cover;object-position:50% 8%}.campaign-mayors .cs-seatwrap[aria-pressed="true"] .cs-seat{background:var(--gold);filter:drop-shadow(0 0 2px var(--gold))}
+.campaign-tree-scroll{overflow:auto;max-width:100%;padding:4px 0 14px;scrollbar-color:var(--ink) var(--paper-2)}
+.cs.campaign-tech-page,.campaign-tree-scroll{touch-action:pan-x pan-y}.campaign-tree-scroll{overscroll-behavior-x:contain}
+.campaign-tech-tree{display:block;position:relative;isolation:isolate}
+.campaign-tech-tree .campaign-tech{position:absolute;width:104px;height:96px;min-height:0;padding:2px;border:0}
+.campaign-tech-tree .campaign-tech b{font-size:15px;background:var(--paper);padding:0 3px}
+.campaign-tech-edges{position:absolute;inset:0;z-index:0;pointer-events:none;fill:none;stroke:var(--ink);stroke-width:2;opacity:.45}
+.campaign-tech-tree .campaign-tech{z-index:1}
+.cs .campaign-tech-edges{width:100%;height:100%;max-width:none}
+.campaign-tech .hx>i{font:700 22px var(--display)}
+.campaign-tech .hx{position:relative;inset:auto;flex:none;background:var(--ink);--cell:var(--paper-2);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.campaign-tech.known .hx{background:var(--ink);--cell:#8dc4a6}.campaign-tech.ready .hx,.campaign-tech.active .hx{background:var(--ink);--cell:var(--gold)}
+.campaign-policy-choices>.hx{background:var(--ink);--cell:var(--paper-2);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.campaign-policy-choices>.hx.on{background:var(--ink);--cell:var(--gold)}
+.battle-cell[data-kind="deck"]{background:repeating-linear-gradient(0deg,#b18b5a 0 18%,#6b4f31 18% 20%)}
+.battle-cell[data-kind="deckCover"]{background:linear-gradient(45deg,#706043 20%,#b29972 22% 76%,#55442c 78%)}
+.battle-cell[data-kind="cargo"]{background:repeating-linear-gradient(90deg,#61452d 0 12%,#9a7850 14% 43%,#61452d 45% 50%)}
+.battle-cell[data-kind="slipperyDeck"]{background:repeating-linear-gradient(-20deg,#aac0be99 0 9%,transparent 10% 25%),#7b938c}
+.battle-cell[data-kind="rigging"]{background:repeating-linear-gradient(45deg,transparent 0 28%,#5e4c2d 29% 32%,transparent 33% 50%),#bb9e6d}
+.battle-cell[data-kind="sky"]{background:#81b3cd}.battle-cell[data-kind="cloud"]{background:radial-gradient(ellipse at 35% 50%,#f4f8f7 30%,#b9d5e2 70%)}
+.battle-cell[data-kind="turbulence"]{background:repeating-radial-gradient(ellipse at 15% 30%,#8faeba 0 12%,#547b92 14% 17%,#8faeba 19% 34%)}
+.battle-cell[data-kind="updraft"]{background:repeating-linear-gradient(0deg,#d9e9ed77 0 8%,transparent 9% 25%),#a4cbda}
+.battle-plane-token{position:absolute;z-index:0;left:-38%;top:-16%;width:176%;height:130%;object-fit:contain;transform:rotate(var(--plane-a));filter:drop-shadow(0 2px 2px #0b0b16)}
+.battle-piece.aircraft .battle-token-portrait{position:relative;width:65%;height:72%;margin-bottom:12%;border:1px solid var(--gold);border-radius:50%;z-index:1}
+.battle-piece.aircraft{background:transparent;box-shadow:none;border-color:transparent}
+.b-stance{position:absolute;z-index:5;left:50%;top:-17px;transform:translateX(-50%);padding:1px 4px;background:var(--gold);color:var(--ink);font:700 10px var(--display);white-space:nowrap;border:1px solid var(--ink)}

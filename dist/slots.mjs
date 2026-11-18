@@ -1,0 +1,30 @@
+// Every moment the game pauses to look for written dialogue. Writers fill these from
+// dist/dialogue/*.json; an empty slot simply falls back to the character's normal lines.
+// who = 主角, with = 对手或搭档, param = 等级、信赖档等附加条件。
+export const SLOTS = {
+  'captured.self': { about: '我方角色被敌国俘虏', who: '被俘的角色', with: '俘虏她的国家的领袖' },
+  'captured.enemy': { about: '我方俘虏了敌国角色', who: '被俘的角色', with: '我方领军' },
+  'captive.talk': { about: '在俘虏名册里找我方关押的俘虏谈话', who: '俘虏' },
+  'captive.recruit': { about: '招降成功，她加入我方', who: '被招降的角色' },
+  'captive.release': { about: '释放俘虏', who: '被释放的角色' },
+  'captive.ransom': { about: '花钱赎回我方被俘角色', who: '被赎回的角色' },
+  'captive.defected': { about: '我方角色被关太久，被敌国说服留在那边', who: '叛变的角色', with: '敌国领袖' },
+  'captive.rescued': { about: '攻下关押国首都，救回我方角色', who: '获救的角色' },
+  'join.first': { about: '第一次加入麾下', who: '新同伴' },
+  'join.reunion': { about: '新同伴和麾下同团体的人重逢', who: '新同伴', with: '麾下的同伴' },
+  'level.milestone': { about: '升到 5、10、15、20、30 级', who: '升级的角色', param: 'level' },
+  'bond.tier': { about: '信赖升到新一档（1 熟悉、2 信任、3 默契、4 托付）', who: '角色', param: 'tier' },
+  'perk.chosen': { about: '选择了一个天赋', who: '角色', param: 'perk' },
+  'turn.random': { about: '新回合随机出现的日常，who 和 with 都在麾下才会触发，最常用的槽位', who: '角色', with: '可选，另一位同伴' },
+  'talk.daily': { about: '在角色页点谈话', who: '角色' },
+  'gift.loved': { about: '送到她最喜欢的礼物', who: '角色' },
+  'gift.normal': { about: '送了普通礼物', who: '角色' },
+  'post.assigned': { about: '被任命为财务官、军需官或招募官', who: '角色', param: 'post' },
+  'battle.rival': { about: '开战时敌方有同团体的人', who: '我方角色', with: '敌方角色' },
+  'battle.win': { about: '战斗胜利', who: '我方领军', with: '敌方领袖' },
+  'battle.lose': { about: '战斗失败', who: '我方领军', with: '敌方领袖' },
+  'capital.taken': { about: '攻下敌国首都', who: '我方领军', with: '敌方领袖' },
+  'capital.lost': { about: '我方首都失守', who: '我方领军' },
+  'nation.arrive': { about: '新势力从雾中登场', who: '该国领袖' },
+  'nation.fall': { about: '一个国家失去全部领土', who: '该国领袖' },
+};

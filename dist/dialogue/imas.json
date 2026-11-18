@@ -1,0 +1,2304 @@
+[
+  {
+    "id": "imas.haruka_a.join.first",
+    "slot": "join.first",
+    "who": "haruka_a",
+    "lines": [
+      {
+        "speaker": "haruka_a",
+        "expr": "smile",
+        "text": "我是765事务所的天海春香！哇啊差点绊倒……领主先生，今天也一起元气出发吧！"
+      },
+      {
+        "speaker": "haruka_a",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruka_a.talk.daily",
+    "slot": "talk.daily",
+    "who": "haruka_a",
+    "lines": [
+      {
+        "speaker": "haruka_a",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着烘焙手工曲奇呢，随身带着红缎带发饰就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruka_a.gift.loved",
+    "slot": "gift.loved",
+    "who": "haruka_a",
+    "lines": [
+      {
+        "speaker": "haruka_a",
+        "expr": "blush",
+        "text": "这份心意正好配我的红缎带发饰……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruka_a.battle.win",
+    "slot": "battle.win",
+    "who": "haruka_a",
+    "lines": [
+      {
+        "speaker": "haruka_a",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.chihaya.join.first",
+    "slot": "join.first",
+    "who": "chihaya",
+    "lines": [
+      {
+        "speaker": "chihaya",
+        "expr": "smile",
+        "text": "我是如月千早。只要这里允许我继续放声歌唱，我的乐章便为您而鸣。"
+      },
+      {
+        "speaker": "chihaya",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主阁下多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.chihaya.talk.daily",
+    "slot": "talk.daily",
+    "who": "chihaya",
+    "lines": [
+      {
+        "speaker": "chihaya",
+        "expr": "smile",
+        "text": "领主阁下，执务间隙我正忙着晨间发声练习呢，随身带着便携随身听就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.chihaya.gift.loved",
+    "slot": "gift.loved",
+    "who": "chihaya",
+    "lines": [
+      {
+        "speaker": "chihaya",
+        "expr": "blush",
+        "text": "这份心意正好配我的便携随身听……谢谢领主阁下，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.chihaya.battle.win",
+    "slot": "battle.win",
+    "who": "chihaya",
+    "lines": [
+      {
+        "speaker": "chihaya",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主阁下的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.miki.join.first",
+    "slot": "join.first",
+    "who": "miki",
+    "lines": [
+      {
+        "speaker": "miki",
+        "expr": "smile",
+        "text": "哈啊……美希有点困了呢。喂，亲爱的领主，管够饭团的话美希就拿出真本事帮你哦！"
+      },
+      {
+        "speaker": "miki",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请亲爱的多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.miki.talk.daily",
+    "slot": "talk.daily",
+    "who": "miki",
+    "lines": [
+      {
+        "speaker": "miki",
+        "expr": "smile",
+        "text": "亲爱的，执务间隙我正忙着午睡与做美甲呢，随身带着草莓饭团就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.miki.gift.loved",
+    "slot": "gift.loved",
+    "who": "miki",
+    "lines": [
+      {
+        "speaker": "miki",
+        "expr": "blush",
+        "text": "这份心意正好配我的草莓饭团……谢谢亲爱的，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.miki.battle.win",
+    "slot": "battle.win",
+    "who": "miki",
+    "lines": [
+      {
+        "speaker": "miki",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是亲爱的的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.yukiho.join.first",
+    "slot": "join.first",
+    "who": "yukiho",
+    "lines": [
+      {
+        "speaker": "yukiho",
+        "expr": "smile",
+        "text": "呜呜……像我这样没用的家伙真的可以吗？我、我会努力泡好绿茶和挖战壕的！"
+      },
+      {
+        "speaker": "yukiho",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.yukiho.talk.daily",
+    "slot": "talk.daily",
+    "who": "yukiho",
+    "lines": [
+      {
+        "speaker": "yukiho",
+        "expr": "smile",
+        "text": "领主大人，执务间隙我正忙着冲泡上等煎茶呢，随身带着随身小铁锹就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.yukiho.gift.loved",
+    "slot": "gift.loved",
+    "who": "yukiho",
+    "lines": [
+      {
+        "speaker": "yukiho",
+        "expr": "blush",
+        "text": "这份心意正好配我的随身小铁锹……谢谢领主大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.yukiho.battle.win",
+    "slot": "battle.win",
+    "who": "yukiho",
+    "lines": [
+      {
+        "speaker": "yukiho",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.yayoi.join.first",
+    "slot": "join.first",
+    "who": "yayoi",
+    "lines": [
+      {
+        "speaker": "yayoi",
+        "expr": "smile",
+        "text": "唔哦哦——！领主先生这里管一日三餐吗？高槻弥生一定会把军粮打理得满满当当！"
+      },
+      {
+        "speaker": "yayoi",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.yayoi.talk.daily",
+    "slot": "talk.daily",
+    "who": "yayoi",
+    "lines": [
+      {
+        "speaker": "yayoi",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着培育水培豆芽呢，随身带着小猪存钱罐就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.yayoi.gift.loved",
+    "slot": "gift.loved",
+    "who": "yayoi",
+    "lines": [
+      {
+        "speaker": "yayoi",
+        "expr": "blush",
+        "text": "这份心意正好配我的小猪存钱罐……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.yayoi.battle.win",
+    "slot": "battle.win",
+    "who": "yayoi",
+    "lines": [
+      {
+        "speaker": "yayoi",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.makoto.join.first",
+    "slot": "join.first",
+    "who": "makoto",
+    "lines": [
+      {
+        "speaker": "makoto",
+        "expr": "smile",
+        "text": "765事务所菊地真报到！冲锋陷阵尽管交给我……那个，庆功时能分我一只小熊玩偶吗？"
+      },
+      {
+        "speaker": "makoto",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.makoto.talk.daily",
+    "slot": "talk.daily",
+    "who": "makoto",
+    "lines": [
+      {
+        "speaker": "makoto",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着收集毛绒玩偶呢，随身带着特制护腕就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.makoto.gift.loved",
+    "slot": "gift.loved",
+    "who": "makoto",
+    "lines": [
+      {
+        "speaker": "makoto",
+        "expr": "blush",
+        "text": "这份心意正好配我的特制护腕……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.makoto.battle.win",
+    "slot": "battle.win",
+    "who": "makoto",
+    "lines": [
+      {
+        "speaker": "makoto",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.iori.join.first",
+    "slot": "join.first",
+    "who": "iori",
+    "lines": [
+      {
+        "speaker": "iori",
+        "expr": "smile",
+        "text": "哼，能请动本小姐水濑伊织可是你八辈子修来的福气！不许怠慢，听见没有？钉宫病也不治！"
+      },
+      {
+        "speaker": "iori",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请你这家伙多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.iori.talk.daily",
+    "slot": "talk.daily",
+    "who": "iori",
+    "lines": [
+      {
+        "speaker": "iori",
+        "expr": "smile",
+        "text": "你这家伙，执务间隙我正忙着品鉴世界各地红茶呢，随身带着兔子玩偶就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.iori.gift.loved",
+    "slot": "gift.loved",
+    "who": "iori",
+    "lines": [
+      {
+        "speaker": "iori",
+        "expr": "blush",
+        "text": "这份心意正好配我的兔子玩偶……谢谢你这家伙，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.iori.battle.win",
+    "slot": "battle.win",
+    "who": "iori",
+    "lines": [
+      {
+        "speaker": "iori",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是你这家伙的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.takane.join.first",
+    "slot": "join.first",
+    "who": "takane",
+    "lines": [
+      {
+        "speaker": "takane",
+        "expr": "smile",
+        "text": "小女子乃四条贵音。承蒙阁下垂青，定当倾尽心力……敢问城中可有浓汤拉面铺子？"
+      },
+      {
+        "speaker": "takane",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主阁下多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.takane.talk.daily",
+    "slot": "talk.daily",
+    "who": "takane",
+    "lines": [
+      {
+        "speaker": "takane",
+        "expr": "smile",
+        "text": "领主阁下，执务间隙我正忙着夜观满月与品鉴拉面呢，随身带着绯红发箍就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.takane.gift.loved",
+    "slot": "gift.loved",
+    "who": "takane",
+    "lines": [
+      {
+        "speaker": "takane",
+        "expr": "blush",
+        "text": "这份心意正好配我的绯红发箍……谢谢领主阁下，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.takane.battle.win",
+    "slot": "battle.win",
+    "who": "takane",
+    "lines": [
+      {
+        "speaker": "takane",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主阁下的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hibiki.join.first",
+    "slot": "join.first",
+    "who": "hibiki",
+    "lines": [
+      {
+        "speaker": "hibiki",
+        "expr": "smile",
+        "text": "嗨赛——！咱是我那霸响！咱本身就是完美的，连同咱家的动物们一起包养下吧！"
+      },
+      {
+        "speaker": "hibiki",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hibiki.talk.daily",
+    "slot": "talk.daily",
+    "who": "hibiki",
+    "lines": [
+      {
+        "speaker": "hibiki",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着照顾小动物与编织呢，随身带着仓鼠哈姆藏的小笼就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.hibiki.gift.loved",
+    "slot": "gift.loved",
+    "who": "hibiki",
+    "lines": [
+      {
+        "speaker": "hibiki",
+        "expr": "blush",
+        "text": "这份心意正好配我的仓鼠哈姆藏的小笼……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hibiki.battle.win",
+    "slot": "battle.win",
+    "who": "hibiki",
+    "lines": [
+      {
+        "speaker": "hibiki",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.azusa.join.first",
+    "slot": "join.first",
+    "who": "azusa",
+    "lines": [
+      {
+        "speaker": "azusa",
+        "expr": "smile",
+        "text": "哎呀呀……本来只是出门买点心，怎么走到领主大人的议事厅来了？不嫌弃的话就让我留下帮忙吧～"
+      },
+      {
+        "speaker": "azusa",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.azusa.talk.daily",
+    "slot": "talk.daily",
+    "who": "azusa",
+    "lines": [
+      {
+        "speaker": "azusa",
+        "expr": "smile",
+        "text": "领主大人，执务间隙我正忙着占卜与午后漫步呢，随身带着塔罗占卜牌就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.azusa.gift.loved",
+    "slot": "gift.loved",
+    "who": "azusa",
+    "lines": [
+      {
+        "speaker": "azusa",
+        "expr": "blush",
+        "text": "这份心意正好配我的塔罗占卜牌……谢谢领主大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.azusa.battle.win",
+    "slot": "battle.win",
+    "who": "azusa",
+    "lines": [
+      {
+        "speaker": "azusa",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ami.join.first",
+    "slot": "join.first",
+    "who": "ami",
+    "lines": [
+      {
+        "speaker": "ami",
+        "expr": "smile",
+        "text": "锵锵——双海亚美闪亮登场！兄长大人，跟亚美一起把对面的阵营搅个天翻地覆吧，唔っふっふ～！"
+      },
+      {
+        "speaker": "ami",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请兄长大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ami.talk.daily",
+    "slot": "talk.daily",
+    "who": "ami",
+    "lines": [
+      {
+        "speaker": "ami",
+        "expr": "smile",
+        "text": "兄长大人，执务间隙我正忙着模仿秀与捉迷藏呢，随身带着整蛊惊喜盒就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.ami.gift.loved",
+    "slot": "gift.loved",
+    "who": "ami",
+    "lines": [
+      {
+        "speaker": "ami",
+        "expr": "blush",
+        "text": "这份心意正好配我的整蛊惊喜盒……谢谢兄长大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ami.battle.win",
+    "slot": "battle.win",
+    "who": "ami",
+    "lines": [
+      {
+        "speaker": "ami",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是兄长大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mami.join.first",
+    "slot": "join.first",
+    "who": "mami",
+    "lines": [
+      {
+        "speaker": "mami",
+        "expr": "smile",
+        "text": "哟吼～！双海真美参上！兄长大人可别把真美和亚美认错咯，今天也痛快大闹一场吧！"
+      },
+      {
+        "speaker": "mami",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请兄长大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mami.talk.daily",
+    "slot": "talk.daily",
+    "who": "mami",
+    "lines": [
+      {
+        "speaker": "mami",
+        "expr": "smile",
+        "text": "兄长大人，执务间隙我正忙着收集限定版游戏机呢，随身带着掌上游戏机就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.mami.gift.loved",
+    "slot": "gift.loved",
+    "who": "mami",
+    "lines": [
+      {
+        "speaker": "mami",
+        "expr": "blush",
+        "text": "这份心意正好配我的掌上游戏机……谢谢兄长大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mami.battle.win",
+    "slot": "battle.win",
+    "who": "mami",
+    "lines": [
+      {
+        "speaker": "mami",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是兄长大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ritsuko.join.first",
+    "slot": "join.first",
+    "who": "ritsuko",
+    "lines": [
+      {
+        "speaker": "ritsuko",
+        "expr": "smile",
+        "text": "我是秋月律子。既然由我接手参谋事务，领地的收支报表和排班纪律就休想再糊弄过去！"
+      },
+      {
+        "speaker": "ritsuko",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ritsuko.talk.daily",
+    "slot": "talk.daily",
+    "who": "ritsuko",
+    "lines": [
+      {
+        "speaker": "ritsuko",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着研读经营企划书呢，随身带着精装日程账本就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.ritsuko.gift.loved",
+    "slot": "gift.loved",
+    "who": "ritsuko",
+    "lines": [
+      {
+        "speaker": "ritsuko",
+        "expr": "blush",
+        "text": "这份心意正好配我的精装日程账本……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ritsuko.battle.win",
+    "slot": "battle.win",
+    "who": "ritsuko",
+    "lines": [
+      {
+        "speaker": "ritsuko",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.saki_h.join.first",
+    "slot": "join.first",
+    "who": "saki_h",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "smile",
+        "text": "花海咲季，以首席王牌之名参战！看好了领主，有我在的战线只允许存在完美无缺的胜利！"
+      },
+      {
+        "speaker": "saki_h",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.saki_h.talk.daily",
+    "slot": "talk.daily",
+    "who": "saki_h",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着调配高蛋白营养糊呢，随身带着特制摇摇杯就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.saki_h.gift.loved",
+    "slot": "gift.loved",
+    "who": "saki_h",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "blush",
+        "text": "这份心意正好配我的特制摇摇杯……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.saki_h.battle.win",
+    "slot": "battle.win",
+    "who": "saki_h",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.temari.join.first",
+    "slot": "join.first",
+    "who": "temari",
+    "lines": [
+      {
+        "speaker": "temari",
+        "expr": "smile",
+        "text": "月村手毬。先声明，半吊子的觉悟我可看不起……咕噜……刚才肚子响的不是我，闭嘴！"
+      },
+      {
+        "speaker": "temari",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.temari.talk.daily",
+    "slot": "talk.daily",
+    "who": "temari",
+    "lines": [
+      {
+        "speaker": "temari",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着深夜翻阅美食图鉴呢，随身带着润喉喷雾就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.temari.gift.loved",
+    "slot": "gift.loved",
+    "who": "temari",
+    "lines": [
+      {
+        "speaker": "temari",
+        "expr": "blush",
+        "text": "这份心意正好配我的润喉喷雾……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.temari.battle.win",
+    "slot": "battle.win",
+    "who": "temari",
+    "lines": [
+      {
+        "speaker": "temari",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.kotone.join.first",
+    "slot": "join.first",
+    "who": "kotone",
+    "lines": [
+      {
+        "speaker": "kotone",
+        "expr": "smile",
+        "text": "世界第一可爱的藤田琴音驾到——！领主大人，出场费和加班补贴按日结算没问题吧？嘿嘿～"
+      },
+      {
+        "speaker": "kotone",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.kotone.talk.daily",
+    "slot": "talk.daily",
+    "who": "kotone",
+    "lines": [
+      {
+        "speaker": "kotone",
+        "expr": "smile",
+        "text": "领主大人，执务间隙我正忙着盘点兼职存折余额呢，随身带着招财猫零钱包就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.kotone.gift.loved",
+    "slot": "gift.loved",
+    "who": "kotone",
+    "lines": [
+      {
+        "speaker": "kotone",
+        "expr": "blush",
+        "text": "这份心意正好配我的招财猫零钱包……谢谢领主大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.kotone.battle.win",
+    "slot": "battle.win",
+    "who": "kotone",
+    "lines": [
+      {
+        "speaker": "kotone",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiro.join.first",
+    "slot": "join.first",
+    "who": "hiro",
+    "lines": [
+      {
+        "speaker": "hiro",
+        "expr": "smile",
+        "text": "呼、呼……我是筱泽广。把最棘手、最不可能攻克的险地交给我吧……越吃力，越让人开心呢。"
+      },
+      {
+        "speaker": "hiro",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiro.talk.daily",
+    "slot": "talk.daily",
+    "who": "hiro",
+    "lines": [
+      {
+        "speaker": "hiro",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着挑战高难度体力活呢，随身带着奇异果干小盒就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiro.gift.loved",
+    "slot": "gift.loved",
+    "who": "hiro",
+    "lines": [
+      {
+        "speaker": "hiro",
+        "expr": "blush",
+        "text": "这份心意正好配我的奇异果干小盒……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiro.battle.win",
+    "slot": "battle.win",
+    "who": "hiro",
+    "lines": [
+      {
+        "speaker": "hiro",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.china.join.first",
+    "slot": "join.first",
+    "who": "china",
+    "lines": [
+      {
+        "speaker": "china",
+        "expr": "smile",
+        "text": "贵安！小女子仓本千奈，虽尚有许多不成熟之处，定会昂首挺立成为配得上领主大人的淑女偶像！"
+      },
+      {
+        "speaker": "china",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.china.talk.daily",
+    "slot": "talk.daily",
+    "who": "china",
+    "lines": [
+      {
+        "speaker": "china",
+        "expr": "smile",
+        "text": "领主大人，执务间隙我正忙着绘本写生与下午茶呢，随身带着描金折扇就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.china.gift.loved",
+    "slot": "gift.loved",
+    "who": "china",
+    "lines": [
+      {
+        "speaker": "china",
+        "expr": "blush",
+        "text": "这份心意正好配我的描金折扇……谢谢领主大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.china.battle.win",
+    "slot": "battle.win",
+    "who": "china",
+    "lines": [
+      {
+        "speaker": "china",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.rinami.join.first",
+    "slot": "join.first",
+    "who": "rinami",
+    "lines": [
+      {
+        "speaker": "rinami",
+        "expr": "smile",
+        "text": "呵呵，我是姬崎莉波。领主弟弟看起来很操劳呢，内务膳食都交由姐姐来悉心打理吧～"
+      },
+      {
+        "speaker": "rinami",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.rinami.talk.daily",
+    "slot": "talk.daily",
+    "who": "rinami",
+    "lines": [
+      {
+        "speaker": "rinami",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着熬煮家常热汤与缝补呢，随身带着绣花手帕就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.rinami.gift.loved",
+    "slot": "gift.loved",
+    "who": "rinami",
+    "lines": [
+      {
+        "speaker": "rinami",
+        "expr": "blush",
+        "text": "这份心意正好配我的绣花手帕……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.rinami.battle.win",
+    "slot": "battle.win",
+    "who": "rinami",
+    "lines": [
+      {
+        "speaker": "rinami",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ume.join.first",
+    "slot": "join.first",
+    "who": "ume",
+    "lines": [
+      {
+        "speaker": "ume",
+        "expr": "smile",
+        "text": "我是花海佑芽！不管是搬运粮草还是正面冲阵我都有使不完的劲，总有一天要追上姐姐！"
+      },
+      {
+        "speaker": "ume",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ume.talk.daily",
+    "slot": "talk.daily",
+    "who": "ume",
+    "lines": [
+      {
+        "speaker": "ume",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着负重长跑与做拉伸呢，随身带着运动水壶就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.ume.gift.loved",
+    "slot": "gift.loved",
+    "who": "ume",
+    "lines": [
+      {
+        "speaker": "ume",
+        "expr": "blush",
+        "text": "这份心意正好配我的运动水壶……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.ume.battle.win",
+    "slot": "battle.win",
+    "who": "ume",
+    "lines": [
+      {
+        "speaker": "ume",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.misuzu.join.first",
+    "slot": "join.first",
+    "who": "misuzu",
+    "lines": [
+      {
+        "speaker": "misuzu",
+        "expr": "smile",
+        "text": "贵安，我是秦谷美铃……不必那么急匆匆地行军呀，领主，先在树荫下歇息片刻听我慢慢道来吧～"
+      },
+      {
+        "speaker": "misuzu",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.misuzu.talk.daily",
+    "slot": "talk.daily",
+    "who": "misuzu",
+    "lines": [
+      {
+        "speaker": "misuzu",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着午后小憩与侍弄花草呢，随身带着薰衣草香囊就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.misuzu.gift.loved",
+    "slot": "gift.loved",
+    "who": "misuzu",
+    "lines": [
+      {
+        "speaker": "misuzu",
+        "expr": "blush",
+        "text": "这份心意正好配我的薰衣草香囊……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.misuzu.battle.win",
+    "slot": "battle.win",
+    "who": "misuzu",
+    "lines": [
+      {
+        "speaker": "misuzu",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.sena.join.first",
+    "slot": "join.first",
+    "who": "sena",
+    "lines": [
+      {
+        "speaker": "sena",
+        "expr": "smile",
+        "text": "吾乃十王星南。既然汝立志在这片迷雾大地登顶一番星，本座便以全部器量助汝开辟王道！"
+      },
+      {
+        "speaker": "sena",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.sena.talk.daily",
+    "slot": "talk.daily",
+    "who": "sena",
+    "lines": [
+      {
+        "speaker": "sena",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着鉴赏舞台录像与品红茶呢，随身带着金穗肩章领饰就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.sena.gift.loved",
+    "slot": "gift.loved",
+    "who": "sena",
+    "lines": [
+      {
+        "speaker": "sena",
+        "expr": "blush",
+        "text": "这份心意正好配我的金穗肩章领饰……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.sena.battle.win",
+    "slot": "battle.win",
+    "who": "sena",
+    "lines": [
+      {
+        "speaker": "sena",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.toru.join.first",
+    "slot": "join.first",
+    "who": "toru",
+    "lines": [
+      {
+        "speaker": "toru",
+        "expr": "smile",
+        "text": "嗯……我是浅仓透。这片雾海的风吹起来挺舒服的，领主，接下来往哪边走？"
+      },
+      {
+        "speaker": "toru",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.toru.talk.daily",
+    "slot": "talk.daily",
+    "who": "toru",
+    "lines": [
+      {
+        "speaker": "toru",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着吹海风与看电影呢，随身带着汽水味棒棒糖就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.toru.gift.loved",
+    "slot": "gift.loved",
+    "who": "toru",
+    "lines": [
+      {
+        "speaker": "toru",
+        "expr": "blush",
+        "text": "这份心意正好配我的汽水味棒棒糖……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.toru.battle.win",
+    "slot": "battle.win",
+    "who": "toru",
+    "lines": [
+      {
+        "speaker": "toru",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.madoka.join.first",
+    "slot": "join.first",
+    "who": "madoka",
+    "lines": [
+      {
+        "speaker": "madoka",
+        "expr": "smile",
+        "text": "樋口円香。先说清楚，别对我抱什么多余的期待……只是工作而已，我会按规矩办妥的。"
+      },
+      {
+        "speaker": "madoka",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.madoka.talk.daily",
+    "slot": "talk.daily",
+    "who": "madoka",
+    "lines": [
+      {
+        "speaker": "madoka",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着整理书签与观察人间呢，随身带着红色一字发夹就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.madoka.gift.loved",
+    "slot": "gift.loved",
+    "who": "madoka",
+    "lines": [
+      {
+        "speaker": "madoka",
+        "expr": "blush",
+        "text": "这份心意正好配我的红色一字发夹……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.madoka.battle.win",
+    "slot": "battle.win",
+    "who": "madoka",
+    "lines": [
+      {
+        "speaker": "madoka",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.koito.join.first",
+    "slot": "join.first",
+    "who": "koito",
+    "lines": [
+      {
+        "speaker": "koito",
+        "expr": "smile",
+        "text": "咿呀！我、我是福丸小糸！虽然个子小又容易紧张，但我已经把后勤手册背得滚瓜烂熟了，ぴゃっ！"
+      },
+      {
+        "speaker": "koito",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.koito.talk.daily",
+    "slot": "talk.daily",
+    "who": "koito",
+    "lines": [
+      {
+        "speaker": "koito",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着做读书摘抄笔记呢，随身带着贴满便签的手册就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.koito.gift.loved",
+    "slot": "gift.loved",
+    "who": "koito",
+    "lines": [
+      {
+        "speaker": "koito",
+        "expr": "blush",
+        "text": "这份心意正好配我的贴满便签的手册……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.koito.battle.win",
+    "slot": "battle.win",
+    "who": "koito",
+    "lines": [
+      {
+        "speaker": "koito",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hinana.join.first",
+    "slot": "join.first",
+    "who": "hinana",
+    "lines": [
+      {
+        "speaker": "hinana",
+        "expr": "smile",
+        "text": "啊哈哈～我是市川雏菜哦～领主先生这里看起来超开心的，雏菜决定留下来啦，しあわせ～！"
+      },
+      {
+        "speaker": "hinana",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hinana.talk.daily",
+    "slot": "talk.daily",
+    "who": "hinana",
+    "lines": [
+      {
+        "speaker": "hinana",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着挑选香氛与草莓甜品呢，随身带着奶油草莓软糖就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.hinana.gift.loved",
+    "slot": "gift.loved",
+    "who": "hinana",
+    "lines": [
+      {
+        "speaker": "hinana",
+        "expr": "blush",
+        "text": "这份心意正好配我的奶油草莓软糖……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hinana.battle.win",
+    "slot": "battle.win",
+    "who": "hinana",
+    "lines": [
+      {
+        "speaker": "hinana",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.fuyuko.join.first",
+    "slot": "join.first",
+    "who": "fuyuko",
+    "lines": [
+      {
+        "speaker": "fuyuko",
+        "expr": "smile",
+        "text": "领主大人贵安，人家是黛冬优子哦～请多多关照冬优吧……呵，想赢的话就别拖本小姐后腿。"
+      },
+      {
+        "speaker": "fuyuko",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主大人多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.fuyuko.talk.daily",
+    "slot": "talk.daily",
+    "who": "fuyuko",
+    "lines": [
+      {
+        "speaker": "fuyuko",
+        "expr": "smile",
+        "text": "领主大人，执务间隙我正忙着打磨完美营业表情呢，随身带着随身补妆圆镜就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.fuyuko.gift.loved",
+    "slot": "gift.loved",
+    "who": "fuyuko",
+    "lines": [
+      {
+        "speaker": "fuyuko",
+        "expr": "blush",
+        "text": "这份心意正好配我的随身补妆圆镜……谢谢领主大人，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.fuyuko.battle.win",
+    "slot": "battle.win",
+    "who": "fuyuko",
+    "lines": [
+      {
+        "speaker": "fuyuko",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主大人的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.asahi.join.first",
+    "slot": "join.first",
+    "who": "asahi",
+    "lines": [
+      {
+        "speaker": "asahi",
+        "expr": "smile",
+        "text": "喔！我是芹泽朝日！你刚才指挥阵型那个手势超好玩的耶，快教教我嘛，领主先生！"
+      },
+      {
+        "speaker": "asahi",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.asahi.talk.daily",
+    "slot": "talk.daily",
+    "who": "asahi",
+    "lines": [
+      {
+        "speaker": "asahi",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着探索街头巷尾新奇玩意呢，随身带着街舞运动护膝就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.asahi.gift.loved",
+    "slot": "gift.loved",
+    "who": "asahi",
+    "lines": [
+      {
+        "speaker": "asahi",
+        "expr": "blush",
+        "text": "这份心意正好配我的街舞运动护膝……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.asahi.battle.win",
+    "slot": "battle.win",
+    "who": "asahi",
+    "lines": [
+      {
+        "speaker": "asahi",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mei.join.first",
+    "slot": "join.first",
+    "who": "mei",
+    "lines": [
+      {
+        "speaker": "mei",
+        "expr": "smile",
+        "text": "那、那个！我叫和泉爱依！虽然我一紧张就不知道该摆什么表情，但重活累活尽管包在我身上啦！"
+      },
+      {
+        "speaker": "mei",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mei.talk.daily",
+    "slot": "talk.daily",
+    "who": "mei",
+    "lines": [
+      {
+        "speaker": "mei",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着听劲爆舞曲与照顾弟妹呢，随身带着银色大耳环就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.mei.gift.loved",
+    "slot": "gift.loved",
+    "who": "mei",
+    "lines": [
+      {
+        "speaker": "mei",
+        "expr": "blush",
+        "text": "这份心意正好配我的银色大耳环……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mei.battle.win",
+    "slot": "battle.win",
+    "who": "mei",
+    "lines": [
+      {
+        "speaker": "mei",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.amana.join.first",
+    "slot": "join.first",
+    "who": "amana",
+    "lines": [
+      {
+        "speaker": "amana",
+        "expr": "smile",
+        "text": "哈喽～甘奈是大崎甘奈哦！无论是领地经营还是照顾甜花姐，甘奈都会全心全意加油哒☆"
+      },
+      {
+        "speaker": "amana",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主桑多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.amana.talk.daily",
+    "slot": "talk.daily",
+    "who": "amana",
+    "lines": [
+      {
+        "speaker": "amana",
+        "expr": "smile",
+        "text": "领主桑，执务间隙我正忙着研究流行穿搭与甜品探店呢，随身带着花朵发饰就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.amana.gift.loved",
+    "slot": "gift.loved",
+    "who": "amana",
+    "lines": [
+      {
+        "speaker": "amana",
+        "expr": "blush",
+        "text": "这份心意正好配我的花朵发饰……谢谢领主桑，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.amana.battle.win",
+    "slot": "battle.win",
+    "who": "amana",
+    "lines": [
+      {
+        "speaker": "amana",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主桑的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.tenka.join.first",
+    "slot": "join.first",
+    "who": "tenka",
+    "lines": [
+      {
+        "speaker": "tenka",
+        "expr": "smile",
+        "text": "唔……甜花是大崎甜花……领主这里有软软的沙发和点心吗？那甜花……也会稍微努力一下的，呐……"
+      },
+      {
+        "speaker": "tenka",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.tenka.talk.daily",
+    "slot": "talk.daily",
+    "who": "tenka",
+    "lines": [
+      {
+        "speaker": "tenka",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着通关高难游戏与睡懒觉呢，随身带着毛绒海豹玩偶就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.tenka.gift.loved",
+    "slot": "gift.loved",
+    "who": "tenka",
+    "lines": [
+      {
+        "speaker": "tenka",
+        "expr": "blush",
+        "text": "这份心意正好配我的毛绒海豹玩偶……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.tenka.battle.win",
+    "slot": "battle.win",
+    "who": "tenka",
+    "lines": [
+      {
+        "speaker": "tenka",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.chiyuki.join.first",
+    "slot": "join.first",
+    "who": "chiyuki",
+    "lines": [
+      {
+        "speaker": "chiyuki",
+        "expr": "smile",
+        "text": "初次见面，我是桑山千雪。如果不嫌弃我缝制的小手工，愿能为领主的营帐添一份暖意。"
+      },
+      {
+        "speaker": "chiyuki",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.chiyuki.talk.daily",
+    "slot": "talk.daily",
+    "who": "chiyuki",
+    "lines": [
+      {
+        "speaker": "chiyuki",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着手作布艺杂货与逛集市呢，随身带着针线收纳篮就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.chiyuki.gift.loved",
+    "slot": "gift.loved",
+    "who": "chiyuki",
+    "lines": [
+      {
+        "speaker": "chiyuki",
+        "expr": "blush",
+        "text": "这份心意正好配我的针线收纳篮……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.chiyuki.battle.win",
+    "slot": "battle.win",
+    "who": "chiyuki",
+    "lines": [
+      {
+        "speaker": "chiyuki",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mano.join.first",
+    "slot": "join.first",
+    "who": "mano",
+    "lines": [
+      {
+        "speaker": "mano",
+        "expr": "smile",
+        "text": "ほわぁ……我是樱木真乃。微风吹散迷雾之后一定会有很美的晴空，请让我同您一起走下去吧！"
+      },
+      {
+        "speaker": "mano",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mano.talk.daily",
+    "slot": "talk.daily",
+    "who": "mano",
+    "lines": [
+      {
+        "speaker": "mano",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着林间漫步与观察飞鸟呢，随身带着羽毛书签就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.mano.gift.loved",
+    "slot": "gift.loved",
+    "who": "mano",
+    "lines": [
+      {
+        "speaker": "mano",
+        "expr": "blush",
+        "text": "这份心意正好配我的羽毛书签……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.mano.battle.win",
+    "slot": "battle.win",
+    "who": "mano",
+    "lines": [
+      {
+        "speaker": "mano",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiori.join.first",
+    "slot": "join.first",
+    "who": "hiori",
+    "lines": [
+      {
+        "speaker": "hiori",
+        "expr": "smile",
+        "text": "我是风野灯织。既然加入麾下，无论是工期核查还是队列操演，我都不会容许一丝敷衍。"
+      },
+      {
+        "speaker": "hiori",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiori.talk.daily",
+    "slot": "talk.daily",
+    "who": "hiori",
+    "lines": [
+      {
+        "speaker": "hiori",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着每日占卜与慢跑预习呢，随身带着幸运星护身符就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiori.gift.loved",
+    "slot": "gift.loved",
+    "who": "hiori",
+    "lines": [
+      {
+        "speaker": "hiori",
+        "expr": "blush",
+        "text": "这份心意正好配我的幸运星护身符……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hiori.battle.win",
+    "slot": "battle.win",
+    "who": "hiori",
+    "lines": [
+      {
+        "speaker": "hiori",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.meguru.join.first",
+    "slot": "join.first",
+    "who": "meguru",
+    "lines": [
+      {
+        "speaker": "meguru",
+        "expr": "smile",
+        "text": "呀吼——！我是八宫缭！领主，有什么需要跑腿冲锋的事尽管喊我，大家一起热热闹闹地前进吧！"
+      },
+      {
+        "speaker": "meguru",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.meguru.talk.daily",
+    "slot": "talk.daily",
+    "who": "meguru",
+    "lines": [
+      {
+        "speaker": "meguru",
+        "expr": "smile",
+        "text": "领主，执务间隙我正忙着各类球类运动与烤肉聚餐呢，随身带着金色星形发夹就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.meguru.gift.loved",
+    "slot": "gift.loved",
+    "who": "meguru",
+    "lines": [
+      {
+        "speaker": "meguru",
+        "expr": "blush",
+        "text": "这份心意正好配我的金色星形发夹……谢谢领主，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.meguru.battle.win",
+    "slot": "battle.win",
+    "who": "meguru",
+    "lines": [
+      {
+        "speaker": "meguru",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.luca.join.first",
+    "slot": "join.first",
+    "who": "luca",
+    "lines": [
+      {
+        "speaker": "luca",
+        "expr": "smile",
+        "text": "……斑鸠路加。少拿那些场面话来烦我，指明敌人在哪就够了，碍事的家伙我全给你掀翻。"
+      },
+      {
+        "speaker": "luca",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请喂多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.luca.talk.daily",
+    "slot": "talk.daily",
+    "who": "luca",
+    "lines": [
+      {
+        "speaker": "luca",
+        "expr": "smile",
+        "text": "喂，执务间隙我正忙着深夜独自听黑胶摇滚呢，随身带着银黑耳骨钉就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.luca.gift.loved",
+    "slot": "gift.loved",
+    "who": "luca",
+    "lines": [
+      {
+        "speaker": "luca",
+        "expr": "blush",
+        "text": "这份心意正好配我的银黑耳骨钉……谢谢喂，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.luca.battle.win",
+    "slot": "battle.win",
+    "who": "luca",
+    "lines": [
+      {
+        "speaker": "luca",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是喂的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hana_s.join.first",
+    "slot": "join.first",
+    "who": "hana_s",
+    "lines": [
+      {
+        "speaker": "hana_s",
+        "expr": "smile",
+        "text": "哇啊，我是铃木羽那！领主先生的领地好热闹呀，羽那也会拿出十二分干劲帮忙看店和加油哒！"
+      },
+      {
+        "speaker": "hana_s",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hana_s.talk.daily",
+    "slot": "talk.daily",
+    "who": "hana_s",
+    "lines": [
+      {
+        "speaker": "hana_s",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着逛甜品铺与收集毛绒挂件呢，随身带着晴天娃娃挂饰就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.hana_s.gift.loved",
+    "slot": "gift.loved",
+    "who": "hana_s",
+    "lines": [
+      {
+        "speaker": "hana_s",
+        "expr": "blush",
+        "text": "这份心意正好配我的晴天娃娃挂饰……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.hana_s.battle.win",
+    "slot": "battle.win",
+    "who": "hana_s",
+    "lines": [
+      {
+        "speaker": "hana_s",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruki.join.first",
+    "slot": "join.first",
+    "who": "haruki",
+    "lines": [
+      {
+        "speaker": "haruki",
+        "expr": "smile",
+        "text": "你好呀，我是郁田阳希！这片土地的颜色真有意思，让我和大家一起画出新的道路吧！"
+      },
+      {
+        "speaker": "haruki",
+        "expr": "happy",
+        "text": "往后的征途与公演，就请领主先生多多指教啦！"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruki.talk.daily",
+    "slot": "talk.daily",
+    "who": "haruki",
+    "lines": [
+      {
+        "speaker": "haruki",
+        "expr": "smile",
+        "text": "领主先生，执务间隙我正忙着油画写生与吹奏管乐呢，随身带着沾着彩漆的速写本就觉得格外安心。"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruki.gift.loved",
+    "slot": "gift.loved",
+    "who": "haruki",
+    "lines": [
+      {
+        "speaker": "haruki",
+        "expr": "blush",
+        "text": "这份心意正好配我的沾着彩漆的速写本……谢谢领主先生，我会好好珍藏的！"
+      }
+    ]
+  },
+  {
+    "id": "imas.haruki.battle.win",
+    "slot": "battle.win",
+    "who": "haruki",
+    "lines": [
+      {
+        "speaker": "haruki",
+        "expr": "happy",
+        "text": "漂亮的胜仗！不愧是领主先生的调度，全场的聚光灯都属于我们！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.haruka_a.chihaya",
+    "slot": "turn.random",
+    "who": "haruka_a",
+    "with": "chihaya",
+    "lines": [
+      {
+        "speaker": "haruka_a",
+        "expr": "smile",
+        "text": "春香把刚出炉的曲奇递过来时，连紧绷的呼吸都放松下来了呢。"
+      },
+      {
+        "speaker": "chihaya",
+        "expr": "happy",
+        "text": "嘿嘿，千早唱歌前一定要垫垫肚子嘛，我们再去对一遍副歌吧！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.haruka_a.chihaya",
+    "slot": "join.reunion",
+    "who": "chihaya",
+    "with": "haruka_a",
+    "lines": [
+      {
+        "speaker": "haruka_a",
+        "expr": "surprised",
+        "text": "春香把刚出炉的曲奇递过来时，连紧绷的呼吸都放松下来了呢。"
+      },
+      {
+        "speaker": "chihaya",
+        "expr": "happy",
+        "text": "嘿嘿，千早唱歌前一定要垫垫肚子嘛，我们再去对一遍副歌吧！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.saki_h.temari",
+    "slot": "turn.random",
+    "who": "saki_h",
+    "with": "temari",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "smile",
+        "text": "月村手毬，刚才第三小节你的气息慢了半拍，晚上加练十组核心！"
+      },
+      {
+        "speaker": "temari",
+        "expr": "happy",
+        "text": "哈？！我明明发挥得完美无缺！……加练完有夜宵饭团的话我倒可以奉陪。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.saki_h.temari",
+    "slot": "join.reunion",
+    "who": "temari",
+    "with": "saki_h",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "surprised",
+        "text": "月村手毬，刚才第三小节你的气息慢了半拍，晚上加练十组核心！"
+      },
+      {
+        "speaker": "temari",
+        "expr": "happy",
+        "text": "哈？！我明明发挥得完美无缺！……加练完有夜宵饭团的话我倒可以奉陪。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.saki_h.ume",
+    "slot": "turn.random",
+    "who": "saki_h",
+    "with": "ume",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "smile",
+        "text": "姐姐！我今天搬运粮草跑了十趟，是不是离姐姐更近一步啦！"
+      },
+      {
+        "speaker": "ume",
+        "expr": "happy",
+        "text": "哼哼，干得漂亮佑芽！但想追上身为姐姐的我，还早了一百年呢！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.saki_h.ume",
+    "slot": "join.reunion",
+    "who": "ume",
+    "with": "saki_h",
+    "lines": [
+      {
+        "speaker": "saki_h",
+        "expr": "surprised",
+        "text": "姐姐！我今天搬运粮草跑了十趟，是不是离姐姐更近一步啦！"
+      },
+      {
+        "speaker": "ume",
+        "expr": "happy",
+        "text": "哼哼，干得漂亮佑芽！但想追上身为姐姐的我，还早了一百年呢！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.toru.madoka",
+    "slot": "turn.random",
+    "who": "toru",
+    "with": "madoka",
+    "lines": [
+      {
+        "speaker": "toru",
+        "expr": "smile",
+        "text": "円香，屋顶上的风很凉快哦，上来坐一会儿呗。"
+      },
+      {
+        "speaker": "madoka",
+        "expr": "happy",
+        "text": "……掉下来我可不管你。算了，把水壶递给我，真是拿你没办法。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.toru.madoka",
+    "slot": "join.reunion",
+    "who": "madoka",
+    "with": "toru",
+    "lines": [
+      {
+        "speaker": "toru",
+        "expr": "surprised",
+        "text": "円香，屋顶上的风很凉快哦，上来坐一会儿呗。"
+      },
+      {
+        "speaker": "madoka",
+        "expr": "happy",
+        "text": "……掉下来我可不管你。算了，把水壶递给我，真是拿你没办法。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.fuyuko.asahi",
+    "slot": "turn.random",
+    "who": "fuyuko",
+    "with": "asahi",
+    "lines": [
+      {
+        "speaker": "fuyuko",
+        "expr": "smile",
+        "text": "朝日！不许在作战沙盘旁边翻跟头，灰尘都扬起来了啦！"
+      },
+      {
+        "speaker": "asahi",
+        "expr": "happy",
+        "text": "可是冬优子酱你看，倒立着看地图反而更容易找到敌军破绽耶！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.fuyuko.asahi",
+    "slot": "join.reunion",
+    "who": "asahi",
+    "with": "fuyuko",
+    "lines": [
+      {
+        "speaker": "fuyuko",
+        "expr": "surprised",
+        "text": "朝日！不许在作战沙盘旁边翻跟头，灰尘都扬起来了啦！"
+      },
+      {
+        "speaker": "asahi",
+        "expr": "happy",
+        "text": "可是冬优子酱你看，倒立着看地图反而更容易找到敌军破绽耶！"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.amana.tenka",
+    "slot": "turn.random",
+    "who": "amana",
+    "with": "tenka",
+    "lines": [
+      {
+        "speaker": "amana",
+        "expr": "smile",
+        "text": "甜花酱～巡视的时间到咯，把掌机存好档，甘奈陪你一起出门！"
+      },
+      {
+        "speaker": "tenka",
+        "expr": "happy",
+        "text": "呜……有甘奈牵着甜花走的话，外面的迷雾好像也没那么可怕了……"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.amana.tenka",
+    "slot": "join.reunion",
+    "who": "tenka",
+    "with": "amana",
+    "lines": [
+      {
+        "speaker": "amana",
+        "expr": "surprised",
+        "text": "甜花酱～巡视的时间到咯，把掌机存好档，甘奈陪你一起出门！"
+      },
+      {
+        "speaker": "tenka",
+        "expr": "happy",
+        "text": "呜……有甘奈牵着甜花走的话，外面的迷雾好像也没那么可怕了……"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.mano.hiori",
+    "slot": "turn.random",
+    "who": "mano",
+    "with": "hiori",
+    "lines": [
+      {
+        "speaker": "mano",
+        "expr": "smile",
+        "text": "灯织酱今天也起得好早呀，露水把披风边角打湿了哦。"
+      },
+      {
+        "speaker": "hiori",
+        "expr": "happy",
+        "text": "因为和真乃、缭约好了晨练……咳，这是我热好的姜茶，趁热喝吧。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.mano.hiori",
+    "slot": "join.reunion",
+    "who": "hiori",
+    "with": "mano",
+    "lines": [
+      {
+        "speaker": "mano",
+        "expr": "surprised",
+        "text": "灯织酱今天也起得好早呀，露水把披风边角打湿了哦。"
+      },
+      {
+        "speaker": "hiori",
+        "expr": "happy",
+        "text": "因为和真乃、缭约好了晨练……咳，这是我热好的姜茶，趁热喝吧。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.turn.luca.hana_s",
+    "slot": "turn.random",
+    "who": "luca",
+    "with": "hana_s",
+    "lines": [
+      {
+        "speaker": "luca",
+        "expr": "smile",
+        "text": "路加酱路加酱！你看罪袋先生送了羽那一朵超漂亮的小野花！"
+      },
+      {
+        "speaker": "hana_s",
+        "expr": "happy",
+        "text": "……吵死了，别凑这么近晃来晃去……啧，别弄丢了啊，笨蛋。"
+      }
+    ]
+  },
+  {
+    "id": "vignette.reunion.luca.hana_s",
+    "slot": "join.reunion",
+    "who": "hana_s",
+    "with": "luca",
+    "lines": [
+      {
+        "speaker": "luca",
+        "expr": "surprised",
+        "text": "路加酱路加酱！你看罪袋先生送了羽那一朵超漂亮的小野花！"
+      },
+      {
+        "speaker": "hana_s",
+        "expr": "happy",
+        "text": "……吵死了，别凑这么近晃来晃去……啧，别弄丢了啊，笨蛋。"
+      }
+    ]
+  }
+]

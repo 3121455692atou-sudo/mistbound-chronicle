@@ -1,0 +1,7 @@
+[
+  {"id":"sample.captured.self.tomori","slot":"captured.self","who":"tomori","lines":[{"speaker":"tomori","expr":"cry","text":"那个……这里的石头，也可以捡吗……"},{"speaker":null,"text":"看守的罪袋沉默地递来一块小石头。"}]},
+  {"id":"sample.captured.enemy.sakiko","slot":"captured.enemy","who":"sakiko","lines":[{"speaker":"sakiko","expr":"angry","text":"成王败寇，我无话可说。"},{"speaker":"sakiko","expr":"pout","text":"……但这里的伙食，最好配得上俘虏的身份。"}],"choices":[{"label":"端上最好的饭菜","reply":{"speaker":"sakiko","expr":"blush","text":"哼，算你懂礼数。"},"effect":{"gold":-6,"bond":6}},{"label":"就吃罪袋的盒饭","reply":{"speaker":"sakiko","expr":"surprised","text":"这、这个分量是怎么回事！"},"effect":{"bond":2}}]},
+  {"id":"sample.join.reunion.anon.tomori","slot":"join.reunion","who":"anon","with":"tomori","lines":[{"speaker":"anon","expr":"happy","text":"灯！原来你在这里！"},{"speaker":"tomori","expr":"blush","text":"爱音……欢迎回来。"}]},
+  {"id":"sample.battle.rival.anon.tomori","slot":"battle.rival","who":"anon","with":"tomori","lines":[{"speaker":"anon","expr":"surprised","text":"诶？！灯，你怎么在对面！"},{"speaker":"tomori","expr":"blush","text":"对不起……但是，我也要迷路到最后。"}]},
+  {"id":"sample.turn.mana","slot":"turn.random","who":"mana","lines":[{"speaker":"mana","expr":"happy","text":"领主，今天的晨练我带了便当！"},{"speaker":null,"text":"几名罪袋排成一列，安静地等着开饭。"}]}
+]

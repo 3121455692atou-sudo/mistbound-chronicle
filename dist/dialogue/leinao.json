@@ -1,0 +1,76 @@
+[
+  {
+    "id": "leinao.join.first",
+    "slot": "join.first",
+    "who": "leinao",
+    "lines": [
+      {
+        "speaker": "leinao",
+        "expr": "happy",
+        "text": "锵锵——DC专属看板娘类脑娘前来报到！侧辫上的橙色小花也是满状态哦！"
+      },
+      {
+        "speaker": "leinao",
+        "expr": "blush",
+        "text": "以后的战略手记和日常陪伴，就全都交给我吧，领主！"
+      }
+    ]
+  },
+  {
+    "id": "leinao.talk.daily",
+    "slot": "talk.daily",
+    "who": "leinao",
+    "lines": [
+      {
+        "speaker": "leinao",
+        "expr": "smile",
+        "text": "领主快看，我把咱们走过的每一块六角格都画成连环插画啦！"
+      },
+      {
+        "speaker": "leinao",
+        "expr": "happy",
+        "text": "要是累了的话，随时来我这儿喝杯热茶换换脑子吧～"
+      }
+    ]
+  },
+  {
+    "id": "leinao.turn.random",
+    "slot": "turn.random",
+    "who": "leinao",
+    "lines": [
+      {
+        "speaker": "leinao",
+        "expr": "surprised",
+        "text": "欸？罪袋先生居然在帮我给窗台上的橙色小花浇水！"
+      },
+      {
+        "speaker": null,
+        "text": "罪袋竖起大拇指，默默递来一本捡到的旧手账。"
+      }
+    ]
+  },
+  {
+    "id": "leinao.gift.loved",
+    "slot": "gift.loved",
+    "who": "leinao",
+    "lines": [
+      {
+        "speaker": "leinao",
+        "expr": "blush",
+        "text": "哇啊……是成套的彩墨钢笔和橙花书签！我会一辈子带在身边的！"
+      }
+    ]
+  },
+  {
+    "id": "leinao.battle.win",
+    "slot": "battle.win",
+    "who": "leinao",
+    "lines": [
+      {
+        "speaker": "leinao",
+        "expr": "happy",
+        "text": "作战大成功！这一仗的走位简直能写进教科书里呢，领主！"
+      }
+    ]
+  }
+]

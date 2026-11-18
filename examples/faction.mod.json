@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "example.silver-tide-pack",
+  "name": "银潮同盟",
+  "characters": [
+    {
+      "id": "example.selene",
+      "name": "瑟琳",
+      "title": "银潮执政官",
+      "color": "#80bdb2",
+      "stats": { "attack": 3, "defense": 3, "scout": 1, "economy": 2 },
+      "description": "曾主持沿海城邦的粮道重建，希望在迷雾之外找到新的贸易伙伴。",
+      "trait": "重视建设与长期收益。"
+    }
+  ],
+  "factions": [
+    {
+      "id": "example.silver-tide",
+      "name": "银潮同盟",
+      "color": "#80bdb2",
+      "leaderId": "example.selene",
+      "personality": "builder"
+    }
+  ]
+}

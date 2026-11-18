@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0e1a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="萌萌幻奏" />
+  <meta name="description" content="一片被雾海包围的大陆，来自不同世界的少女在这里建国、开战、相遇。" />
+  <title>萌萌幻奏</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="style.css?v=1118-1603" />
+  <link rel="stylesheet" href="comic-ui.css?v=1118-1603" />
+  <link rel="stylesheet" href="saga.css?v=1118-1603" />
+  <link rel="stylesheet" href="campaign.css?v=1118-1603" />
+  <link rel="stylesheet" href="overhaul.css?v=1118-1603" />
+  <link rel="stylesheet" href="battle.css?v=1118-1603" />
+</head>
+<body>
+  <div class="app-shell">
+    <section class="map-stage" aria-label="世界地图">
+      <canvas id="world-map" aria-label="六角世界地图。拖拽移动，滚轮缩放，点击地块展开操作。" tabindex="0"></canvas>
+    </section>
+
+    <section class="flower" id="flower" aria-label="地块详情与操作" hidden></section>
+    <section class="army-panel" id="army-panel" aria-label="编队：成员、带兵与行军" hidden></section>
+    <div class="dispatch-note" id="dispatch-note" role="status" hidden></div>
+
+    <button class="leader" id="leader" aria-label="戳一下领军"><img id="leader-portrait" alt="" /></button>
+    <button class="nameplate" id="nameplate" aria-label="打开同伴"><b id="leader-name"></b><small id="leader-title"></small></button>
+
+    <section class="goals ink-box" id="goals" aria-label="本话目标"></section>
+
+    <section class="ledger" id="ledger" aria-label="国库">
+      <div class="purse"><span class="coin"><img src="assets/icons/gold.webp" alt="金币" /></span><b id="gold-value">0</b><em id="gold-delta"></em><i id="gold-after"></i></div>
+      <div class="purse"><span class="coin"><img src="assets/icons/food.webp" alt="粮" /></span><b id="supply-value">0</b><em id="supply-delta"></em><i id="supply-after"></i></div>
+      <button type="button" class="hud-fold ledger-fold" id="fold-ledger" aria-expanded="true" aria-label="收起国库明细" title="收起或展开国库明细">▴</button>
+      <p class="census" id="census"></p>
+      <div class="map-quick" id="map-quick" hidden></div>
+    </section>
+
+    <button class="ticker" id="ticker" aria-label="打开编年史"></button>
+
+    <nav class="tabs" aria-label="主导航">
+      <button class="tab hot" id="nav-recruit" data-label="招募" aria-label="招募"><span data-icon="recruit"></span></button>
+      <button class="tab" id="nav-heroes" data-label="同伴" aria-label="同伴"><span data-icon="heroes"></span></button>
+      <button class="tab" id="nav-factions" data-label="诸国" aria-label="诸国"><span data-icon="flag"></span></button>
+      <button class="tab" id="nav-admin" data-label="内政" aria-label="内政" aria-keyshortcuts="G"><span data-icon="scroll"></span></button>
+      <button class="tab" id="open-save" data-label="菜单" aria-label="菜单"><span data-icon="gear"></span></button>
+      <button class="tab" id="open-guide" data-label="指南" aria-label="指南"><span data-icon="help"></span></button>
+    </nav>
+
+    <div class="view-tools" id="view-tools">
+      <div class="lever-bar">
+        <button type="button" class="lever-toggle" id="lever-toggle" aria-expanded="true" aria-controls="lever" title="展开或收起地图类型"><span data-icon="map"></span><b id="lever-label">地图 · 地貌</b><i id="lever-caret">▴</i></button>
+        <div class="lever" role="group" aria-label="地图图层" id="lever">
+          <button class="active" data-layer="terrain">地貌</button><button data-layer="force" id="layer-force">军情</button><button data-layer="people" id="layer-people">人口</button><button data-layer="yield">收益</button><button data-layer="political">疆域</button><button data-layer="diplomacy">外交</button><button data-layer="control">控制力</button><button type="button" class="lever-world" id="world-overview" aria-keyshortcuts="M" title="世界全图 (M)：看整个地球，点哪里地图就跳到哪里" hidden>全图</button>
+        </div>
+      </div>
+      <p id="map-legend" class="map-legend" hidden><span>金 · 本国</span><span>红 · 交战</span><span>绿 · 同盟</span><span>黄 · 条约</span><span>灰 · 中立</span></p>
+      <label class="zoom"><span>缩放</span><input id="zoom" type="range" min="0.5" max="2.2" step="0.01" aria-label="地图缩放" /></label>
+      <div class="mini-row">
+        <button class="mini" id="find-frontier" data-cap="边境" aria-label="下一处边境" aria-keyshortcuts="F" title="下一处边境 (F)：一处处看挨着敌国、别国、无主空地或迷雾的己方地块；地块卡片上写着为什么算边境，再点就去下一处"><span data-icon="compass"></span></button>
+        <button class="mini" id="find-army" data-cap="军队" aria-label="下一支待命军队" aria-keyshortcuts="N" title="下一支待命军队 (N)"><span data-icon="sword"></span></button><button class="mini" id="center-map" data-cap="首都" aria-label="回到首都" title="回到首都"><span data-icon="target"></span></button>
+        <button class="mini" id="toggle-sound" data-cap="音效" aria-label="开启音效" title="开启音效"><span data-icon="sound-off"></span></button>
+      </div>
+    </div>
+
+    <button class="update-note" id="update-note" hidden>新版本来了，点这里刷新</button>
+    <button class="home-arrow" id="home-arrow" aria-label="回到首都" hidden><i></i><b>首都</b></button>
+    <nav class="army-rail" id="army-rail" aria-label="军队"></nav>
+    <div class="spot" id="spot" hidden aria-hidden="true"></div>
+    <div class="pointer" id="pointer" hidden aria-hidden="true"></div>
+    <button class="turn-hint" id="turn-hint" hidden><b>指令用完了</b><span>点这里进入下一回合</span></button>
+    <section class="report" id="report" aria-label="战报" hidden></section>
+
+    <button class="undo" id="undo" aria-label="撤销本回合上一步" title="撤销本回合上一步 (Z)"><span data-icon="undo"></span></button>
+    <button class="dial" id="end-turn" aria-label="结束回合"></button>
+    <button class="left-explore" id="left-explore" type="button" role="switch" aria-checked="false" aria-label="余令去探索：结束回合时，剩下的指令全拿去探索迷雾" hidden></button>
+  </div>
+
+  <div class="speech-layer" id="speech-layer"><div class="bubble" id="bubble" hidden><div class="bubble-copy" id="bubble-copy" aria-live="polite"></div><button class="bubble-close" id="bubble-close" type="button" aria-label="收起台词">×</button></div></div>
+
+  <div class="flyer" id="flyer" hidden></div>
+  <div id="pops" class="pops" aria-hidden="true"></div>
+  <div id="toast-container" class="toast-container" role="status" aria-live="polite"></div>
+  <dialog id="modal" class="screen"><div class="screen-head"><button class="screen-back" id="modal-back" aria-label="返回" hidden><span data-icon="arrow"></span></button><h2 id="modal-title"></h2><small id="modal-kicker"></small><div class="screen-purse" id="modal-purse" aria-label="当前资源" hidden></div><button class="screen-close" id="close-modal" aria-label="关闭"><span data-icon="close"></span></button></div><div id="modal-body" class="screen-body"></div></dialog>
+  <input id="save-file-input" type="file" accept="application/json,.json" hidden />
+  <input id="mod-file-input" type="file" accept="application/json,.json" hidden />
+  <section class="notice-screen" id="notice-screen" aria-label="声明"><div><h2>声明</h2><p>本作品是虚构世界，与现实中的人物、团体和事件无关。</p><p>所有出场角色均已满 18 岁。</p><button id="notice-ok">进入游戏</button></div></section>
+  <section class="title-screen" id="title-screen" aria-label="主菜单"><picture hidden><source media="(min-aspect-ratio: 204/100)" srcset="assets/cover2/c21.webp" /><source media="(min-aspect-ratio: 154/100)" srcset="assets/cover2/c16.webp" /><source media="(min-aspect-ratio: 1155/1000)" srcset="assets/cover2/c43.webp" /><source media="(min-aspect-ratio: 866/1000)" srcset="assets/cover2/c11.webp" /><source media="(min-aspect-ratio: 65/100)" srcset="assets/cover2/c34.webp" /><source media="(min-aspect-ratio: 503/1000)" srcset="assets/cover2/c916.webp" /><img src="assets/cover2/c920.webp" alt="" /></picture><div class="title-panel"><div class="title-fallback"><small>MISTBOUND CHRONICLE</small><h1>萌萌幻奏</h1><p>探索迷雾 · 经营国度 · 并肩征战</p></div><nav class="title-menu"><button id="menu-continue">继续游戏</button><button id="menu-new">新手教程</button><button id="menu-advanced">进阶教程</button><button id="menu-custom">自定义开局</button><button id="menu-practice">模拟战</button><button id="menu-online" type="button">联机大厅</button><div class="title-minor"><button id="menu-import" type="button" aria-haspopup="dialog">载入存档</button><button id="menu-workshop">工坊</button><button id="menu-guide">怎么玩</button><button id="menu-settings">设置</button></div></nav><div class="title-account" id="title-account" aria-label="账号" hidden></div></div><small class="build-tag" id="build-tag"></small></section>
+  <section id="save-warning" class="save-warning" role="status" aria-live="polite" hidden></section>
+  <script type="module" src="app.mjs?v=1118-1603"></script>
+  <script type="module" src="multiplayer-entry.mjs?v=1118-1603"></script>
+</body>
+</html>

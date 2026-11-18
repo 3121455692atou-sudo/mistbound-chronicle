@@ -1,0 +1,272 @@
+[
+  {
+    "file": "tests/alliance-obligations.test.mjs",
+    "name": "legacy/current saves do not invent alliance notice history; references validate on import",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/alliance-obligations.test.mjs",
+    "name": "synthetic state equality against frozen rules permits only exact presentation changes",
+    "category": "older_rule_full_state_oracle",
+    "reason": "Frozen older-rule full-state comparison forbids added service fields and current economy outcomes."
+  },
+  {
+    "file": "tests/alliance-obligations.test.mjs",
+    "name": "retained campaign checkpoints exercise all six actual entries, including battle continuation",
+    "category": "inherited_historical_exclusion",
+    "reason": "Historical rules8 full-world treasury oracle changes under current captive fees and NPC action accounting."
+  },
+  {
+    "file": "tests/battle-handover.test.mjs",
+    "name": "battle handover production-handler audit: 32 modeled cases and 65 unchanged public action outcomes",
+    "category": "older_rule_full_state_oracle",
+    "reason": "Aggregate imports genuine rules8 battle119 and compares 65 complete public outcomes to frozen18. No current-form substitute or historical runtime rewrite is supplied."
+  },
+  {
+    "file": "tests/battle-warnings.test.mjs",
+    "name": "authentic turn39 input identifies the current capital without changing the checkpoint",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/captive-context.test.mjs",
+    "name": "optional read-only authentic recapture save agrees with actual care result",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/captive-context.test.mjs",
+    "name": "optional read-only authentic free return removes Rupa without charging another ransom",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/captivity.test.mjs",
+    "name": "rules-7 saves preserve totals without inventing previous escapes or captors",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/engine.test.mjs",
+    "name": "legacy won and lost saves migrate into a playable ongoing world while preserving old content",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/engine.test.mjs",
+    "name": "version 2 ongoing-world saves gain tactical roster fields without replacing their content",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/fortress-decision-preview.test.mjs",
+    "name": "optional original turn83: visible exact42/5/1 conversion matches public deductions and production",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/fortress-decision-preview.test.mjs",
+    "name": "optional original turn83: unchanged war phase has ordinary cover4, no chest walls, ready84",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/fortress-decision-preview.test.mjs",
+    "name": "optional original capacity7: eighth active fort quotes21/7 to40/8, not just base3/1",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/fortress-status-ui.test.mjs",
+    "name": "optional prior frozen fortress authorities agree across levels, ownership, readiness, upkeep and shortages",
+    "category": "older_rule_full_state_oracle",
+    "reason": "Frozen older-rule maintenance shape has no military budget; compares the full authority object."
+  },
+  {
+    "file": "tests/fortress-status-ui.test.mjs",
+    "name": "optional prior frozen bounded fortress quotes and full public outcomes remain equivalent",
+    "category": "older_rule_full_state_oracle",
+    "reason": "Frozen older-rule rally/detail and complete-state comparison omits current blockedSources and military service fields."
+  },
+  {
+    "file": "tests/fortress-status-ui.test.mjs",
+    "name": "optional original turn83: post-build defense7 and preparing84 are visible with exact outcome",
+    "category": "inherited_historical_exclusion",
+    "reason": "Historical rules8 whole-serialization digest and prior-runtime full equality. No version-tag normalization or replacement historical digest added."
+  },
+  {
+    "file": "tests/fortress-upgrade-preview.test.mjs",
+    "name": "optional exact original83: all six legal purchases, plateau100, snow4, and public demobilize loss",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/fortress-upgrade-preview.test.mjs",
+    "name": "optional built83: real AP blocker/current-war readiness and separately labeled AP-provisioned hypothetical",
+    "category": "inherited_historical_exclusion",
+    "reason": "Historical rules8 full end-turn battle identifier oracle changes with current captive event/action accounting."
+  },
+  {
+    "file": "tests/fortress-upgrade-preview.test.mjs",
+    "name": "optional genuine119: live war blocks all upgrades; fixed real board retains plateau damage effects and outcomes",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/fortress-upgrade-preview.test.mjs",
+    "name": "optional frozen public oracle: old quotes, all tile stats, eight action branches and exact outcomes",
+    "category": "older_rule_full_state_oracle",
+    "reason": "Frozen older-rule getActions has no militaryMode action; complete old public API and state equality is not a current policy test."
+  },
+  {
+    "file": "tests/frontline-warning.test.mjs",
+    "name": "reporting preserves ordinary saves and an optional original input byte for byte",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/long-economy.test.mjs",
+    "name": "management is opt-in, spends only unused orders, can be disabled, and survives save migration",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/map-building-clarity.test.mjs",
+    "name": "real turn-83 fixture renders all four layers without mutating rules, army, economy, roads or upgrade quotes",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/rally.test.mjs",
+    "name": "turn-83 rally default protects the 100-person hero army, explicit override quotes its reduction, and both save/undo exactly",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/realm.test.mjs",
+    "name": "an older save moves its Sazai and party onto the map",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/recovery-safety.test.mjs",
+    "name": "provided turn-83 save previews, executes, reloads and undoes safe and full recovery without rewriting the original",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-arrival-integrity.test.mjs",
+    "name": "review: only absent legacy arrival queues migrate and undo snapshots are checked too",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-menu-integrity.test.mjs",
+    "name": "review: only absent legacy menu fields migrate and complete records remain exact",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-menu-integrity.test.mjs",
+    "name": "review: original notices and events are preserved exactly without modifying the input file",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-save-integrity.test.mjs",
+    "name": "review: legacy1–7 fill only absent growth shelves and retain progress and metadata",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-save-integrity.test.mjs",
+    "name": "review: malformed present legacy growth is never silently reset",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-save-integrity.test.mjs",
+    "name": "review: growth in undo history is validated and missing legacy shelves migrate",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-save-integrity.test.mjs",
+    "name": "review: current role-office conflicts reject while legacy conflicts normalize without losing growth",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-save-integrity.test.mjs",
+    "name": "review: original growth and upgrade history stay exact and the source file stays byte-identical",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/review-save-integrity.test.mjs",
+    "name": "review: actual turn83 incompatible role Mod rejects instead of corrupting the next save",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/roster-filter-count.test.mjs",
+    "name": "real saved roster: natural own-held86",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/roster-filter-count.test.mjs",
+    "name": "real saved roster: natural own-held-by-enemy101",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/save-import.test.mjs",
+    "name": "authorized original save passes the real import handler without changing its source bytes",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/story-choice-ui.test.mjs",
+    "name": "read-only real checkpoint follows the same required-choice and exact-reward path",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/title-save-import.test.mjs",
+    "name": "authorized original save enters from title without a new campaign or changed source bytes",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/world-details.test.mjs",
+    "name": "current and rules-7 imports preserve saved representatives and all undo snapshots",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/world-details.test.mjs",
+    "name": "old aggregate captures are kept without inventing earlier escapes or captors",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/world-details.test.mjs",
+    "name": "optional supplied save keeps representatives and undo history without modifying its source",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tools/cli.test.mjs",
+    "name": "legacy v1 save flags migrate into the same continuing world",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Requires accepting an older-rule save or migrating absent legacy data. Current rules explicitly reject this input without altering it."
+  },
+  {
+    "file": "tests/battle-event-history.test.mjs",
+    "name": "genuine turn119 public route exposes retained incoming hits, heals and fallen units through results, with identical action outcomes",
+    "category": "legacy_acceptance_or_migration",
+    "reason": "Candidate22 recent-log case imports the exact genuine rules8 turn119 file, then asserts its fixed battle sequence. Rules10 rejects it at deserialize. Original historical case retained unchanged; a separate fresh rules10 public-demo route exercises actual hit/heal/casualty log controls and continuation."
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "mistbound-chronicle",
+  "version": "2026.11.18",
+  "license": "CC0-1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "cli": "node tools/cli.mjs",
+    "test": "node tools/test-current-policy.mjs",
+    "test:unfiltered": "node --test tests/*.test.mjs tools/cli.test.mjs multiplayer/test/*.test.mjs",
+    "test:current": "node tools/test-current-policy.mjs",
+    "test:release": "node --test tests/art-pack.test.mjs tests/finance-sources.test.mjs tests/water-bridges.test.mjs tests/vassal-selection.test.mjs tests/account-*.test.mjs tests/save-storage.test.mjs multiplayer/test/*.test.mjs"
+  }
+}

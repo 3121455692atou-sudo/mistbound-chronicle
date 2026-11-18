@@ -1,0 +1,499 @@
+.battle-screen{position:fixed;inset:0;z-index:60;overflow:hidden;isolation:isolate;color:var(--text);background:var(--ink)}
+.battle-screen[hidden]{display:none}
+.battle-screen:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(rgba(10,12,20,.55),rgba(10,12,20,.8)),url(assets/battle-backdrop.webp) center/cover}
+.battle-center{position:absolute;inset:66px 12px 96px 176px;display:flex;align-items:center;justify-content:center;container-type:size}
+.battle-stage{--tilt:42deg;--w:min(92cqw,calc(100cqh*var(--cols)/var(--rows)*1.16));--u:calc(var(--w)/var(--cols));position:relative;width:var(--w);height:calc(var(--u)*var(--rows)*.82);perspective:calc(var(--w)*3.2);perspective-origin:50% 40%}
+/* The perspective backplane must not intercept same-depth floor hits. Buttons opt back in. */
+.battle-grid{pointer-events:none;position:absolute;left:0;top:50%;display:grid;grid-template-columns:repeat(var(--cols),1fr);grid-template-rows:repeat(var(--rows),1fr);width:var(--w);height:calc(var(--u)*var(--rows));transform:translateY(-52%) rotateX(var(--tilt));transform-style:preserve-3d;background:#05070e;box-shadow:0 0 0 calc(var(--u)*.06) #2a2f42}
+.battle-grid:after{content:"";position:absolute;left:0;right:0;top:100%;height:calc(var(--u)*.3);background:linear-gradient(#232739,#0b0e18);transform-origin:top;transform:rotateX(-90deg)}
+.battle-cell{--h:0px;--cap:var(--ground);position:relative;display:block;transform-style:preserve-3d;background:color-mix(in srgb,var(--ground) 74%,#0a0e1a);box-shadow:inset 0 0 0 .5px rgba(5,7,14,.55);color:var(--text)}
+.battle-cell.odd{background:color-mix(in srgb,var(--ground) 58%,#0a0e1a)}
+/* Raised art may cross another square visually, but only the projected floor accepts input. */
+button.battle-cell{pointer-events:auto}
+.battle-grid .battle-cell *{pointer-events:none}
+.battle-grid:after{pointer-events:none}
+button.battle-cell:active:not(:disabled){transform:none}
+.battle-cell[data-kind="water"]{background:#2b7cc8;box-shadow:inset 0 0 calc(var(--u)*.26) #0a2c55}
+.battle-cell[data-kind="forest"]{--h:calc(var(--u)*.08);--cap:#2e7a57}
+.battle-cell[data-kind="hill"]{--h:calc(var(--u)*.12);--cap:#bb7a3e}
+.battle-cell[data-kind="rock"]{--h:calc(var(--u)*.16);--cap:#6c7795}
+.battle-cell[data-kind="fort"]{--h:calc(var(--u)*.1);--cap:#e8c15a}
+.battle-cell[data-kind="shallow"]{background:#58a7cf}
+.battle-cell[data-kind="bridge"]{background:repeating-linear-gradient(90deg,#9a6a3a 0 14%,#7f5228 14% 20%);box-shadow:inset 0 3px 0 #4f3218,inset 0 -3px 0 #4f3218}
+.cell-cap,.cell-mark{position:absolute;inset:0;transform:translateZ(var(--h))}
+.cell-cap{background:var(--cap);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.cell-mark{transform:translateZ(calc(var(--h) + 1px))}
+.cell-face{position:absolute;background:color-mix(in srgb,var(--cap) 46%,#080c18)}
+.cell-face.front{left:0;right:0;bottom:0;height:var(--h);transform-origin:bottom;transform:rotateX(-90deg)}
+.cell-face.side-l{left:0;top:0;bottom:0;width:var(--h);transform-origin:left;transform:rotateY(-90deg);background:color-mix(in srgb,var(--cap) 34%,#080c18)}
+.cell-face.side-r{right:0;top:0;bottom:0;width:var(--h);transform-origin:right;transform:rotateY(90deg);background:color-mix(in srgb,var(--cap) 34%,#080c18)}
+.battle-prop{position:absolute;left:14%;bottom:42%;width:72%;height:72%;transform-origin:50% 100%;transform:translateZ(var(--h)) rotateX(calc(var(--tilt)*-1));overflow:visible}
+.battle-cell:hover .cell-mark{background:rgba(255,255,255,.14)}
+.battle-cell.move-option .cell-mark{background:rgba(140,200,242,.42);box-shadow:inset 0 0 0 3px var(--ice)}
+.battle-cell.move-option:hover .cell-mark{background:rgba(140,200,242,.68)}
+/* Attack reach of the selected squad: the red band beyond its blue move cells (targets in reach now keep the solid red frame). */
+.battle-cell.reach .cell-mark::after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(45deg,rgba(239,91,67,.5) 0 6px,transparent 6px 12px);box-shadow:inset 0 0 0 2px rgba(239,91,67,.9)}
+.battle-screen.showing-threat .battle-cell.reach .cell-mark::after{display:none}
+/* The tapped (focused) cell: blue if the squad can move there (stripes then show its reach from there), white frame otherwise. */
+.battle-cell.move-plan .cell-mark{background:rgba(140,200,242,.8);box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 6px var(--ice)}
+.k-reach{background:repeating-linear-gradient(45deg,rgba(239,91,67,.95) 0 2px,transparent 2px 4px);box-shadow:inset 0 0 0 1px var(--red)}
+.b-sw{display:inline-block;width:8px;height:8px;margin:0 3px 1px 0;vertical-align:middle;border-radius:1px}
+.b-sw.move{background:var(--ice)}
+.b-sw.hit{background:repeating-linear-gradient(45deg,rgba(239,91,67,.95) 0 2px,transparent 2px 4px);box-shadow:inset 0 0 0 1px var(--red)}
+.battle-cell.target-option .cell-mark{background:rgba(239,91,67,.34);box-shadow:inset 0 0 0 3px var(--red)}
+.battle-cell.target-selected .cell-mark{background:rgba(239,91,67,.6);box-shadow:inset 0 0 0 4px #fff}
+.battle-cell.threat .cell-mark{box-shadow:inset 0 0 0 2px rgba(239,91,67,.75);background:repeating-linear-gradient(45deg,rgba(239,91,67,.26) 0 8px,transparent 8px 16px)}
+.battle-cell.selected .cell-mark{background:rgba(255,220,146,.4);box-shadow:inset 0 0 0 4px var(--gold-hi)}
+.battle-piece{position:absolute;z-index:3;left:50%;bottom:34%;width:62%;aspect-ratio:.72;display:flex;align-items:center;justify-content:center;border-radius:calc(var(--u)*.1);border:3px solid var(--gold);background:radial-gradient(circle at 35% 30%,#6a4c1d,#2a1d0b);color:var(--gold-hi);box-shadow:0 8px 14px rgba(0,0,0,.6);transform-origin:50% 100%;transform:translate3d(-50%,0,calc(var(--h) + 3px)) rotateX(calc(var(--tilt)*-1))}
+.battle-piece.enemy{border-color:var(--red);background:radial-gradient(circle at 35% 30%,#7a2a1a,#2d0d07);color:var(--red-hi)}
+.battle-piece>svg{width:54%;height:54%;margin-bottom:22%}
+.battle-token-portrait{width:100%;height:100%;border-radius:calc(var(--u)*.07);overflow:hidden}
+.battle-token-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 4%;transform:scale(1.5);transform-origin:50% 6%}
+.battle-piece.sazai{background:radial-gradient(circle at 50% 30%,#2b3250,#10152a);box-shadow:0 0 0 2px var(--glow),0 0 12px 3px var(--glow),0 8px 14px rgba(0,0,0,.6)}
+.battle-piece.sazai img{object-position:50% 0;transform:none;filter:drop-shadow(0 0 2px var(--glow))}
+.piece-health{position:absolute;left:0;right:0;bottom:-3px;height:clamp(6px,calc(var(--u)*.07),9px);border-radius:4px;background:#05070e;overflow:hidden}
+.piece-health i{display:block;height:100%;background:var(--gold-hi);transition:width .2s}.battle-piece.enemy .piece-health i{background:var(--red-hi)}
+.piece-hp{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);padding:0 6px;border-radius:4px;background:rgba(5,7,14,.92);font-size:clamp(12px,calc(var(--u)*.15),16px);line-height:1.3;font-weight:700;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+.battle-piece.spent{filter:grayscale(.75) brightness(.7)}
+.battle-piece.selected{box-shadow:0 0 0 2px #fff,0 8px 14px rgba(0,0,0,.6)}
+@keyframes battle-hit{0%,55%{filter:brightness(2) sepia(.5)}100%{filter:none}}
+.battle-piece.hit{animation:battle-hit .38s ease-out}
+.cell-chip{position:absolute;left:4%;bottom:5%;padding:0 5px;background:#080b14;color:#fff;font-size:clamp(12px,calc(var(--u)*.13),14px);font-weight:600;line-height:1.4;white-space:nowrap;transform-origin:0 100%;transform:translateZ(calc(var(--h) + 2px)) rotateX(calc(var(--tilt)*-1))}
+.cell-chip.flag{background:var(--gold);color:#2a1a03;font-weight:800}.cell-chip.weak{background:#123a5c}
+.battle-cell.heal-option .cell-mark{background:rgba(255,200,61,.3);box-shadow:inset 0 0 0 3px var(--gold)}
+.dmg{position:absolute;left:50%;top:-14px;transform:translateX(-50%);z-index:4;padding:0 8px;color:#fff;background:var(--red);border:2px solid var(--ink);font:800 clamp(14px,calc(var(--u)*.19),22px)/1.25 var(--font);white-space:nowrap;animation:dmg 1s ease-in-out infinite alternate}
+.dmg.kill{background:#000;color:var(--gold);border-color:var(--gold)}.dmg.heal{background:var(--gold);color:#2a1a03}
+@keyframes dmg{to{transform:translateX(-50%) translateY(-4px)}}
+.battle-cell.target-option,.battle-cell.heal-option{cursor:crosshair}
+
+/* Heads-up pieces float over the board instead of walling it in. */
+.b-top{position:absolute;z-index:6;left:50%;top:6px;transform:translateX(-50%);display:flex;align-items:baseline;gap:8px;padding:5px 24px 6px 12px;white-space:nowrap}
+.b-top b{font:400 19px var(--display)}.b-top span{font-size:12px;color:var(--on-paper-2)}.b-top small{margin-left:6px;font-size:13px;color:var(--on-paper-2)}
+.b-tools{position:absolute;z-index:6;right:12px;top:8px;display:flex;gap:3px}.b-tools .tab{height:34px;padding:0 10px}.b-tools .tab:after{font-size:13px}
+.b-hero{position:absolute;z-index:5;left:-26px;bottom:-34px;height:min(46dvh,420px);aspect-ratio:560/818;pointer-events:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,.6))}
+.b-hero img{width:100%;height:100%;object-fit:contain;object-position:bottom}
+.b-hero.is-sazai img{filter:drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 14px var(--glow))}
+.b-plate{position:absolute;z-index:6;left:12px;bottom:12px;display:grid;grid-template-columns:1fr auto;gap:0 8px;min-width:210px;padding:5px 20px 7px 10px;background:var(--ink);clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%)}
+.b-plate b{grid-column:1/3;font:400 22px/1.15 var(--display)}.b-plate small{grid-column:1/3;font-size:12px;color:var(--gold)}
+.b-plate .hp{align-self:center;height:8px;background:var(--ink-3)}.b-plate .hp i{display:block;height:100%;background:var(--gold);transition:width .2s}.b-plate em{font-style:normal;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.b-dock{position:absolute;z-index:6;left:max(calc(min(46dvh,420px)*.62),236px);right:168px;bottom:12px;display:flex;align-items:center;gap:12px}
+.b-squad{display:flex;gap:4px}
+.b-token{position:relative;width:58px;height:58px;padding:4px;border-radius:50%;background:conic-gradient(var(--gold) var(--hp),#3a3f55 0);transition:transform .12s}
+.b-token span{display:block;width:100%;height:100%;overflow:hidden;border-radius:50%;background:var(--ink-3);border:2px solid var(--ink)}
+.b-token img{display:block;width:100%;transform:scale(1.9);transform-origin:50% 7%}
+.b-token.sazai img{transform:scale(1.5);transform-origin:50% 0}
+.b-token.sazai{box-shadow:0 0 8px 2px var(--glow)}
+.b-token:hover{transform:translateY(-3px)}.b-token.selected{transform:translateY(-6px) scale(1.12);outline:3px solid #fff}
+.b-token.spent span{filter:grayscale(1) brightness(.6)}.b-token.fallen{opacity:.35;filter:grayscale(1)}
+.b-actions{display:flex;gap:6px;min-width:0}
+.b-act{display:flex;align-items:center;gap:6px;min-height:50px;max-width:290px;padding:4px 12px;text-align:left;color:var(--on-paper);background:var(--paper);border:3px solid var(--ink);transform:skewX(-6deg);transition:transform .1s}
+.b-act>*{transform:skewX(6deg)}.b-act svg{flex-shrink:0;width:18px;height:18px}.b-act b{display:block;font-size:14px;line-height:1.2}.b-act small{display:block;font-size:12px;line-height:1.3;color:var(--on-paper-2)}
+.b-act:hover:not(:disabled){transform:skewX(-6deg) translateY(-2px)}.b-act.on{background:var(--gold)}.b-act:disabled{opacity:.45}
+.b-log{position:absolute;z-index:5;left:max(calc(min(46dvh,420px)*.62 + 4px),240px);right:168px;bottom:86px;font-size:13px;color:var(--text);text-shadow:0 1px 3px #000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-key{position:absolute;z-index:5;left:50%;top:48px;transform:translateX(-50%);display:flex;gap:12px;padding:2px 10px;background:rgba(13,14,22,.6);font-size:12px;color:var(--muted);white-space:nowrap}
+.b-key span{display:flex;align-items:center;gap:4px}.b-key i{width:9px;height:9px}.k-move{background:var(--ice)}.k-hit{background:var(--red)}.k-high{background:#bb7a3e}.k-wood{background:#2e7a57}.k-flag{background:var(--gold)}
+.in-battle .bubble{position:fixed;z-index:80;left:calc(min(46dvh,420px)*.5);bottom:calc(min(46dvh,420px)*.7)}
+.b-result{position:absolute;inset:0;z-index:12;display:grid;place-items:center;overflow:hidden;padding:16px;background:rgba(8,10,18,.82)}
+/* Results scroll for real content; decorative overscan must not add scrollbars. */
+.b-result .speed-lines{inset:0;--c:#fff;opacity:.5}.b-result.lost .speed-lines{--c:#5d6480}
+.b-result section{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.b-result h3{font:400 clamp(64px,13vw,132px)/1 var(--display);color:var(--gold);-webkit-text-stroke:7px var(--ink);paint-order:stroke fill;transform:rotate(-5deg);animation:stamp .3s cubic-bezier(.2,1.6,.4,1)}
+.b-result.lost h3{color:#d5d9e6}
+@keyframes stamp{from{transform:rotate(-5deg) scale(1.9);opacity:0}}
+.tally{font-size:16px}.tally b{font-size:32px;font-weight:800}.tally span{color:var(--muted)}.lost{color:#ff9d8f;font-size:14px}
+.b-faces{display:flex;gap:10px;margin:4px 0}.b-faces figure{margin:0;width:112px}.b-faces img{display:block;width:112px;height:128px;object-fit:cover;object-position:50% 0;background:var(--ink-3);border:3px solid var(--text)}.b-faces figcaption{font-size:14px}.b-faces small{display:block;font-size:12px;color:var(--muted)}
+.dial-like{display:flex;align-items:center;gap:8px;margin-top:6px;padding:9px 26px;font:400 22px var(--display);color:var(--on-paper);background:var(--gold);border:3px solid var(--ink);transform:skewX(-8deg)}.dial-like:hover{background:#ffdb7a}.dial-like svg{width:20px;height:20px}
+.captives-list{display:flex;flex-direction:column}
+@media(max-width:1180px){.b-key{display:none}.b-act small{display:none}.b-token{width:48px;height:48px}}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen{display:flex;flex-direction:column;align-items:stretch}
+  .b-top{order:-2;position:relative;left:auto;top:auto;transform:none;align-self:flex-start;margin:4px 0 0 4px;padding:3px 20px 4px 9px;max-width:calc(100% - 120px);flex-wrap:wrap;gap:0 6px;white-space:normal}.b-top b{font-size:15px}.b-top small{width:100%;margin:0;font-size:12px}
+  .b-tools{right:4px;top:4px}.b-tools .tab{width:auto;height:32px;padding:0 8px}.b-tools .tab:after{display:inline;font-size:13px}
+  .battle-center{order:-1;position:relative;inset:auto;flex:0 0 auto;display:flex;margin-top:4px;container-type:normal}
+  .battle-stage{--tilt:34deg;--w:min(90vw,520px);--u:calc(var(--w)/var(--rows));width:var(--w);height:calc(var(--u)*var(--cols)*.84);margin:0 auto;perspective:calc(var(--w)*7)}
+  .battle-grid{grid-template-columns:repeat(var(--rows),1fr);grid-template-rows:repeat(var(--cols),1fr);height:calc(var(--u)*var(--cols))}
+  .battle-grid .battle-cell{grid-column:var(--gc);grid-row:var(--gr)}
+  .b-dock{order:0;position:relative;left:auto;right:auto;bottom:auto;margin:6px 6px 0;flex-direction:column;align-items:stretch;gap:5px}
+  .b-squad{justify-content:center}.b-token{width:46px;height:46px;padding:3px}
+  .b-actions{justify-content:center}.b-act{min-height:40px;padding:3px 10px}.b-act small{display:none}
+  .b-hero{height:min(31dvh,270px);left:-26px;bottom:-22px}
+  .b-plate{left:6px;bottom:calc(6px + var(--safe-b));min-width:150px;padding:3px 16px 5px 8px}.b-plate b{font-size:17px}.b-plate small{font-size:12px}
+  .b-log,.b-key{display:none}
+  .dial{width:96px;height:96px;right:6px;bottom:calc(6px + var(--safe-b))}.dial .core b{font-size:26px}.dial .core small{display:none}.dial .core em{font-size:13px}
+  .piece-health{height:5px}.piece-hp{bottom:3px;font-size:12px;padding:0 3px}.dmg{top:-10px;padding:0 4px;font-size:13px}.cell-chip{display:none}.cell-chip.flag{display:block}
+  .battle-piece{border-width:2px}
+  .in-battle .bubble{left:42vw;right:8px;bottom:calc(112px + var(--safe-b));top:auto;max-width:none;width:auto}.in-battle .bubble p{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.battle-screen *{transition:none!important;animation:none!important}}
+
+.b-coach{position:absolute;z-index:11;left:12px;top:56px;width:236px;padding:8px 12px;text-align:left;font:400 16px/1.45 var(--display);color:var(--on-paper);background:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.b-coach small{display:block;font:700 12px var(--font);color:#c23020}
+.b-coach em{display:block;margin-top:2px;font:12px var(--font);color:var(--on-paper-2)}
+@media (max-width:720px) and (orientation:portrait){.b-coach{left:8px;right:8px;top:auto;bottom:calc(150px + var(--safe-b));width:auto;font-size:15px}}
+/* On phones the lesson takes its own row and the board steps back to make room, so nothing it asks for is covered. */
+@media (max-width:900px) and (orientation:portrait){
+  .b-coach{position:relative;order:-2;left:auto;top:auto;right:auto;bottom:auto;width:auto;margin:4px 6px 0;padding:4px 10px 5px;font-size:14px;line-height:1.35;box-shadow:2px 2px 0 var(--ink)}
+  .b-coach small{display:inline;margin-right:6px}.b-coach em{display:inline;margin-left:6px}
+  .battle-screen:has(.b-coach) .battle-stage{--w:min(78vw,calc((100dvh - 310px)*.86))}
+}
+
+/* Terrain with rules of its own */
+.battle-cell[data-kind="lava"]{background:radial-gradient(circle at 40% 40%,#ffb347,#e04a1a 55%,#7a1d0c);box-shadow:inset 0 0 calc(var(--u)*.26) #3a0a04}
+.battle-cell[data-kind="ice"]{background:linear-gradient(135deg,#d9f1fb,#a9d8ee 60%,#e8f8ff)}
+.battle-cell[data-kind="swamp"]{background:radial-gradient(circle at 30% 60%,#4c5a2c 30%,transparent 32%),radial-gradient(circle at 70% 30%,#3e4a24 22%,transparent 24%),#6a7440}
+.battle-cell[data-kind="thorns"]{background:repeating-linear-gradient(45deg,#6e2f45 0 6px,#8c4a5e 6px 10px,#4d2030 10px 14px)}
+.battle-cell[data-kind="cliff"]{--h:calc(var(--u)*.22);--cap:#8a8f9e}
+.battle-cell[data-kind="ruin"]{--h:calc(var(--u)*.07);--cap:repeating-linear-gradient(90deg,#b5a78d 0 22%,#8f8169 22% 26%)}
+.battle-cell.no-entry .cell-mark{background:linear-gradient(45deg,transparent 46%,rgba(240,69,47,.6) 46% 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,rgba(240,69,47,.6) 46% 54%,transparent 54%)}
+.battle-cell.aimed .cell-mark{background:rgba(255,200,61,.42);box-shadow:inset 0 0 0 4px var(--gold)}
+.cell-chip.only{background:#23273a;color:#ffd98a}
+.cell-hint{position:absolute;z-index:2;right:6%;top:6%;min-width:1.5em;padding:0 3px;text-align:center;font:800 calc(var(--u)*.2)/1.4 var(--font);color:#2a1a03;background:#ffc83d;border:2px solid var(--ink);border-radius:4px;transform:translateZ(calc(var(--h,0px) + 3px))}
+.cell-hint.back{background:#f0452f;color:#fff}
+/* Which way a unit faces */
+.piece-dir{position:absolute;z-index:4;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a)) translateX(calc(var(--u)*.42))}
+.piece-dir:after{content:"";position:absolute;left:-7px;top:-8px;border-left:13px solid var(--gold);border-top:8px solid transparent;border-bottom:8px solid transparent;filter:drop-shadow(0 0 1px #000) drop-shadow(0 0 1px #000)}
+.battle-piece.enemy .piece-dir:after{border-left-color:#ff5a3c}
+.dmg.back{background:#f0452f;color:#fff}.dmg.side{background:#ffc83d;color:#2a1a03}
+.battle-piece.hit{animation:hit .36s}
+@keyframes hit{0%{filter:brightness(3)}25%{transform:translateX(calc(-50% - 7px))}50%{transform:translateX(calc(-50% + 7px))}75%{transform:translateX(calc(-50% - 3px))}100%{filter:none}}
+.pop-word.crit{font-size:40px;color:#ffd35c;-webkit-text-stroke:2px #8a1d0c}
+/* Status on the selected unit */
+.b-status{grid-column:1/3;display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;max-width:300px}
+.b-status span,.fc-lines span{padding:0 6px;font-size:12px;font-weight:700;line-height:1.6;border-radius:3px}
+.b-status .up,.fc-lines .up{color:#0f3d24;background:#8fe3b4}
+.b-status .down,.fc-lines .down{color:#fff;background:#c9412f}
+/* Attack preview */
+.b-forecast,.b-inspect{position:absolute;z-index:11;left:50%;top:52px;transform:translateX(-50%);width:min(560px,calc(100vw - 16px));padding:8px 12px;color:var(--text);background:rgba(13,14,22,.95);border:3px solid var(--gold);box-shadow:4px 4px 0 var(--ink)}
+.b-forecast.back{border-color:#f0452f}.b-forecast.front{border-color:var(--muted)}
+.fc-top{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.fc-side b{display:block;font:400 17px var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-side small{font-size:12px;color:var(--muted)}.fc-side.foe{text-align:right}
+.fc-hp{position:relative;display:block;height:9px;margin:2px 0;background:#3a3f55}
+.fc-hp i{position:absolute;left:0;top:0;bottom:0;background:#c9412f}
+.fc-hp u{position:absolute;left:0;top:0;bottom:0;background:#8fe3b4;text-decoration:none}
+.fc-side.foe .fc-hp{transform:scaleX(-1)}
+.fc-mid{display:flex;flex-direction:column;align-items:center;line-height:1}
+.fc-mid em{font:800 13px var(--font);font-style:normal;color:var(--gold)}.b-forecast.back .fc-mid em{color:#ff8c78}.b-forecast.front .fc-mid em{color:var(--muted)}
+.fc-mid strong{font:800 34px var(--font);color:#fff}
+.fc-lines{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 4px}
+.fc-reply{font-size:13px;color:var(--muted)}.fc-reply.kill{color:#ffd35c;font-weight:700}
+.fc-acts{display:flex;gap:6px;margin-top:6px}
+.fc-acts button{padding:7px 18px;font:800 15px var(--font);border:3px solid var(--ink)}
+.fc-go{flex:1;color:#fff;background:var(--red)}.fc-no{color:var(--on-paper);background:var(--paper-2)}
+.b-inspect{border-color:var(--red)}.b-inspect b{display:block;font:400 18px var(--display)}.b-inspect small{color:var(--muted)}.b-inspect p{margin-top:4px;font-size:13px}.b-inspect .b-status{max-width:none}
+/* Turning */
+.b-face{display:flex;align-items:center;gap:2px;padding:2px 6px;background:var(--paper);color:var(--on-paper);border:3px solid var(--ink);transform:skewX(-6deg)}
+.b-face small{font-size:12px;font-weight:800;margin-right:2px;white-space:nowrap}
+.b-face button{width:26px;height:26px;display:grid;place-items:center;background:var(--paper-2);border:1px solid var(--ink)}
+.b-face button i{display:block;width:0;height:0;border-left:11px solid var(--ink);border-top:7px solid transparent;border-bottom:7px solid transparent;transform:rotate(var(--a))}
+.b-face button.on{background:var(--gold)}
+@media (max-width:900px) and (orientation:portrait){
+  .b-forecast,.b-inspect{top:auto;bottom:calc(6px + var(--safe-b));padding:6px 8px;z-index:12}
+  .b-status{max-width:190px}
+  .fc-mid strong{font-size:28px}
+  .b-face small{display:none}.b-face button{width:30px;height:30px}
+}
+/* Bounded battle HUD: focusing a squad must never scroll the entire scene. */
+.battle-screen{width:100%;height:100dvh;max-height:100dvh;overflow:clip;overscroll-behavior:none;contain:layout paint}
+.battle-screen:before{background:radial-gradient(ellipse at center,#2a3f51,#101c2a 75%)}
+.battle-screen .b-top{left:12px;right:247px;top:8px;transform:none;max-width:none;white-space:normal;flex-wrap:wrap;gap:0 7px;min-height:42px;align-items:center;padding:5px 14px}
+.battle-screen .b-top b{font:700 16px/1.35 var(--font);overflow-wrap:anywhere}.battle-screen .b-top small{font:11px/1.4 var(--font)}
+.battle-screen .b-tools .tab{transform:none;border-radius:5px;border-width:1px}.battle-screen .b-tools .tab:after{display:inline;transform:none}
+.b-objective{position:absolute;z-index:7;left:12px;right:12px;top:59px;padding:6px 10px;border:1px solid #5c7286;border-radius:7px;background:#172a3deb;font-family:var(--font);font-size:12px;line-height:1.5}
+.b-objective b{color:#f5d696;font-size:13px}.b-objective>span{margin-left:12px;color:#bbccd9;font-size:11px}.b-objective .b-raid-goal{font-size:11px;margin:2px 0 0;color:#cfdae4;max-width:none}
+.battle-screen .battle-center{inset:116px 18px 172px 192px}
+.battle-screen .b-dock{left:238px;right:152px;bottom:14px;flex-direction:column;align-items:flex-start;gap:10px}
+.battle-screen .b-squad{gap:6px;padding:7px 4px 0}.battle-screen .b-token{width:48px;height:48px;flex-shrink:0}.battle-screen .b-token.selected{transform:translateY(-3px) scale(1.04)}
+.battle-screen .b-actions{flex-wrap:wrap;gap:5px}.battle-screen .b-act{transform:none;border-width:1px;border-radius:5px;min-height:41px;padding:5px 10px}.battle-screen .b-act>*{transform:none}.battle-screen .b-act:hover:not(:disabled){transform:translateY(-1px)}.battle-screen .b-act small{display:none}.battle-screen .b-act kbd{font:10px var(--font);opacity:.6}
+.battle-screen .b-face{transform:none;border-width:1px;border-radius:5px}.battle-screen .b-face button{width:27px;height:27px}
+.battle-screen .b-plate{width:214px;min-width:0;max-height:145px;overflow:auto;bottom:14px;font-family:var(--font);clip-path:none;border:1px solid #52687b;border-radius:7px;padding:8px 10px;background:#172737}.battle-screen .b-plate b{font:700 16px/1.4 var(--font)}.battle-screen .b-plate small{font-size:11px}.b-unit-progress{grid-column:1/3;font:11px/1.55 var(--font);color:#d5e4ef;margin-top:4px}
+.battle-screen .b-hero{left:15px;bottom:166px;height:210px;max-width:156px;opacity:.75}.battle-screen .b-log{bottom:143px;left:240px;font-size:11px}.battle-screen .b-key{display:none}
+.battle-screen .b-retreat-note{position:absolute;z-index:13;left:50%;top:115px;transform:translateX(-50%);width:min(570px,calc(100vw - 24px));padding:12px;background:#422f32;border:2px solid #e4a18a;border-radius:9px;font:13px/1.6 var(--font);box-shadow:0 10px 35px #0008}.b-retreat-note button{padding:6px 13px;margin:7px 8px 0 0;border-radius:5px;background:#efd5a1;color:#172535;font-weight:700}.b-retreat-note button:first-of-type{background:#a7483f;color:#fff}
+.battle-screen .b-forecast,.battle-screen .b-inspect{top:112px;border-radius:8px}.battle-screen .b-result{overflow:auto;overscroll-behavior:contain}.battle-screen .b-faces{flex-wrap:wrap;justify-content:center}.battle-screen .b-faces figure{width:88px}.battle-screen .b-faces img{width:88px;height:105px}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen{display:block}.battle-screen .b-top{position:absolute;left:5px;right:168px;top:5px;margin:0;padding:4px 9px;min-height:43px;max-height:60px;overflow:hidden;align-self:auto}.battle-screen .b-top b{font-size:12px}.battle-screen .b-top small{font-size:10px;width:auto}.battle-screen .b-tools{right:5px;top:7px}.battle-screen .b-tools .tab{height:33px;padding:0 8px}.battle-screen .b-tools .tab:after{font-size:12px}
+  .b-objective{left:5px;right:5px;top:60px;padding:5px 8px;line-height:1.4}.b-objective b{display:block;font-size:11px}.b-objective>span{display:block;margin:2px 0 0;font-size:10px}.b-objective .b-raid-goal{font-size:10px;max-height:28px;overflow:auto}
+  .battle-screen .battle-center{position:absolute;inset:125px 6px 203px;display:flex;margin:0;container-type:size;align-items:center;justify-content:center}
+  .battle-screen .battle-stage{--w:min(92cqw,calc(100cqh*var(--rows)/var(--cols)*1.1));--u:calc(var(--w)/var(--rows));height:calc(var(--u)*var(--cols)*.84);margin:0;flex-shrink:0}
+  .battle-screen .b-dock{position:absolute;left:7px;right:7px;bottom:97px;margin:0;gap:7px;align-items:center}.battle-screen .b-squad{justify-content:center;padding:6px 2px 0;max-width:100%;overflow-x:auto;overflow-y:clip}.battle-screen .b-token{width:42px;height:42px}.battle-screen .b-actions{justify-content:center;gap:4px}.battle-screen .b-act{min-height:35px;padding:4px 7px}.battle-screen .b-act b{font-size:11px}.battle-screen .b-act svg{width:14px;height:14px}.battle-screen .b-face{padding:2px 4px}.battle-screen .b-face button{width:24px;height:26px}
+  .battle-screen .b-plate{left:7px;bottom:calc(7px + var(--safe-b));width:calc(100% - 106px);max-height:80px;padding:5px 8px}.battle-screen .b-plate b{font-size:13px}.battle-screen .b-plate small{font-size:10px}.battle-screen .b-plate .b-status{display:none}.battle-screen .b-unit-progress{font-size:10px;margin-top:1px}.battle-screen .b-hero{display:none}.battle-screen .dial{width:82px;height:82px;right:7px;bottom:calc(7px + var(--safe-b))}.battle-screen .dial .core b{font-size:28px}.battle-screen .dial .core em{font:11px var(--font)}
+  .battle-screen .b-forecast,.battle-screen .b-inspect{top:auto;bottom:calc(8px + var(--safe-b));max-height:calc(100dvh - 140px);overflow:auto}.battle-screen .b-coach{position:absolute;top:111px;left:7px;right:7px;bottom:auto;width:auto;max-height:94px;overflow:auto;font-size:12px;margin:0;box-shadow:none}.battle-screen:has(.b-coach) .battle-center{top:207px}.battle-screen:has(.b-coach) .battle-stage{--w:min(92cqw,calc(100cqh*var(--rows)/var(--cols)*1.1))}
+}
+
+@media (max-width:900px) and (max-height:680px) and (orientation:portrait){.battle-screen .piece-hp{font-size:11px;line-height:1.2}.battle-screen .cell-chip{font-size:9px}.battle-screen .siege-chip{font-size:9px}}
+
+/* Directional siege works are independent of a unit's facing and rotate with the board. */
+.siege-wall{position:absolute;z-index:3;left:50%;top:50%;width:0;height:0;transform:translateZ(calc(var(--h,0px) + 3px)) rotate(var(--wall-a)) translateX(calc(var(--u)*.42));pointer-events:none}.siege-wall:before{content:"";position:absolute;left:-3px;top:calc(var(--u)*-.37);height:calc(var(--u)*.74);width:6px;background:repeating-linear-gradient(#ffe1a1 0 7px,#8e6236 7px 10px);box-shadow:0 1px 3px #000;border:1px solid #412e1a}.siege-wall:after{content:"";position:absolute;left:5px;top:-5px;border-left:7px solid #ffde95;border-top:5px solid transparent;border-bottom:5px solid transparent}.siege-chip{position:absolute;z-index:4;left:4%;bottom:3%;padding:0 3px;background:#644c2c;color:#ffecb6;font:700 max(9px,calc(var(--u)*.13))/1.4 var(--font);border:1px solid #e1c178;border-radius:3px;pointer-events:none;transform:translateZ(calc(var(--h,0px) + 3px))}.b-cover-note{grid-column:1/-1;font:11px/1.45 var(--font);color:#f7d99b;margin-top:4px}.b-siege-entry{font:11px/1.45 var(--font);color:#f5d59a;margin-top:3px}.b-quick-note{font:11px/1.6 var(--font);color:#c8d9e6;margin-top:3px}.b-quick-note button{padding:3px 9px;margin-left:8px;background:#d8c491;color:#23303d;border-radius:4px;font-weight:700}.b-casualty{font:13px/1.6 var(--font);margin:8px 0}.b-board-tools{display:none}
+.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{top:142px}
+@media (max-width:900px) and (orientation:portrait){.battle-screen:has(.b-siege-entry) .battle-center{top:165px}.battle-screen:has(.b-quick-note) .battle-center{top:152px}.battle-screen:has(.b-coach) .battle-center{top:235px}.battle-screen .b-cover-note{font-size:10px;line-height:1.3}.b-siege-entry{font-size:10px}}
+/* Short phone screens keep readable cells instead of shrinking the complete board to thumbnails. */
+@media (max-width:900px) and (max-height:680px) and (orientation:portrait){
+  .battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{inset:var(--battle-board-top,143px) 5px 196px;overflow:auto;display:block;touch-action:pan-x pan-y;overscroll-behavior:contain;scrollbar-width:thin;container-type:size;outline-offset:-2px}
+  .battle-screen .battle-stage,.battle-screen:has(.b-coach) .battle-stage{--w:max(calc(var(--rows)*52px),92cqw);--u:calc(var(--w)/var(--rows));width:var(--w);height:calc(var(--u)*var(--cols)*.84);margin:18px 28px 28px;flex-shrink:0}
+  .battle-screen .b-board-tools{display:flex;position:absolute;z-index:8;top:calc(var(--battle-board-top,143px) - 29px);left:7px;right:7px;gap:7px;align-items:center;font:10px/1.5 var(--font);color:#b8cad9}.b-board-tools span{margin-right:auto}.b-board-tools button{padding:4px 8px;border-radius:4px;background:#34495a;color:#f0ddb6}
+  .battle-screen .b-coach{display:none;z-index:12;top:var(--battle-board-top,143px);max-height:110px;box-shadow:0 5px 12px #0008}.battle-screen.coach-expanded .b-coach{display:block}.battle-screen .piece-hp{font-size:11px;line-height:1.2}.battle-screen .cell-chip,.battle-screen .siege-chip{font-size:9px}.battle-screen .b-dock{bottom:93px}.battle-screen .b-squad{padding-top:3px}.battle-screen .b-token{width:38px;height:38px}
+}
+
+/* Shrinkable desktop columns, then a complete stacked forecast on compact phones. */
+.fc-top{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}.fc-side{min-width:0}.fc-label{display:block;font:700 10px/1.4 var(--font);color:#dfc995!important}.fc-lines span{max-width:100%;overflow-wrap:anywhere}
+@media (max-width:520px) and (orientation:portrait){
+  .battle-screen .b-forecast{left:8px;right:8px;transform:none;width:auto;max-width:calc(100% - 16px);box-sizing:border-box;overflow-x:hidden;padding:7px 9px}
+  .fc-top{grid-template-columns:minmax(0,1fr);gap:5px}.fc-side,.fc-side.foe{text-align:left;min-width:0}.fc-side b{white-space:normal;overflow-wrap:anywhere;overflow:visible;text-overflow:clip;font:700 13px/1.4 var(--font)}.fc-side small{display:block;font-size:11px}.fc-side .fc-label{font-size:10px}.fc-side.foe .fc-hp{transform:none}.fc-hp{height:8px;margin:3px 0}.fc-mid{flex-direction:row;gap:8px;justify-content:center}.fc-mid strong{font-size:23px}.fc-mid em{font-size:11px}.fc-lines{gap:3px;margin-top:5px}.fc-lines span{font-size:10px}.fc-reply{font-size:11px}.fc-acts{margin-top:5px}.fc-acts button{min-width:0;padding:7px 12px;font-size:13px}
+}
+
+/* A stable speech owner sits outside the inert world and is aria-owned by the
+   battle dialog. Only its visible balloon accepts input, never the viewport. */
+.speech-layer{position:fixed;inset:0;height:100dvh;z-index:7;pointer-events:none}
+.speech-layer[hidden]{display:none}
+.speech-layer>#bubble{pointer-events:auto}
+#bubble .bubble-own-speaker,#bubble .bubble-close{display:none}
+body:has(#title-screen:not([hidden]),#notice-screen:not([hidden]),#modal[open]) .speech-layer{display:none}
+.in-battle .speech-layer{z-index:61}
+
+/* The existing log and temporary speech share one bounded row. The row is
+   reserved even while speech is hidden, so expiry cannot move a board target. */
+.battle-screen{--battle-board-bottom:172px}
+.battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{bottom:max(var(--battle-board-bottom),calc(var(--battle-chatter-bottom,120px) + 60px))}
+.battle-screen .b-log{display:block;left:238px;right:152px;bottom:calc(var(--battle-chatter-bottom,120px) + 6px);height:48px;margin:0;padding:5px 10px;white-space:normal;overflow:auto;overscroll-behavior:contain;font:12px/1.5 var(--font);color:var(--text);background:rgba(13,14,22,.88);border:2px solid var(--ink-3);border-left:3px solid var(--gold);box-shadow:3px 3px 0 var(--ink)}
+.battle-screen:has(.b-result) .b-log{display:none}
+.in-battle .speech-layer>#bubble{position:absolute;z-index:auto;left:var(--battle-chatter-left,7px);right:var(--battle-chatter-right,7px);top:auto;bottom:calc(var(--battle-chatter-bottom,190px) + 6px);width:auto;max-width:none;height:48px;padding:1px;display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:3px;border-width:1px;border-radius:6px;filter:none;animation:none;overflow:hidden;cursor:default}
+.in-battle .speech-layer>#bubble[hidden]{display:none}
+.in-battle .speech-layer>#bubble:after,.in-battle #bubble .face{display:none}
+.in-battle #bubble .bubble-copy{min-width:0;height:44px;padding:3px 6px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;font:13px/18px var(--font);overflow-wrap:anywhere}
+.in-battle #bubble .bubble-copy b,.in-battle #bubble .bubble-copy p{display:inline;font:13px/18px var(--font)}
+.in-battle #bubble .bubble-copy b{font-weight:800;margin-right:8px}
+.in-battle #bubble .bubble-close{display:grid;place-items:center;width:44px;height:44px;min-width:44px;min-height:44px;border-radius:4px;color:var(--on-paper);background:var(--paper-2);font:700 23px/1 var(--font)}
+.in-battle #bubble .bubble-close:focus-visible,.in-battle #bubble .bubble-copy:focus-visible{outline-offset:-3px}
+
+/* Result speech belongs below its scrollable result, not above its decisions. */
+.battle-screen .b-result{bottom:calc(61px + var(--safe-b));align-items:safe center}
+.battle-screen:has(.b-result)>:not(.b-result){visibility:hidden}
+.in-battle .speech-layer[data-result="true"]>#bubble{left:7px;right:7px;bottom:calc(7px + var(--safe-b))}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen{--battle-board-bottom:203px}
+  .battle-screen .b-dock{bottom:calc(97px + var(--safe-b))}
+  .battle-screen .b-log{left:7px;right:7px;font-size:11px}
+}
+@media (max-width:900px) and (max-height:680px) and (orientation:portrait){
+  .battle-screen{--battle-board-bottom:196px}
+  .battle-screen .b-dock{bottom:calc(93px + var(--safe-b))}
+  /* The fixed-size stage depends only on width here. Compensating padding keeps
+     both scroll maxima unchanged when the lower clipping edge opens or closes. */
+  .battle-screen{--battle-idle-bottom:max(196px,calc(var(--battle-chatter-bottom,176px) + 6px));--battle-speaking-bottom:max(196px,calc(var(--battle-chatter-bottom,176px) + 60px))}
+  .battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{bottom:var(--battle-idle-bottom);padding-bottom:calc(var(--battle-speaking-bottom) - var(--battle-idle-bottom));overflow-anchor:none}
+  .battle-screen.has-chatter .battle-center{bottom:var(--battle-speaking-bottom);padding-bottom:0}
+  .battle-screen .b-log{display:none}
+}
+
+/* Current actor and real auto-handover share the existing facing control row. */
+.battle-screen .b-face{display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));justify-items:center;gap:3px;min-width:0;max-width:100%;padding:4px 6px}
+.battle-screen .b-face .b-current{display:block;grid-column:1/-1;max-width:220px;margin:0;white-space:normal;overflow-wrap:anywhere;text-align:center;font:700 11px/1.4 var(--font)}
+.battle-screen .b-face-label{align-self:center;font:700 11px/1.4 var(--font)}
+.battle-screen .b-current[data-auto-handover]{color:#8c341c}
+.b-squad-number,.piece-order{position:absolute;z-index:5;min-width:16px;padding:0 3px;border:1px solid var(--gold);border-radius:3px;background:#0d0e16;color:#fff;font:700 11px/1.3 var(--font);font-variant-numeric:tabular-nums;text-align:center;pointer-events:none}
+.b-squad-number{right:-1px;bottom:0}.piece-order{left:-4px;top:-4px}.battle-piece.enemy .piece-order{background:#662c2c;border-color:#efa697}
+
+/* Teaching is opt-in at every size. Reuse its toggle; reserve measured objective
+   space even when the lesson is long. Expanding it does not move board targets. */
+.battle-screen .b-board-tools{display:flex;position:absolute;z-index:8;top:calc(var(--battle-objective-bottom,107px) + 4px);left:12px;right:12px;gap:7px;align-items:center;font:11px/1.5 var(--font);color:#b8cad9}
+.battle-screen .b-board-tools>span{display:none;margin-right:auto}
+.battle-screen .b-board-tools button{padding:4px 8px;border-radius:4px;background:#34495a;color:#f0ddb6}
+.battle-screen .b-board-tools [data-battle-command="coach-toggle"]{margin-left:auto}
+.battle-screen .b-board-tools [data-battle-command="center-board"]{display:none}
+.battle-screen .b-coach,.battle-screen.coach-expanded .b-coach{position:absolute;top:var(--battle-board-top,143px);left:12px;right:auto;bottom:auto;width:236px;max-width:calc(100% - 24px);max-height:var(--battle-coach-height,220px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;margin:0;font:13px/1.5 var(--font);z-index:12;box-shadow:0 5px 12px #0008}
+.battle-screen .b-coach[hidden]{display:none}
+.battle-screen.coach-expanded .b-coach:not([hidden]){display:block}
+.battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{top:var(--battle-board-top,143px)}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .b-board-tools{left:7px;right:7px;font-size:10px}
+  .battle-screen .b-coach,.battle-screen.coach-expanded .b-coach{left:7px;right:7px;width:auto;max-width:calc(100% - 14px);font-size:12px}
+  .battle-screen .b-face .b-current{max-width:190px;font-size:10px}
+}
+@media (max-width:900px) and (max-height:680px) and (orientation:portrait){
+  .battle-screen .b-board-tools>span{display:block}
+  .battle-screen .b-board-tools [data-battle-command="center-board"]{display:inline-block}
+  .battle-screen .b-coach,.battle-screen.coach-expanded .b-coach{max-height:min(110px,var(--battle-coach-height,110px))}
+}
+
+
+/* Read-only recent events reuse the teaching area, closed by default. The
+   action dock and board geometry do not move when the reader is toggled. */
+.battle-screen .b-history{position:absolute;z-index:12;top:var(--battle-board-top,143px);left:12px;width:420px;max-width:calc(100% - 24px);height:var(--battle-coach-height,220px);max-height:calc(100% - var(--battle-board-top,143px) - 8px);display:flex;flex-direction:column;min-height:0;padding:8px;border:3px solid var(--ink);background:var(--paper);color:var(--on-paper);box-shadow:4px 4px 0 var(--ink);font:13px/1.5 var(--font);text-align:left}
+.battle-screen .b-history[hidden]{display:none}
+.b-history>p{flex:none;margin:0 0 5px;font:12px/1.5 var(--font);color:var(--on-paper-2)}
+.b-history-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;overflow-wrap:anywhere;user-select:text;touch-action:pan-y}
+.b-history-scroll ol{margin:0;padding:0 0 0 2.2em}
+.b-history-scroll li{padding:5px 3px;white-space:pre-wrap;border-bottom:1px solid #14141c26}
+.b-history-scroll li:last-child{border-bottom:0}
+.b-history-empty{padding:8px 3px}
+.b-history-scroll:focus-visible{outline:3px solid #8c341c;outline-offset:-3px}
+.battle-screen .b-board-tools{flex-wrap:wrap}
+.battle-screen .b-board-tools [data-battle-command="history-toggle"]{margin-left:auto;font-family:var(--font)}
+.battle-screen .b-board-tools [data-battle-command="coach-toggle"]{margin-left:0}
+.b-result-history{width:min(520px,100%);text-align:left;font:13px/1.5 var(--font)}
+.b-result-history>[data-battle-command="history-toggle"]{padding:6px 10px;color:var(--on-paper);background:var(--paper);border:2px solid var(--ink);font:700 13px/1.5 var(--font)}
+.battle-screen .b-result-history .b-history{position:relative;top:auto;left:auto;width:100%;max-width:100%;height:auto;max-height:none;margin-top:6px}
+.b-result-history .b-history-scroll{max-height:220px;max-height:min(220px,35dvh)}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .b-history{left:7px;width:420px;max-width:calc(100% - 14px)}
+  .battle-screen .b-board-tools>span{flex-shrink:0}
+}
+
+/* ===== Battle, restored ===============================================================================
+   The girl in command stands at the left edge as large as the map leader, the board is the stage, and the
+   HUD keeps to the corners in comic type. Phones turn the board a quarter and fit all of it — no scrolling.
+   New pieces (objective line, recent log, auto-resolve) keep their logic and get small, quiet places. ===== */
+.battle-screen:before{background:linear-gradient(rgba(10,12,20,.5),rgba(10,12,20,.82)),url(assets/battle-backdrop.webp) center/cover}
+.battle-screen kbd{display:none}
+.battle-screen .b-tools .tab{transform:skewX(-12deg);border-radius:0;border-width:2px}
+.battle-screen .b-tools .tab:after{transform:skewX(12deg)}
+.battle-screen .b-act{transform:skewX(-6deg);border-radius:0;border-width:3px}
+.battle-screen .b-act>*{transform:skewX(6deg)}
+.battle-screen .b-act:hover:not(:disabled){transform:skewX(-6deg) translateY(-2px)}
+.battle-screen .b-face{transform:skewX(-6deg);border-radius:0;border-width:3px}
+.battle-screen .b-face>*{transform:skewX(6deg)}
+.b-objective b{font:400 15px/1.35 var(--display);color:var(--gold)}
+.b-quick-note{display:flex;align-items:center;gap:8px;margin:3px 0 0}
+.b-quick-note button{padding:3px 10px;font:700 12px/1.4 var(--font);color:var(--on-paper);background:var(--gold);border:2px solid var(--ink)}
+.b-quick-note span{font-size:11px;color:var(--muted)}
+.battle-screen .b-board-tools button{border-radius:0;border:2px solid var(--text);background:var(--ink);color:var(--text);transform:skewX(-10deg)}
+.battle-screen .b-plate{clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);border:0;border-radius:0;background:var(--ink);padding:6px 20px 8px 10px}
+.battle-screen .b-plate b{font:400 22px/1.15 var(--display)}
+.battle-screen .b-plate small{color:var(--gold)}
+.battle-screen .b-unit-progress{color:var(--muted)}
+@media (min-width:901px),(orientation:landscape){
+  .battle-screen .b-top{left:50%;right:auto;top:6px;transform:translateX(-50%);max-width:calc(100vw - 460px);min-height:0;flex-wrap:nowrap;white-space:nowrap;padding:5px 24px 6px 12px;align-items:baseline}
+  .battle-screen .b-top b{font:400 19px var(--display)}
+  .battle-screen .b-top small{font:13px var(--font)}
+  .b-objective{left:50%;right:auto;top:50px;transform:translateX(-50%);width:max-content;max-width:min(820px,calc(100vw - 560px));padding:4px 16px;border:0;border-radius:0;background:rgba(13,14,22,.8);text-align:center;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+  .b-objective>span{margin-left:10px}
+  .b-quick-note{justify-content:center}
+  .battle-screen .b-board-tools{left:auto;right:12px;width:auto;top:48px}
+  .battle-screen .b-hero{left:-26px;bottom:-34px;height:min(52dvh,470px);max-width:none;opacity:1;z-index:4}
+  .battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{left:max(250px,calc(min(52dvh,470px)*.6))}
+  .battle-screen .b-plate{left:12px;bottom:12px;width:auto;min-width:210px;max-width:226px;max-height:none;overflow:visible}
+}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .b-hero{display:block;left:-22px;bottom:-16px;height:min(24dvh,200px);max-width:none;opacity:1;z-index:4}
+  .battle-screen .b-plate{left:84px;width:calc(100% - 190px);min-width:0}
+  .battle-screen .b-plate b{font-size:17px}
+  .battle-screen .b-board-tools button{padding:3px 8px}
+}
+/* Phones: the whole board fits. The page never scrolls sideways to find a squad. */
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{overflow:visible;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+  .battle-screen .battle-stage,.battle-screen:has(.b-coach) .battle-stage{--w:min(94cqw,calc(100cqh*var(--rows)/var(--cols)*1.16));--u:calc(var(--w)/var(--rows));width:var(--w);height:calc(var(--u)*var(--cols)*.84);margin:0}
+  .battle-screen .b-board-tools>span,.battle-screen .b-board-tools [data-battle-command="center-board"]{display:none}
+}
+/* Phones: one compact line of objective, the chatter balloon reads at the top, the board gets the room. */
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .b-top{max-height:44px}
+  .b-objective{left:5px;right:118px;top:52px;padding:3px 8px;border:0;border-radius:0;background:rgba(13,14,22,.82);clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+  .b-objective b{display:block;font-size:13px;line-height:1.35}.b-objective>span{display:none}
+  .b-objective .b-quick-note{margin:2px 0 0}.b-objective .b-quick-note span{display:none}
+  .battle-screen .b-board-tools{left:auto;right:7px;top:54px;width:auto;gap:4px}
+  .battle-screen .b-board-tools button{padding:3px 7px;font-size:11px}
+  .battle-screen{--battle-board-bottom:188px}
+  .battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center,.battle-screen.has-chatter .battle-center{bottom:calc(188px + var(--safe-b))!important;padding-bottom:0!important}
+  .in-battle .speech-layer>#bubble{top:calc(50px + env(safe-area-inset-top,0px))!important;bottom:auto!important;left:7px!important;right:7px!important;z-index:13}
+  .battle-screen .b-log{display:none}
+}
+
+/* ---------------------------------------------------------------------------------------------
+   A phone held sideways (short landscape). The rotated tall board is only for portrait phones;
+   here the board keeps its natural 11×8 shape and takes the left at full height, and the controls
+   stack in a column on the right: tools on top, the squad and its orders, then the unit plate and
+   the round dial at the bottom. The big portrait steps aside — the squad faces carry the girls.
+   Everything keeps clear of the notch and the home bar.
+   --------------------------------------------------------------------------------------------- */
+@media (orientation:landscape) and (max-height:520px){
+  .battle-screen{--rc:min(300px,40vw)}
+  .battle-screen .b-hero{display:none}
+  .battle-screen .b-top{left:calc(8px + var(--sa-l));right:auto;top:4px;transform:none;max-width:calc(100vw - var(--rc) - 40px - var(--sa-l) - var(--sa-r));min-height:0;padding:4px 18px 5px 10px;overflow:hidden;text-overflow:ellipsis}
+  .battle-screen .b-top b{font-size:16px}.battle-screen .b-top small{font-size:11px}
+  .battle-screen .b-objective{left:calc(8px + var(--sa-l));right:auto;top:40px;transform:none;width:auto;max-width:calc(100vw - var(--rc) - 40px - var(--sa-l) - var(--sa-r));padding:2px 10px;font-size:12px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .battle-screen .battle-center,.battle-screen:has(.b-coach) .battle-center,.battle-screen:has(.b-siege-entry) .battle-center,.battle-screen:has(.b-quick-note) .battle-center{top:66px;right:calc(var(--rc) + 20px + var(--sa-r));bottom:calc(6px + var(--sa-b));left:calc(6px + var(--sa-l))}
+  .battle-screen .b-tools{right:calc(8px + var(--sa-r));top:4px;max-width:var(--rc);flex-wrap:wrap;justify-content:flex-end}
+  .battle-screen .b-tools .tab{height:30px;padding:0 8px}
+  .battle-screen .b-board-tools{left:auto;right:calc(164px + var(--sa-r));top:4px;width:auto}
+  .battle-screen .b-board-tools .tab{height:30px}
+  .battle-screen .b-log{display:none}
+  .battle-screen .b-dock{left:auto;right:calc(8px + var(--sa-r));width:var(--rc);bottom:calc(112px + var(--sa-b));flex-direction:column;align-items:stretch;gap:4px}
+  .battle-screen .b-squad{flex-wrap:nowrap;justify-content:flex-start;gap:3px;padding:0;overflow-x:auto;scrollbar-width:none}
+  .battle-screen .b-squad .b-token{flex:none;width:42px;height:42px}
+  .battle-screen .b-act{min-height:38px;padding:3px 8px}
+  .battle-screen .b-plate b{font-size:18px}.battle-screen .b-plate .b-status{display:none}
+  .battle-screen .b-actions{flex-wrap:wrap;gap:4px}
+  .battle-screen .b-plate{left:auto;right:calc(96px + var(--sa-r));bottom:calc(8px + var(--sa-b));width:calc(var(--rc) - 92px);min-width:0;max-width:none;max-height:98px;overflow:hidden}
+  .battle-screen .dial{right:calc(8px + var(--sa-r));bottom:calc(8px + var(--sa-b));width:80px;height:80px}
+  .battle-screen .b-coach,.battle-screen.coach-expanded .b-coach{left:auto;right:calc(8px + var(--sa-r));top:38px;width:var(--rc);max-height:112px;overflow:auto;padding:5px 9px;font-size:12px;line-height:1.35}
+  .battle-screen .b-forecast,.battle-screen .b-inspect{left:calc(8px + var(--sa-l));right:calc(var(--rc) + 20px + var(--sa-r));top:44px;transform:none;width:auto;max-height:calc(100dvh - 56px - var(--sa-b));overflow:auto}
+}
+/* Portrait phones: the battle's top bar and its corner buttons clear the status bar of a home-screen app. */
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .b-top,.battle-screen .b-tools,.battle-screen .b-board-tools,.battle-screen .b-objective{translate:0 var(--sa-t)}
+}
+/* The battle dial places itself with the safe-area insets already; the map HUD's inset shift on .dial
+   (style.css) must not move it a second time, or it lands on the squad plate in landscape. */
+.battle-screen .dial{translate:none}
+
+/* Every tap only previews; the card for the tapped cell holds the buttons (移动到这里 / 指挥她 / 关闭). */
+.battle-cell.focused .cell-mark{box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px rgba(13,14,22,.55)}
+.b-cellcard{border-color:var(--muted)}
+.b-cellcard.move{border-color:var(--ice)}
+.b-cellcard.ally{border-color:var(--gold)}
+.b-cellcard .b-cell-land{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 8px;margin:4px 0 0}
+.b-cellcard .b-cell-land b{display:inline;font:400 18px var(--display)}
+.b-cellcard .b-cell-land span{padding:0 6px;font-size:12px;font-weight:700;color:var(--text);background:var(--ink-3)}
+.b-cellcard .b-cell-why{color:#ffd9a0}
+.b-cellcard.move .b-cell-why{color:#bfe3ff}
+.fc-go.move{background:#2f7fc1}
+.fc-go.ally,.fc-go.heal{color:var(--on-paper);background:var(--gold)}
+@media (max-width:900px) and (orientation:portrait){
+  .battle-screen .b-forecast,.battle-screen .b-inspect{background:#0d0e16}
+  .battle-screen.has-card .b-dock,.battle-screen.has-card .dial,.battle-screen.has-card .b-plate,.battle-screen.has-card .b-hero{visibility:hidden}
+}
+@media (orientation:landscape) and (max-height:520px){
+  .battle-screen .b-forecast,.battle-screen .b-inspect{left:auto;right:calc(8px + var(--sa-r));width:var(--rc);top:44px;max-height:calc(100dvh - 52px - var(--sa-b));background:#0d0e16}
+  .battle-screen.has-card .b-dock,.battle-screen.has-card .dial,.battle-screen.has-card .b-plate{visibility:hidden}
+}
+
+/* The wheel sits beside its square; only the buttons receive input. */
+.battle-grid button.battle-cell,.b-wheel button{touch-action:manipulation}
+.b-wheel-beacon{position:absolute;z-index:5;top:0;right:0;pointer-events:none;padding:0 3px;border:1px solid #1a1520;border-radius:8px;background:var(--gold);color:#1a1520;font:800 12px/1 var(--font)}
+.b-wheel{--wheel-size:142px;--wheel-key:46px;--wheel-edge:calc(var(--wheel-key)/2);position:absolute;z-index:13;isolation:isolate;width:var(--wheel-size);height:var(--wheel-size);visibility:hidden;pointer-events:none}
+.b-wheel[data-placed]{visibility:visible}
+.b-wheel::before{content:"";position:absolute;z-index:-1;inset:11px;border:2px solid var(--gold);border-radius:50%;background:#171524e8;box-shadow:3px 3px 0 #0d0e16,inset 0 0 0 5px #fff1}
+.b-wheel button{display:grid;place-content:center;justify-items:center;position:absolute;left:50%;top:50%;width:var(--wheel-key);height:var(--wheel-key);translate:-50% -50%;padding:0;border:2px solid #0d0e16;border-radius:50%;background:var(--paper);color:var(--on-paper);box-shadow:2px 2px 0 #0d0e16;pointer-events:auto;cursor:pointer;font:400 12px/1.1 var(--display)}
+.b-wheel button i,.b-wheel button svg{display:block;width:15px;height:15px}
+.b-wheel button i{transform:rotate(var(--wheel-angle,0deg))}
+.b-wheel button b{font:inherit;text-align:center;max-width:42px;overflow-wrap:anywhere}
+.b-wheel button:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.b-wheel button:not(:disabled):hover,.b-wheel button[aria-pressed="true"]{background:var(--gold)}
+.b-wheel button:disabled{opacity:.55;cursor:default}
+.b-wheel .b-wheel-hub{width:44px;height:44px;background:var(--ink-3);color:var(--text);border-color:var(--gold)}
+.b-wheel .b-wheel-hub:hover{background:var(--gold);color:var(--on-paper)}
+.b-wheel .north,.b-wheel[data-side="below"] .primary,.b-wheel[data-side="above"] .secondary{top:var(--wheel-edge)}
+.b-wheel .south,.b-wheel[data-side="above"] .primary,.b-wheel[data-side="below"] .secondary{top:calc(100% - var(--wheel-edge))}
+.b-wheel .west,.b-wheel[data-side="right"] .primary,.b-wheel[data-side="left"] .secondary{left:var(--wheel-edge)}
+.b-wheel .east,.b-wheel[data-side="left"] .primary,.b-wheel[data-side="right"] .secondary{left:calc(100% - var(--wheel-edge))}
+.b-wheel.move .primary{background:#bfe3ff;color:#142b4c}
+.b-wheel.attack .primary{background:#ffada0;color:#3c1613}
+.b-wheel.heal .primary{background:#bfe7d3;color:#143b2f}
+.b-wheel-note{position:absolute;width:max-content;max-width:min(194px,calc(100vw - 28px));margin:0;padding:4px 7px;border:2px solid #0d0e16;background:var(--paper);color:var(--on-paper);box-shadow:2px 2px 0 #0d0e16;font:600 12px/1.25 var(--font);overflow-wrap:anywhere}
+.b-wheel-note b,.b-wheel-note span{display:block}
+.b-wheel-note b{font:400 14px/1.2 var(--display)}
+@media (max-width:900px) and (orientation:portrait){
+  .b-wheel{--wheel-size:106px;--wheel-key:35px}
+  .b-wheel .b-wheel-hub{width:33px;height:33px}
+  .b-wheel-note{max-width:min(220px,calc(100vw - 134px))}
+  .battle-screen:has(.b-wheel) .b-dock,.battle-screen:has(.b-wheel) .b-coach{visibility:hidden;pointer-events:none}
+}
+@media (orientation:landscape) and (max-height:520px){
+  .b-wheel{--wheel-size:118px;--wheel-key:38px}
+  .b-wheel .b-wheel-hub{width:36px;height:36px}
+  .b-wheel-note{max-width:calc(var(--rc) - 16px)}
+  .battle-screen:has(.b-wheel) .b-dock,.battle-screen:has(.b-wheel) .b-coach{visibility:hidden;pointer-events:none}
+}
+/* The enemy is counting on the flag: say so where the win conditions are, not only in the header. */
+.b-objective .b-flag-alarm{margin:2px 0 0;font-size:12px;font-weight:800;color:#ffb199;max-width:none}

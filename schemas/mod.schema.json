@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mistbound:mod:v1",
+  "title": "Mistbound Chronicle data Mod v1",
+  "description": "编辑器提示用结构约束。引用关系、ID 冲突、地图占用、替换策略和存档兼容性必须由 dist/engine.mjs 的 validateMod 校验。",
+  "type": "object",
+  "required": ["schemaVersion", "id"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/id" },
+    "name": { "$ref": "#/$defs/name" },
+    "replaceExisting": { "type": "boolean", "default": false },
+    "characters": { "type": "array", "maxItems": 128, "items": { "$ref": "#/$defs/character" } },
+    "terrains": { "type": "array", "maxItems": 64, "items": { "$ref": "#/$defs/terrain" } },
+    "factions": { "type": "array", "maxItems": 16, "items": { "$ref": "#/$defs/faction" } },
+    "tiles": { "type": "array", "maxItems": 300, "items": { "$ref": "#/$defs/tile" } }
+  },
+  "$defs": {
+    "id": {
+      "type": "string", "minLength": 1, "maxLength": 64,
+      "pattern": "^[a-zA-Z0-9_.:-]+$",
+      "not": { "enum": ["__proto__", "constructor", "prototype"] },
+      "description": "稳定 ID；建议使用作者.内容名的命名空间。最终合法性由引擎检查。"
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "\\S" },
+    "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+    "stat": { "type": "integer", "minimum": 0, "maximum": 12 },
+    "character": {
+      "type": "object",
+      "required": ["id", "name", "stats"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "title": { "type": "string", "maxLength": 4000 },
+        "color": { "$ref": "#/$defs/color" },
+        "portrait": { "type": "string", "maxLength": 4000, "description": "可选图像路径；JSON Mod 不携带可执行脚本。" },
+        "description": { "type": "string", "maxLength": 4000 },
+        "trait": { "type": "string", "maxLength": 4000 },
+        "stats": {
+          "type": "object", "required": ["attack", "defense", "scout", "economy"],
+          "properties": {
+            "attack": { "$ref": "#/$defs/stat" },
+            "defense": { "$ref": "#/$defs/stat" },
+            "scout": { "type": "integer", "minimum": 0, "maximum": 2 },
+            "economy": { "$ref": "#/$defs/stat" }
+          }
+        }
+      }
+    },
+    "terrain": {
+      "type": "object",
+      "required": ["id", "name", "color", "yield", "defense", "passable"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "color": { "$ref": "#/$defs/color" },
+        "icon": { "type": "string", "maxLength": 4000 },
+        "description": { "type": "string", "maxLength": 4000 },
+        "yield": {
+          "type": "object", "required": ["gold", "supply"],
+          "properties": {
+            "gold": { "type": "integer", "minimum": 0, "maximum": 8 },
+            "supply": { "type": "integer", "minimum": 0, "maximum": 8 }
+          }
+        },
+        "defense": { "type": "integer", "minimum": 0, "maximum": 8 },
+        "passable": { "type": "boolean" }
+      }
+    },
+    "faction": {
+      "type": "object", "required": ["id", "name", "color", "leaderId"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "color": { "$ref": "#/$defs/color" },
+        "leaderId": { "$ref": "#/$defs/id" },
+        "personality": { "enum": ["aggressive", "balanced", "builder"] }
+      }
+    },
+    "tile": {
+      "type": "object", "required": ["q", "r", "terrainId"],
+      "properties": {
+        "q": { "type": "integer", "minimum": -10000, "maximum": 10000 },
+        "r": { "type": "integer", "minimum": -10000, "maximum": 10000 },
+        "terrainId": { "$ref": "#/$defs/id" },
+        "ownerId": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "troops": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

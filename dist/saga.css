@@ -1,0 +1,613 @@
+/* 2026-11 long-game interface: far marches, musters, prison orders, edicts, deeper diplomacy and the manga-page
+   screens (内政, 怎么玩). Same language as comic-ui.css: paper, ink, slanted cuts, hexes, one burst per decision. */
+:root{--star:polygon(50.0% 0.0%,58.9% 14.1%,73.2% 5.7%,74.5% 22.3%,91.1% 21.6%,84.6% 36.9%,99.6% 44.0%,86.7% 54.5%,96.8% 67.7%,80.5% 71.0%,83.2% 87.4%,67.2% 82.8%,62.0% 98.5%,50.0% 87.0%,38.0% 98.5%,32.8% 82.8%,16.8% 87.4%,19.5% 71.0%,3.2% 67.7%,13.3% 54.5%,0.4% 44.0%,15.4% 36.9%,8.9% 21.6%,25.5% 22.3%,26.8% 5.7%,41.1% 14.1%);--hexclip:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+
+/* ---- The army card: far marches, split parties, standing orders ---- */
+.ap-hint b.f{color:var(--on-paper);background:#ffe9a8;border:2px dotted var(--ink)}
+.ap-standing{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:6px 0 2px;padding:5px 10px 5px 8px;color:var(--text);background:var(--ink);clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%)}
+.ap-standing span{display:flex;flex:1 1 180px;flex-wrap:wrap;align-items:center;gap:0 5px;min-width:0;font-size:12px;line-height:1.5}
+.ap-standing svg{width:15px;height:15px;color:var(--gold)}
+.ap-standing b{color:var(--gold);font:400 15px var(--display)}
+.ap-standing em{font-style:normal;font-weight:700;color:#ff9a86}
+.ap-standing .ap-link{flex:none;margin:0 12px 0 auto;color:var(--gold)}
+.ap-split{display:flex;flex-wrap:wrap;align-items:center;gap:5px 7px;margin:6px 0 0;padding:5px 8px;background:#ffe9a8;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.ap-split b{font:400 17px/1 var(--display)}
+.ap-split span{flex:1 1 150px;min-width:0;font-size:12px;font-weight:600;line-height:1.4}
+.ap-split button{min-height:30px;padding:1px 9px;font:700 12px var(--font);color:var(--on-paper);background:var(--paper);border:2px solid var(--ink)}
+.ap-split button.on{color:var(--text);background:var(--ink)}
+.ap-split button.sky,.ap-mini.sky{color:#fff;background:#1e73be;border-color:var(--ink)}
+.ap-split button.sky:hover,.ap-mini.sky:hover{background:#165a96}
+.ap-girl.staying i{filter:grayscale(1) brightness(.82);box-shadow:none;transform:translateY(3px)}
+.ap-girl.staying b{color:var(--on-paper-2);text-decoration:line-through}
+.ap-girl.going i{outline:3px solid var(--gold);outline-offset:-1px}
+.ap-girl.going:after{content:"";position:absolute;right:-2px;top:-5px;z-index:3;width:18px;height:20px;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 20'%3E%3Cpath d='m4.5 10.5 3 3 6-7' fill='none' stroke='%230d0e16' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;clip-path:var(--hexclip);box-shadow:0 0 0 2px var(--ink)}
+.ap-quirk{position:absolute;left:0;bottom:0;top:auto;max-width:100%;overflow:hidden;text-overflow:ellipsis;z-index:2;padding:0 3px;font:800 9.5px/14px var(--font);font-style:normal;color:var(--gold);white-space:nowrap;background:rgba(13,14,22,.9)}
+.ap-air{position:absolute;left:0;top:0;z-index:2;padding:0 3.5px;font:800 9.5px/14px var(--font);text-decoration:none;color:#fff;background:#1e73be;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.ap-free{font-weight:700;color:#7a5a12!important}
+.ap-order.far .ap-goal h4{color:#7a4d00}
+.ap-order.far .ap-goal p b{color:var(--on-paper)}
+/* A big army: smaller faces so a dozen girls fit without a second scroll. */
+.ap-in.many .ap-girl.march{width:46px}
+.ap-in.many .ap-girl.march i{width:44px;height:52px;box-shadow:2px 2px 0 var(--ink)}
+.ap-in.many .ap-girl.march b{max-width:48px;font-size:10px}
+.ap-in.many .ap-quirk{bottom:0;top:auto;font-size:8.5px;line-height:12px}
+.ap-in.many .ap-row.march{gap:5px}
+.rail.ordered{background:#ffe9a8;border-style:dashed}
+.rail em{padding:0 4px;margin-left:1px;font:800 10px/15px var(--font);font-style:normal;color:var(--gold);background:var(--ink);border-radius:8px}
+.map-legend{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px 10px;max-width:250px;margin-left:auto;pointer-events:none}
+.map-legend[hidden]{display:none}
+.map-legend span{white-space:nowrap}
+
+/* ---- 会师: who arrives when, as a strip of days ---- */
+.muster{display:flex;flex-direction:column;gap:12px;width:min(880px,100%);margin:0 auto;padding:4px 0 calc(18px + var(--safe-b))}
+.mu-call{display:flex;align-items:flex-end;gap:0}
+.mu-face{flex:none;width:104px;height:120px;object-fit:cover;object-position:50% 0;margin-right:-6px;filter:drop-shadow(3px 0 0 var(--paper)) drop-shadow(-3px 0 0 var(--paper)) drop-shadow(0 -3px 0 var(--paper))}
+.mu-say{position:relative;flex:1;min-width:0;margin-bottom:10px;padding:12px 18px 13px 20px;color:var(--on-paper);background:var(--paper);border:3px solid var(--ink);border-radius:26px 30px 28px 6px;box-shadow:5px 5px 0 var(--ink)}
+.mu-say h3{font:400 clamp(21px,3.4vw,29px)/1.25 var(--display)}
+.mu-say h3 b{font-weight:400;background:linear-gradient(transparent 58%,var(--gold) 58%)}
+.mu-say p{margin-top:3px;font-size:13px;line-height:1.5;color:var(--on-paper-2)}
+.mu-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mu-opt{display:flex;flex-direction:column;gap:1px;min-height:58px;padding:7px 12px 8px;text-align:left;color:var(--text);background:var(--ink-2);border:2px solid var(--text);transform:skewX(-6deg)}
+.mu-opt>*{transform:skewX(6deg)}
+.mu-opt b{font:400 19px/1.2 var(--display)}
+.mu-opt small{font-size:12px;line-height:1.35;color:var(--muted)}
+.mu-opt.on{color:var(--on-paper);background:var(--gold);border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.mu-opt.on small{color:#5b4300}
+.mu-opt:disabled{opacity:.4}
+.mu-strip{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding:4px 4px 10px;scrollbar-width:thin}
+.mu-lane{position:relative;flex:1 0 168px;min-width:0;margin-right:-10px;padding:9px 22px 12px 16px;color:var(--on-paper);background:var(--tone) 0 0/5px 5px,var(--paper);border:3px solid var(--ink);clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);filter:drop-shadow(4px 4px 0 var(--ink))}
+.mu-lane:nth-child(even){transform:translateY(8px)}
+.mu-lane.now{background:var(--tone) 0 0/5px 5px,#fff0bf}
+.mu-lane h4{display:flex;flex-direction:column;gap:0;margin-bottom:7px;font:400 20px/1.15 var(--display);white-space:nowrap}
+.mu-lane h4 small{font:700 11px/1.4 var(--font);color:var(--on-paper-2)}
+.mu-lane ul{display:flex;flex-direction:column;gap:6px;list-style:none}
+.mu-army{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:center;gap:0 7px}
+.mu-flag{grid-row:1/3;position:relative;display:block;width:34px;height:42px;overflow:hidden;background:var(--gold);clip-path:polygon(0 0,100% 0,100% 100%,50% 84%,0 100%);box-shadow:inset 0 0 0 2px var(--ink)}
+.mu-flag img{position:absolute;left:50%;top:2px;width:210%;max-width:none;transform:translateX(-50%)}
+.mu-flag img.bag{top:6px;width:120%}
+.mu-army b{overflow:hidden;font:700 14px/1.25 var(--font);white-space:nowrap;text-overflow:ellipsis}
+.mu-army b em{margin-left:4px;font:600 11px var(--font);font-style:normal;color:var(--on-paper-2)}
+.mu-army small{overflow:hidden;font-size:11px;line-height:1.3;color:var(--on-paper-2);white-space:nowrap;text-overflow:ellipsis}
+.mu-total{padding:6px 14px;font-size:13px;font-weight:700;color:var(--text);background:var(--ink);clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.mu-none{padding:16px;font-size:15px;font-weight:700;color:var(--on-paper);background:var(--paper);border:3px solid var(--ink)}
+.mu-skip{font-size:12px;line-height:1.5;color:var(--muted)}
+.mu-go{display:flex;align-items:center;gap:12px}
+.mu-go small{flex:0 1 auto;padding:6px 16px 6px 10px;font-size:12px;line-height:1.5;color:var(--text);background:rgba(13,14,22,.86);clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%)}
+/* The order itself never scrolls out of reach: it rides the bottom edge of the page. */
+.mu-go{position:sticky;bottom:calc(4px + var(--safe-b));z-index:2}
+@media (max-width:620px){
+  .mu-face{width:74px;height:90px}
+  /* Three ways on one row: the name is the button, the small print goes under the row for the chosen one. */
+  .mu-opts{gap:6px}
+  .mu-opt{min-height:44px;padding:5px 4px 6px;align-items:center;text-align:center}
+  .mu-opt b{font-size:17px;white-space:nowrap}
+  .mu-opt small{display:none}
+  .mu-lane{flex-basis:150px}
+  .mu-go{flex-direction:row;align-items:center;gap:6px}
+  .mu-go .cs-burst{flex:none}
+  .mu-go small{font-size:11px;line-height:1.4;padding:5px 12px 5px 8px}
+}
+
+/* ---- 牢房总令: three standing orders for the whole prison ---- */
+.jail-orders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px 8px;margin:10px 0;padding:9px 10px 10px;color:var(--text);background:var(--ink);border:3px solid var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.5)}
+.jail-orders h4{grid-column:1/-1;display:flex;align-items:baseline;gap:8px;font:400 19px/1.2 var(--display);color:var(--gold)}
+.jail-orders h4 small{font:600 12px var(--font);color:var(--muted)}
+.jo{display:flex;align-items:center;gap:8px;min-height:50px;padding:6px 10px;text-align:left;color:var(--on-paper);background:var(--paper);border:2px solid var(--ink);transform:skewX(-6deg);transition:transform .12s cubic-bezier(.3,1.7,.5,1)}
+.jo>*{transform:skewX(6deg)}
+.jo svg{flex:none;width:20px;height:20px}
+.jo span{display:flex;flex-direction:column;min-width:0}
+.jo b{font:400 17px/1.2 var(--display);white-space:nowrap}
+.jo small{font-size:11px;line-height:1.3;color:var(--on-paper-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jo:hover:not([aria-disabled=true]){background:var(--gold);transform:skewX(-6deg) translateY(-2px)}
+.jo[aria-disabled=true]{color:#6e6a5f;background:#cfcab9;cursor:help}
+.jo.toggle.on{background:var(--gold)}.jo.toggle.on small{color:#5b4300}
+.captive-history b.due{padding:0 4px;font-weight:800;color:#fff;background:#c0271a}
+.cs-leaf .jail-orders{margin:12px 0 4px}
+@media (max-width:560px){.jail-orders{grid-template-columns:1fr}.jo{transform:none;min-height:46px}.jo>*{transform:none}}
+
+/* ---- Talks, second layer: attitude, war score and terms, grounds for war, envoy, vassal ---- */
+.cs-att{display:flex;align-items:center;gap:9px;margin:6px 0 10px}
+.cs-att b{flex:none;padding:1px 9px;font:400 16px/1.4 var(--display);color:var(--text);background:var(--ink);transform:skewX(-8deg)}
+.cs-att p{font-size:12px;line-height:1.4;color:var(--on-paper-2)}
+.cs-att.att-feud b{background:#6b0e08;color:#ffe29a}
+.cs-att.att-war b,.cs-att.att-hostile b,.cs-att.att-covet b{background:#c0271a}
+.cs-att.att-friendly b,.cs-att.att-close b,.cs-att.att-ally b,.cs-att.att-vassal b{background:#176b3b}
+.cs-att.att-afraid b{color:var(--on-paper);background:var(--gold)}
+.cs-war{flex:none;margin-top:12px;padding-top:10px;border-top:3px solid var(--ink)}
+.war-score{display:flex;align-items:center;gap:8px;font:700 11px var(--font);color:var(--on-paper-2)}
+.war-meter{position:relative;flex:1;height:12px;background:linear-gradient(90deg,#f4b3a6 0 50%,#bfe8cf 50% 100%);border:2px solid var(--ink)}
+.war-meter i{position:absolute;top:-6px;width:12px;height:20px;margin-left:-6px;background:var(--ink);clip-path:var(--hexclip)}
+.war-meter u{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:rgba(13,14,22,.35)}
+.cs-war>small{display:block;margin:4px 0 8px;font-size:12px;line-height:1.45;color:var(--on-paper-2)}
+.cs-war>small b{font-size:15px;color:var(--on-paper)}
+.cs-terms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.cs-term{display:flex;flex-direction:column;align-items:center;min-height:46px;padding:4px 2px;color:#8d897c;background:#e1dccb;border:2px solid var(--ink);transform:skewX(-6deg)}
+.cs-term>*{transform:skewX(6deg)}
+.cs-term b{font:400 17px/1.2 var(--display)}
+.cs-term small{font-size:11px;font-weight:700}
+.cs-term.can{color:var(--on-paper);background:#d7f5e3}
+.cs-term.on{color:var(--on-paper);background:var(--gold);box-shadow:3px 3px 0 var(--ink)}
+.cs-cb{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:2px}
+.cs-reason{min-height:28px;padding:1px 8px;font:700 12px var(--font);color:var(--on-paper);background:var(--paper-2);border:2px solid var(--ink)}
+.cs-reason.on{background:#d7f5e3}
+.cs-reason.unjust.on{color:#fff;background:#c0271a}
+.cs-fold{flex:none;margin-top:10px;border-top:2px dashed rgba(13,14,22,.3)}
+.cs-fold summary{padding:8px 2px 4px;font:400 16px/1.3 var(--display);cursor:pointer}
+.cs-ledger{list-style:none;margin:2px 0 6px}
+.cs-ledger li{display:flex;justify-content:space-between;gap:10px;padding:2px 4px;font-size:13px;border-bottom:1px dotted rgba(13,14,22,.28)}
+.cs-ledger b{font-variant-numeric:tabular-nums;color:#176b3b}.cs-ledger b.down{color:#a3220f}
+.cs-envoys{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+.cs-envoy{display:flex;flex-direction:column;align-items:center;gap:1px;width:74px;color:var(--on-paper)}
+.cs-envoy .cs-face{width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:var(--paper-2)}
+.cs-envoy b{max-width:74px;overflow:hidden;font:700 12px/1.3 var(--font);white-space:nowrap;text-overflow:ellipsis}
+.cs-envoy small{font-size:10px;line-height:1.2;color:var(--on-paper-2);white-space:nowrap}
+.cs-envoy.on .cs-face{border-color:var(--gold);box-shadow:0 0 0 3px var(--ink)}
+.cs-envoy:hover .cs-face{transform:translateY(-2px)}
+.cs-vassal{flex:none;margin-top:10px;padding-top:8px;border-top:3px solid var(--ink)}
+.cs-vassal h4{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;font:400 19px/1.2 var(--display)}
+.cs-vassal h4 small{font:600 12px var(--font);color:var(--on-paper-2)}
+.cs-cap small.warn{color:#ff9a86;font-weight:700}
+
+/* ---- 内政: one manga page. She stands on the left and says the one thing that matters; the paper holds the rest. ---- */
+.cs.gov{--leafw:clamp(460px,58vw,1040px)}
+.governance.cs{max-width:none;margin:0;padding-bottom:0}
+.cs.gov .cs-id h2{font-size:31px}
+.cs.gov .cs-say{z-index:5}
+.cs.gov .cs-say .bubble{border-radius:30px 34px 34px 10px;padding:11px 16px 13px;text-align:left}
+.cs.gov .cs-say .bubble b{font-size:12px;color:var(--on-paper-2)}
+.cs.gov .cs-say .bubble p{font-size:14px;line-height:1.5}
+.cs.gov .cs-gauges{--w:62px}
+.cs.gov .cs-hg b{font-size:15px;white-space:nowrap}
+.cs.gov .cs-hg.lv b{font-size:21px}.cs.gov .cs-hg.lv b small{margin:0;font-size:12px;color:var(--muted)}
+.cs.gov .cs-hg small{font-size:10px;white-space:nowrap}
+.cs.gov .cs-leaf{justify-content:flex-start;gap:0;user-select:text;--text:var(--on-paper);--muted:var(--on-paper-2);--ink-2:#efe8d6;--ink-3:rgba(13,14,22,.28);--ice:#17608f}
+.cs.gov .cs-cap{--text:#f7f1e3;--muted:#a9afc0}
+.cs.gov .gov-page{display:none;flex-direction:column;gap:16px;padding-bottom:18px}
+.cs.gov[data-tab=treasury] [data-gov-page=treasury],.cs.gov[data-tab=build] [data-gov-page=build],.cs.gov[data-tab=army] [data-gov-page=army],.cs.gov[data-tab=edict] [data-gov-page=edict],.cs.gov[data-tab=frontier] [data-gov-page=frontier]{display:flex}
+.cs.gov .governance-panel.gv-sec,.cs.gov .governance-panel{padding:12px 0 0;color:var(--on-paper);background:none;border:0;border-top:3px solid var(--ink);box-shadow:none}
+.cs.gov .gov-page>.governance-panel:first-child,.cs.gov .gv-purse+.governance-intro+.governance-panel{border-top:0;padding-top:0}
+.cs.gov h3,.cs.gov .governance-panel h3{display:inline-block;margin:0 0 6px;padding:0 6px 0 2px;font:400 23px/1.25 var(--display);color:var(--on-paper);background:linear-gradient(transparent 56%,var(--gold) 56%)}
+.cs.gov .cs-cap h3{padding:0;font-size:19px;color:var(--gold);background:none}
+.cs.gov h4{font:400 18px/1.3 var(--display)}
+.cs.gov .form-hint{margin:4px 0 8px;font-size:13px;line-height:1.55;color:var(--on-paper-2)}
+.cs.gov .governance-empty{padding:12px 14px;color:var(--on-paper-2);background:var(--paper-2);border:2px dashed rgba(13,14,22,.35)}
+.cs.gov details summary{cursor:pointer;font-weight:700;color:#7a5a12}
+/* The treasury: two numbers you can read from across the room. */
+.gv-purse{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gv-coin{position:relative;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:0 8px;padding:8px 14px 9px 10px;background:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);transform:rotate(-1deg)}
+.gv-coin:nth-child(2){transform:rotate(1deg) translateY(4px)}
+.gv-coin img{grid-row:1/3;width:44px;height:44px;object-fit:contain}
+.gv-coin b{font:800 clamp(28px,4vw,40px)/1 var(--font);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.gv-coin em{justify-self:start;display:inline-flex;align-items:baseline;gap:4px;padding:0 8px;font:800 15px/1.5 var(--font);font-style:normal;color:#fff;background:#1d7a44;transform:skewX(-8deg)}
+.gv-coin em.down{background:#c0271a}
+.gv-coin em small{font-size:11px;font-weight:600;opacity:.9}
+.cs.gov .management-ledger{margin-top:4px}
+.cs.gov .management-ledger>div{align-items:baseline;margin:0;padding:4px 2px;font-size:14px;border-bottom:1px dotted rgba(13,14,22,.35)}
+.cs.gov .management-ledger>div.sub{padding:1px 2px 1px 16px;font-size:12px;color:var(--on-paper-2);border-bottom:0}
+.cs.gov .management-ledger>div b{font-variant-numeric:tabular-nums}
+.cs.gov .management-ledger .net{margin-top:0;padding-top:5px;border-top:0;color:var(--on-paper);font-weight:800}
+.cs.gov .management-ledger .net:first-of-type{margin-top:4px;border-top:3px double var(--ink)}
+.cs.gov .management-ledger .net b{padding:0 6px;font-size:17px;background:linear-gradient(transparent 55%,var(--gold) 55%)}
+.cs.gov .management-ledger p,.cs.gov .management-ledger details{color:var(--on-paper-2)}
+.cs.gov .management-ledger .alarm{color:#a3220f;font-weight:700}
+.fee-disclosure{display:inline-flex;flex-direction:column;align-items:flex-start;max-width:100%;min-width:0;vertical-align:top}
+.fee-summary{display:inline-flex;align-items:center;gap:4px;max-width:100%;cursor:pointer;border-bottom:1px dotted currentColor}
+.fee-summary::after,.finance-row>summary>span::after{content:"›";display:inline-block;margin-left:4px;font-weight:400;transition:transform .1s}
+.fee-summary[aria-expanded="true"]::after,.finance-row[open]>summary>span::after{transform:rotate(90deg)}
+.fee-summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.fee-body{display:block;width:100%;min-width:min(200px,100%);padding:5px 0 2px;font-size:12px;font-weight:400;line-height:1.65;white-space:normal}
+.fee-body[hidden]{display:none}
+.fee-line{display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-width:0;padding:2px 0}
+.fee-line>span{min-width:0;overflow-wrap:anywhere}
+.fee-line>b{flex-shrink:1;max-width:65%;overflow-wrap:anywhere;font:inherit;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.fee-formula,.fee-note,.fee-child{display:block;margin-top:4px;overflow-wrap:anywhere}
+.fee-note{font-size:11px;opacity:.8}
+.fee-child{padding-left:8px;border-left:1px dotted currentColor}
+.fee-total{margin-top:4px;border-top:1px dotted currentColor}
+.cs.gov .management-ledger>.finance-row{margin:0;border-bottom:1px dotted rgba(13,14,22,.35)}
+.cs.gov .management-ledger>.finance-row>summary{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0;padding:4px 2px;color:var(--on-paper);font-size:14px;list-style:none}
+.finance-row>summary::-webkit-details-marker{display:none}
+.finance-row>summary{cursor:pointer;list-style:none}
+.finance-row>summary>b{font-variant-numeric:tabular-nums;text-align:right}
+.cs .finance-row{padding:0}
+.cs .finance-row>summary{min-height:0;line-height:1.5}
+.cs.gov .management-ledger>.finance-row.net{margin-top:4px;border-top:3px double var(--ink)}
+.cs.gov .mn-say{padding:0}
+.cs.gov .mn-say>summary{min-height:0;padding:0;font:inherit;line-height:1.6}
+.finance-row>summary:hover,.finance-row>summary:focus-visible{text-decoration:underline;text-decoration-style:dotted;text-underline-offset:4px}
+.finance-body{padding:3px 4px 7px 12px;font-size:12px;line-height:1.65}
+.finance-body p{margin:5px 0 0}
+.finance-body .finance-row{margin:0}
+.finance-body .finance-row>summary{display:flex;justify-content:space-between;gap:12px;color:inherit;padding:2px 0}
+/* Where commands come from: hex pips that add up. */
+.gv-pips{display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 6px;margin:6px 0 4px}
+.gv-pips i{align-self:flex-start;margin-top:10px;font:800 18px/1 var(--font);font-style:normal;color:var(--on-paper-2)}
+.gv-pip{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:52px;max-width:92px}
+.gv-pip b{display:grid;place-items:center;width:42px;height:48px;font:800 20px/1 var(--font);color:var(--on-paper);background:#fff;clip-path:var(--hexclip);box-shadow:inset 0 0 0 30px #fff}
+.gv-pip b{position:relative;background:var(--ink)}
+.gv-pip b:before{content:"";position:absolute;inset:3px;z-index:-1;background:#fff;clip-path:var(--hexclip)}
+.gv-pip b{isolation:isolate;box-shadow:none}
+.gv-pip.sum b{color:var(--on-paper)}.gv-pip.sum b:before{background:var(--gold)}
+.gv-pip small{font-size:11px;line-height:1.25;text-align:center;color:var(--on-paper-2)}
+.gv-hints{margin:4px 0 0 18px;font-size:13px;line-height:1.7;color:var(--on-paper-2)}
+/* Building: three directions, a reserve you nudge, slips for the jobs, one burst. */
+.gv-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0 10px}
+.gv-mode{display:flex;flex-direction:column;align-items:center;min-height:52px;padding:5px 4px;color:var(--on-paper);background:#fff;border:2px solid var(--ink);transform:skewX(-8deg);transition:transform .12s cubic-bezier(.3,1.7,.5,1)}
+.gv-mode>*{transform:skewX(8deg)}
+.gv-mode b{font:400 19px/1.2 var(--display)}
+.gv-mode small{font-size:11px;color:var(--on-paper-2)}
+.gv-mode.on{background:var(--gold);box-shadow:4px 4px 0 var(--ink);transform:skewX(-8deg) translate(-2px,-2px)}
+.gv-mode.on small{color:#5b4300}
+.gv-native{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.cs.gov .form-row.gv-form{display:block;margin:0 0 6px}
+.gv-reserve{display:flex;flex-direction:row!important;align-items:center;gap:10px}
+.gv-reserve label{font-size:13px;font-weight:700;color:var(--on-paper-2)}
+.gv-stepper{display:inline-flex;align-items:stretch;border:2px solid var(--ink);background:#fff}
+.gv-stepper button{width:40px;font:800 20px/1 var(--font);color:var(--on-paper);background:var(--paper-2)}
+.gv-stepper button:hover{background:var(--gold)}
+.cs.gov .gv-stepper input{width:92px;min-height:40px;padding:0 6px;font:800 19px/1 var(--font);text-align:center;color:var(--on-paper);background:#fff;border:0;border-left:2px solid var(--ink);border-right:2px solid var(--ink);font-variant-numeric:tabular-nums}
+.cs.gov .management-total{margin-top:10px;color:#7a4d00;font-weight:800}
+.cs.gov .development-jobs{gap:7px}
+.cs.gov .development-jobs li{padding:8px 10px 8px 14px;color:var(--on-paper);background:#fff;border:2px solid var(--ink);border-left:8px solid var(--gold);box-shadow:3px 3px 0 var(--ink)}
+.cs.gov .development-jobs li:nth-child(even){margin-left:10px}
+.cs.gov .development-jobs span,.cs.gov .development-jobs small{color:var(--on-paper-2)}
+.cs.gov #execute-development{align-self:flex-start;width:150px;height:78px;margin:8px 0 0}
+.cs.gov #execute-development span{font-size:19px;white-space:nowrap}
+.cs.gov .management-policy{margin-top:0}
+.gv-switch{position:relative;gap:10px;padding:0}
+.gv-switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.gv-switch span{display:inline-flex;align-items:center;gap:10px;font:400 19px var(--display)}
+.gv-switch span:before{content:"关";display:grid;place-items:center;width:58px;height:34px;font:800 14px var(--font);color:var(--on-paper-2);background:var(--paper-2);border:2px solid var(--ink);transform:skewX(-10deg)}
+.gv-switch input:checked+span:before{content:"开";color:var(--on-paper);background:var(--gold);box-shadow:3px 3px 0 var(--ink)}
+.gv-switch input:focus-visible+span:before{outline:3px solid var(--gold);outline-offset:2px}
+.cs.gov .management-current{color:#17608f;font-weight:700}
+.cs.gov .small-button.secondary{color:var(--on-paper);background:var(--paper-2);border-color:var(--ink);font-weight:700}
+.cs.gov .small-button.secondary:hover:not(:disabled){background:var(--gold)}
+.cs.gov .field label{color:var(--on-paper-2)}
+.cs.gov .field select,.cs.gov .field input{color:var(--on-paper);background:#fff;border:2px solid var(--ink)}
+/* Army */
+.cs.gov .military-readiness{color:var(--on-paper);background:#fff0bf;border-left:5px solid var(--ink)}
+.cs.gov #army-training-level{font:400 21px/1.3 var(--display);color:var(--on-paper)}
+.cs.gov #train-army{min-height:46px;padding:8px 20px;font:400 19px var(--display);transform:skewX(-8deg);box-shadow:4px 4px 0 var(--ink)}
+.cs.gov .military-budget #military-ledger{color:var(--on-paper)}
+/* Edicts */
+.gv-slots{display:flex;gap:8px;margin:4px 0 12px}
+.gv-slot{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:60px;padding:4px;color:var(--on-paper-2);background:var(--paper-2);border:2px dashed rgba(13,14,22,.4)}
+.gv-slot b{font:400 17px/1.2 var(--display)}.gv-slot small{font-size:11px}
+.gv-slot svg{width:18px;height:18px}
+.gv-slot.open{border-color:var(--ink);background:#fff}
+.gv-slot.on{color:var(--on-paper);background:var(--gold);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transform:rotate(-1.5deg)}
+.gv-slot.shut{opacity:.7}
+.gv-edicts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 6px;margin-bottom:10px}
+.gv-edict{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;aspect-ratio:1/1.1547;max-height:96px;margin:0 auto;width:100%;max-width:84px;color:var(--on-paper);background:var(--ink);clip-path:var(--hexclip);transition:transform .14s cubic-bezier(.3,1.7,.5,1)}
+.gv-edict:before{content:"";position:absolute;inset:3px;background:#fff;clip-path:var(--hexclip)}
+.gv-edict>*{position:relative}
+.gv-edict svg{width:20px;height:20px}
+.gv-edict b{font:400 16px/1.15 var(--display)}
+.gv-edict.got:before{background:#ffe9a8}
+.gv-edict.on:before{background:var(--gold)}
+.gv-edict:hover{transform:scale(1.06)}
+.cs.gov .cs-cap{margin-top:4px}
+.cs.gov .cs-cap small.warn{color:#ff9a86}
+/* Frontier */
+.cs.gov .frontier-place{color:var(--on-paper);background:#fff;border:2px solid var(--ink);border-left:8px solid #8fb5d6;box-shadow:3px 3px 0 var(--ink)}
+.cs.gov .frontier-place.war{border-left-color:#c0271a}
+.cs.gov .frontier-place small,.cs.gov .frontier-place>span>span{color:var(--on-paper-2)}
+.cs.gov .frontier-place .frontier-army{color:#7a4d00;font-weight:700}
+.cs.gov .frontier-place>svg{color:var(--on-paper)}
+/* Food and recovery */
+.cs.gov .supply-purchase,.cs.gov .recovery-quote{color:var(--on-paper);background:#fff;border:2px solid var(--ink);border-left:8px solid var(--gold);box-shadow:3px 3px 0 var(--ink)}
+.cs.gov .supply-purchase h4{font:400 19px/1.3 var(--display)}
+.cs.gov .supply-purchase-quote{color:#7a4d00}
+.cs.gov .recovery-quote p{color:var(--on-paper-2)}.cs.gov .recovery-quote .recovery-warning{color:#a3220f}
+.cs.gov .recovery-details{border-top:2px dashed rgba(13,14,22,.3)}
+.cs.gov .recovery-details summary{color:#17608f}
+.cs.gov .recovery-candidate{color:var(--on-paper);background:#fff;border:2px solid var(--ink)}
+.cs.gov .recovery-candidate small{color:var(--on-paper-2)}.cs.gov .recovery-candidate b{color:#17608f}
+.cs.gov .error-copy{color:#a3220f;font-weight:700}
+/* The tabs under the page */
+.cs.gov .gov-tabs{position:static;margin:0;padding:0;background:none}
+.cs.gov .gov-tabs button{height:56px;flex-direction:column;gap:0;font:inherit;color:var(--muted);background:none;border:0;transform:skewX(-10deg)}
+.cs.gov .gov-tabs button.on{color:var(--on-paper);background:var(--paper);box-shadow:0 0 0 3px var(--ink)}
+.cs.gov .gov-tabs svg{display:block;width:20px;height:20px}
+.management-screen .screen-purse{margin-left:0;margin-right:auto}
+@media (min-width:721px),(max-height:520px) and (orientation:landscape){
+  /* She speaks into the page: the balloon lies along the top of the paper, its tail pointing back at her. */
+  .cs.gov .cs-say{left:calc(100% - var(--leafw) + 30px);right:74px;top:calc(12px + env(safe-area-inset-top,0px));width:auto}
+  .cs.gov .cs-say .bubble{min-height:58px;border-radius:14px 30px 30px 26px;padding:8px 18px 10px 20px}
+  .cs.gov .cs-say .bubble b{display:inline;margin-right:8px}
+  .cs.gov .cs-say .bubble p{display:inline;font-size:15px}
+  .cs.gov .cs-say .bubble:after{left:-13px;right:auto;top:52%;transform:skew(24deg,0) rotate(-38deg) scaleX(-1)}
+  .cs.gov .cs-leaf{padding:104px 26px 12px 66px}
+}
+@media (max-height:520px) and (orientation:landscape){.cs.gov .cs-leaf{padding:92px 14px 8px 52px}.cs.gov .cs-say .bubble p{font-size:13px}}
+@media (max-width:720px){
+  .cs.gov{--stage:clamp(170px,27dvh,250px);--girl:min(calc(var(--stage)*1.5),62vw);--gx:74%}
+  .cs.gov .cs-say{left:8px;top:calc(54px + env(safe-area-inset-top,0px));width:calc(var(--gx) - var(--girl)*.24 - 12px)}
+  .cs.gov .cs-say .bubble p{font-size:12px;line-height:1.4}
+  .cs.gov .cs-id{display:none}.cs.gov .cs-ribbon{display:none}
+  .cs.gov .cs-gauges{--w:50px;left:8px;top:calc(var(--stage) - var(--w)*1.1547 - 10px);width:auto;height:auto;display:flex;gap:4px}
+  .cs.gov .cs-hg{position:relative;left:auto!important;top:auto!important}
+  .cs.gov .cs-leaf{padding:26px 12px 6px}
+  .cs.gov .gov-tabs span{font-size:13px}
+  .gv-edicts{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 2px}
+  .gv-edict b{font-size:14px}
+  .gv-coin{padding:6px 10px 7px 8px}.gv-coin img{width:34px;height:34px}
+}
+
+/* ---- 怎么玩: the lord's handbook. One chapter per tab, every rule a small manga panel with a picture. ---- */
+.guide-screen .reading{max-width:none;height:100%;margin:0;font-size:inherit;line-height:inherit}
+.guide-screen .screen-purse{display:none}
+.cs.book{--leafw:clamp(460px,58vw,1040px)}
+.cs.book .cs-id h2{font-size:31px}
+.cs.book .cs-say .bubble{border-radius:30px 34px 34px 10px;padding:11px 16px 13px;text-align:left}
+.cs.book .cs-say .bubble b{font-size:12px;color:var(--on-paper-2)}
+.cs.book .cs-say .bubble p{font-size:14px;line-height:1.5}
+.cs.book .cs-leaf{justify-content:flex-start;gap:0;user-select:text}
+.bk-lessons{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 6px 18px 4px}
+.bk-lesson{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:58px;padding:6px 4px;color:var(--on-paper);background:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transform:skewX(-8deg);transition:transform .12s cubic-bezier(.3,1.7,.5,1),box-shadow .12s}
+.bk-lesson>*{transform:skewX(8deg)}
+.bk-lesson b{font:400 20px/1.2 var(--display);white-space:nowrap}
+.bk-lesson small{font-size:11px;line-height:1.3;color:var(--on-paper-2);white-space:nowrap}
+.bk-lesson:first-child{background:var(--gold)}.bk-lesson:first-child small{color:#5b4300}
+.bk-lesson:hover{transform:skewX(-8deg) translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.bk-lesson:active{transform:skewX(-8deg) translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.bk-page{flex:none;display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px;padding:0 4px 20px 0}
+.cs.book[data-tab=basic] [data-book-page=basic],.cs.book[data-tab=army] [data-book-page=army],.cs.book[data-tab=grow] [data-book-page=grow],.cs.book[data-tab=rule] [data-book-page=rule],.cs.book[data-tab=dip] [data-book-page=dip]{display:grid}
+/* A panel: an inked frame whose top edge leans, the way a manga page is cut. Alternate panels lean the other way. */
+.bk-panel{position:relative;isolation:isolate;display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:auto 1fr;gap:2px 12px;align-content:start;min-width:0;padding:20px 14px 14px 14px;color:var(--on-paper)}
+.bk-panel:before,.bk-panel:after{content:"";position:absolute;z-index:-1;clip-path:polygon(0 9px,100% 0,100% 100%,0 100%)}
+.bk-panel:before{inset:0 -4px -4px 0;background:var(--ink);clip-path:polygon(0 9px,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px))}
+.bk-panel:after{inset:3px 7px 7px 3px;background:#fff}
+.bk-panel:nth-child(even):before{clip-path:polygon(0 0,calc(100% - 4px) 9px,100% 13px,100% 100%,4px 100%,0 calc(100% - 4px))}
+.bk-panel:nth-child(even):after{clip-path:polygon(0 0,100% 9px,100% 100%,0 100%)}
+.bk-panel:first-of-type{grid-column:1/-1;grid-template-columns:auto minmax(0,1fr)}
+.bk-panel:first-of-type:after{background:radial-gradient(rgba(13,14,22,.16) 1px,transparent 1.3px) 0 0/6px 6px,#fff7dc}
+.bk-no{position:absolute;left:-5px;top:-2px;min-width:30px;height:24px;display:grid;place-items:center;padding:0 6px;font:800 14px/1 var(--font);color:var(--gold);background:var(--ink);transform:skewX(-10deg) rotate(-3deg)}
+.bk-panel:nth-child(even) .bk-no{top:-8px}
+.bk-panel>span[aria-hidden]{grid-row:1/3;justify-self:center;align-self:start}
+.bk-panel h3{align-self:end;justify-self:start;margin:0;padding:0 6px 0 2px;font:400 22px/1.25 var(--display);background:linear-gradient(transparent 58%,var(--gold) 58%)}
+.bk-panel p{margin:2px 0 0;font-size:13.5px;line-height:1.65;color:var(--on-paper-2)}
+.bk-panel details{grid-column:1/-1;margin-top:8px;padding-top:6px;border-top:2px dashed rgba(13,14,22,.3)}
+.bk-panel details summary,.bk-keys summary{cursor:pointer;font-size:13px;font-weight:700;color:#7a5a12}
+.bk-panel details p,.bk-keys p{margin-top:5px;font-size:12.5px;line-height:1.6}
+.bk-keys{grid-column:1/-1;padding:8px 12px;color:var(--on-paper-2);background:var(--paper-2);border:2px dashed rgba(13,14,22,.35)}
+/* The pictures. A hex with the house icon is the default; a few rules get a drawing of the real thing. */
+.bk-hex{position:relative;display:grid;place-items:center;width:60px;height:69px;color:var(--on-paper);background:var(--ink);clip-path:var(--hexclip)}
+.bk-hex:before{content:"";position:absolute;inset:3px;background:var(--gold);clip-path:var(--hexclip)}
+.bk-panel:nth-child(3n) .bk-hex:before{background:#bfe0f5}.bk-panel:nth-child(3n+2) .bk-hex:before{background:#ffd9e4}
+.bk-hex svg{position:relative;width:30px;height:30px}
+.bk-ring{--d:48px;--w:44px;position:relative;display:block;width:calc(var(--d)*2 + var(--w));height:calc(var(--d)*1.732 + var(--w)*1.1547);margin:0 4px}
+.bk-ring i{position:absolute;left:calc(50% + var(--x,0)*var(--d));top:calc(50% + var(--y,0)*var(--d));translate:-50% -50%;display:grid;place-items:center;width:var(--w);height:calc(var(--w)*1.1547);font:700 12px/1 var(--font);font-style:normal;color:var(--on-paper);background:var(--ink);clip-path:var(--hexclip)}
+.bk-ring i:before{content:"";position:absolute;inset:2.5px;z-index:-1;background:#fff;clip-path:var(--hexclip)}
+.bk-ring i{isolation:isolate}
+.bk-ring i.hub{color:#f7f1e3}.bk-ring i.hub:before{background:#3d6f8e}
+.bk-ring i:nth-child(3):before{background:var(--gold)}
+.bk-dial{position:relative;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;background:conic-gradient(var(--gold) 0 110deg,var(--ink) 110deg 120deg,var(--gold) 120deg 230deg,var(--ink) 230deg 240deg,#cfcab9 240deg 350deg,var(--ink) 350deg);box-shadow:0 0 0 3px var(--ink)}
+.bk-dial:before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--ink)}
+.bk-dial b{position:relative;font:800 24px/1 var(--font);color:#f7f1e3}
+.bk-trail{position:relative;display:flex;align-items:center;justify-content:space-between;width:70px;height:62px;padding-top:22px}
+.bk-trail:before{content:"";position:absolute;left:6px;right:6px;top:calc(50% + 10px);border-top:3px dotted var(--ink)}
+.bk-trail i{position:relative;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--font);font-style:normal;color:var(--on-paper);background:var(--gold);box-shadow:0 0 0 2px var(--ink)}
+.bk-trail u{position:absolute;right:2px;top:0;width:18px;height:26px;border-left:3px solid var(--ink)}
+.bk-trail u:before{content:"";position:absolute;left:0;top:0;width:15px;height:12px;background:#c0271a;clip-path:polygon(0 0,100% 50%,0 100%)}
+.bk-frames{display:flex;gap:4px;align-items:center;height:62px}
+.bk-frames i{position:relative;width:32px;height:37px;background:var(--ink);clip-path:var(--hexclip)}
+.bk-frames i:before{content:"";position:absolute;inset:3px;clip-path:var(--hexclip)}
+.bk-frames i.w{background:repeating-conic-gradient(var(--ink) 0 8deg,#fff 8deg 16deg)}.bk-frames i.w:before{background:#dfe7d2}
+.bk-frames i.r{background:#c0271a}.bk-frames i.r:before{background:#f3d6cf}
+.bk-pips{display:flex;align-items:center;gap:1px;height:62px}
+.bk-pips i{position:relative;isolation:isolate;display:grid;place-items:center;width:20px;height:23px;font:800 11px/1 var(--font);font-style:normal;color:var(--on-paper);background:var(--ink);clip-path:var(--hexclip)}
+.bk-pips i:before{content:"";position:absolute;inset:2px;z-index:-1;background:var(--gold);clip-path:var(--hexclip)}
+.bk-pips em{font:800 12px/1 var(--font);font-style:normal;color:var(--on-paper-2)}
+.bk-meter{position:relative;display:block;width:68px;height:16px;margin-top:24px;background:linear-gradient(90deg,#c0271a 0 50%,#e7e1d0 50%);border:3px solid var(--ink)}
+.bk-meter:before{content:"";position:absolute;left:50%;top:-7px;bottom:-7px;border-left:3px solid var(--ink)}
+.bk-meter i{position:absolute;left:50%;top:0;bottom:0;width:34%;background:var(--gold)}
+.bk-meter:after{content:"+25";position:absolute;right:-2px;top:-22px;font:800 12px/1 var(--font);color:#7a4d00}
+.bk-chips{display:flex;flex-direction:column;align-items:center;gap:5px;padding-top:4px}
+.bk-chips i{padding:1px 8px 2px;font:700 11px/1.4 var(--font);font-style:normal;white-space:nowrap;color:var(--on-paper);background:#fff;border:2px solid var(--ink);transform:skewX(-8deg)}
+.bk-chips i:nth-child(1){background:var(--gold)}.bk-chips i:nth-child(2){margin-left:10px}.bk-chips i:nth-child(3){background:#bfe0f5;margin-left:-6px}
+.cs.book .cs-tabs button{height:56px}
+@media (min-width:721px),(max-height:520px) and (orientation:landscape){
+  .cs.book .cs-say{left:calc(100% - var(--leafw) + 30px);right:74px;top:calc(12px + env(safe-area-inset-top,0px));width:auto}
+  .cs.book .cs-say .bubble{min-height:58px;border-radius:14px 30px 30px 26px;padding:8px 18px 10px 20px}
+  .cs.book .cs-say .bubble b{display:inline;margin-right:8px}
+  .cs.book .cs-say .bubble p{display:inline;font-size:15px}
+  .cs.book .cs-say .bubble:after{left:-13px;right:auto;top:52%;transform:skew(24deg,0) rotate(-38deg) scaleX(-1)}
+  .cs.book .cs-leaf{padding:104px 26px 12px 66px}
+}
+@media (max-height:520px) and (orientation:landscape){.cs.book .cs-leaf{padding:92px 14px 8px 52px}.cs.book .cs-say .bubble p{font-size:13px}.bk-page{grid-template-columns:1fr}}
+@media (min-width:721px) and (max-width:1023px){.bk-page{grid-template-columns:1fr}}
+@media (max-width:720px){
+  .cs.book{--stage:clamp(150px,23dvh,220px);--girl:min(calc(var(--stage)*1.5),62vw);--gx:74%}
+  .cs.book .cs-say{left:8px;top:calc(54px + env(safe-area-inset-top,0px));width:calc(var(--gx) - var(--girl)*.24 - 12px)}
+  .cs.book .cs-say .bubble p{font-size:12px;line-height:1.4}
+  .cs.book .cs-id{display:none}.cs.book .cs-ribbon{display:none}
+  .cs.book .cs-leaf{padding:30px 14px 6px 12px}
+  .cs.book .cs-tabs span{font-size:13px}
+  .bk-lessons{gap:8px;margin:0 6px 16px 6px}
+  .bk-lesson b{font-size:17px}.bk-lesson small{font-size:10px}
+  .bk-page{grid-template-columns:1fr;gap:14px}
+  .bk-panel{grid-template-columns:62px minmax(0,1fr);padding:18px 12px 12px 12px}
+  .bk-panel h3{font-size:20px}
+  .bk-hex{width:52px;height:60px}.bk-hex svg{width:26px;height:26px}
+  .bk-ring{--d:38px;--w:36px;margin:0}.bk-ring i{font-size:10.5px}
+}
+
+/* ---- 补给上限: what a tile can feed, on the tile card and the army card ---- */
+.flower .tag .nums .cap{color:#f7f1e3;background:#3d6f8e;padding:0 6px;transform:skewX(-8deg)}
+.flower .tag .nums .cap.over{color:var(--on-paper);background:var(--gold)}
+.ap-troops small .ap-sup{font-weight:700;color:#17608f}
+.ap-troops small .ap-over{font-style:normal;font-weight:700;color:#b52a18}
+.ap-order .ap-room{font-size:12px;font-weight:700;color:#7a4d00}
+.bk-pips.cap i{width:24px;height:28px;font-size:10px}
+
+/* Phones: the goals box and the notes stop short of the treasury; the layer legend is a small label, never a curtain over the map. */
+@media (max-width:720px){
+  .goals{max-width:calc(100vw - 176px)}
+  .report{max-width:calc(100vw - 176px)}
+  .bubble{bottom:max(calc(30dvh - 92px),calc(158px + var(--safe-b)))}
+  .map-legend{gap:1px 7px;max-width:212px;padding:3px 7px 4px;font-size:11px;line-height:1.35;color:#f7f1e3;background:rgba(13,14,22,.78);border-radius:8px 0 8px 8px;text-shadow:none}
+}
+
+/* ---- 专属词条 on the character page: introduced like a special move, with where it works and whether it is working now ---- */
+.cs-quirk{position:relative;flex:none;display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:3px 10px;margin:12px 6px 10px 4px;padding:8px 12px 9px 12px;color:var(--on-paper);background:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transform:rotate(-.5deg)}
+.cs-qtag{position:absolute;left:-7px;top:-12px;padding:1px 9px 2px;font:800 11px/1.4 var(--font);letter-spacing:.08em;color:var(--gold);background:var(--ink);transform:skewX(-10deg) rotate(-2deg)}
+.cs-quirk h4{grid-column:1;grid-row:1;padding:0 8px 0 4px;font:400 25px/1.2 var(--display);white-space:nowrap;background:linear-gradient(transparent 55%,color-mix(in srgb,var(--hero,#ffc83d) 62%,#fff) 55%)}
+.cs-quirk em{grid-column:2;grid-row:1;justify-self:start;padding:0 8px;font:700 11px/1.6 var(--font);font-style:normal;white-space:nowrap;color:#f7f1e3;background:#3d6f8e;transform:skewX(-8deg)}
+.cs-qnow{grid-column:3;grid-row:1;justify-self:end;font-size:12px;font-weight:800;white-space:nowrap}
+.cs-quirk.on .cs-qnow{color:#1d7a44}
+.cs-quirk.on .cs-qnow:before{content:"◆ "}
+.cs-quirk.off .cs-qnow{padding:0 7px;color:#fff;background:#a3220f;transform:skewX(-8deg)}
+.cs-quirk p{grid-column:1/-1;margin:0;font-size:13px;line-height:1.45;color:var(--on-paper)}
+.cs-quirk .cs-qtip{margin-top:3px;padding-top:4px;border-top:2px dashed rgba(13,14,22,.25);font-size:12px;font-weight:700;color:#a3220f}
+.cs-quirk.off{background:#f3efe2}
+.cs-quirk.off h4{background:linear-gradient(transparent 55%,#d9d4c4 55%)}
+/* 接下来: what to do with her next, as margin notes with hex bullets */
+.cs-next{flex:none;display:flex;flex-direction:column;gap:3px;margin:8px 2px 8px;padding:0;list-style:none}
+.cs-next li>*{position:relative;display:flex;align-items:baseline;gap:6px;width:100%;padding:3px 8px 3px 22px;font:400 13px/1.45 var(--font);text-align:left;color:var(--on-paper)}
+.cs-next li>*:before{content:"";position:absolute;left:7px;top:.6em;width:8px;height:9.2px;background:var(--ink);clip-path:var(--hexclip)}
+.cs-next button{background:linear-gradient(transparent 62%,rgba(255,200,61,.6) 62%)}
+.cs-next button i{margin-left:auto;font-style:normal;font-weight:700;font-size:12px;color:#7a4d00;white-space:nowrap}
+@media (max-width:720px){.cs-quirk{margin:2px 6px 8px 4px;padding:6px 10px 6px 10px;gap:1px 8px}.cs-quirk h4{font-size:21px}.cs-quirk p{font-size:12px;line-height:1.35}}
+/* On an ordinary phone the trait card and the whole stat dial share one screenful: the dial gives up a little size for it. */
+@media (max-width:720px) and (max-height:880px){.cs-quirk+.cs-grow .cs-dial{zoom:.86}}
+
+/* ---- Reading screens as manga pages (mangaPage): 菜单, 编年史, 下一章. Same cut as 内政 and 怎么玩, no tab bar. ---- */
+.page-screen .reading{max-width:none;height:100%;margin:0;font-size:inherit;line-height:inherit}
+.page-screen .screen-purse{display:none}
+.page-screen .screen-close,.guide-screen .screen-close{margin-left:auto}
+.cs.page{--leafw:clamp(460px,58vw,1040px);--nav:var(--safe-b)}
+.cs.page .cs-id h2{font-size:31px}
+.cs.page .cs-say .bubble{border-radius:30px 34px 34px 10px;padding:11px 16px 13px;text-align:left}
+.cs.page .cs-say .bubble b{font-size:12px;color:var(--on-paper-2)}
+.cs.page .cs-say .bubble p{font-size:14px;line-height:1.5}
+.cs.page .cs-leaf{justify-content:flex-start;gap:0;user-select:text;--text:var(--on-paper);--muted:var(--on-paper-2);--ink-2:#efe8d6;--ink-3:rgba(13,14,22,.28)}
+.cs.page .cs-leaf>*{flex:none}
+.cs.page h4{margin:18px 0 6px;font:400 22px/1.3 var(--display);color:var(--on-paper)}
+.cs.page h4 small{margin-left:8px;font:600 12px var(--font);color:var(--on-paper-2)}
+.cs.page .form-hint{margin:6px 0;font-size:13px;line-height:1.55;color:var(--on-paper-2)}
+.cs.page .small-button.secondary{color:var(--on-paper);background:var(--paper-2);border-color:var(--ink);font-weight:700}
+.cs.page .small-button.secondary:hover:not(:disabled){background:var(--gold)}
+.cs.page .field label{color:var(--on-paper-2)}
+.cs.page .field input,.cs.page .field select{color:var(--on-paper);background:#fff;border:2px solid var(--ink)}
+.cs.page .status-box{color:var(--on-paper);background:#fff;border:2px solid var(--ink)}
+.cs.page a{color:#17608f}
+.pg-empty{padding:18px;font:400 20px/1.5 var(--display);color:var(--on-paper-2);text-align:center}
+/* 菜单: the contents page of the magazine. Numbered entries with a dotted leader; saving is a pair of stamps. */
+.cs.page.menu .menu-list{counter-reset:entry;gap:2px;margin:2px 4px 6px 0}
+.cs.page.menu .menu-row{counter-increment:entry;grid-template-columns:44px 22px minmax(0,1fr) auto;gap:8px;min-height:54px;padding:4px 12px 4px 4px;color:var(--on-paper);background:none;border:0;border-bottom:2px dotted rgba(13,14,22,.4);clip-path:none;margin:0;transition:transform .12s cubic-bezier(.3,1.7,.5,1)}
+.cs.page.menu .menu-row:nth-child(even){margin:0 0 0 14px}
+.cs.page.menu .menu-row:before{content:counter(entry,decimal-leading-zero);font:800 26px/1 var(--font);font-style:italic;letter-spacing:-.04em;color:var(--on-paper);background:linear-gradient(transparent 58%,var(--gold) 58%);justify-self:start;padding:0 4px 0 2px}
+.cs.page.menu .menu-row:hover{background:none;transform:translateX(6px)}
+.cs.page.menu .menu-row svg{width:20px;height:20px}
+.cs.page.menu .menu-copy b{font:400 22px/1.2 var(--display)}
+.cs.page.menu .menu-copy small{font-size:12px;color:var(--on-paper-2)}
+.cs.page.menu .menu-pair{gap:12px;margin:8px 6px 4px 2px}
+.cs.page.menu .menu-pair .small-button{min-height:50px;font:400 19px var(--display);box-shadow:4px 4px 0 var(--ink)}
+.cs.page.menu #export-save{color:var(--on-paper);background:var(--gold);border-color:var(--ink)}
+.cs.page.menu #to-menu{flex:0 1 auto;min-height:42px;padding:6px 22px;font:700 14px var(--font);color:#f7f1e3;background:var(--ink);border-color:var(--ink);box-shadow:none}
+.cs.page.menu .menu-more{margin-top:10px;padding-top:6px;border-top:2px dashed rgba(13,14,22,.3)}
+.cs.page.menu .menu-more summary{color:#7a5a12;font-weight:700}
+/* 编年史: a strip of dated notes down an inked spine, the newest on top. */
+.cs.page.chron .timeline{margin:4px 6px 16px 10px;padding-left:18px;border-left:4px solid var(--ink)}
+.cs.page.chron .timeline-item{position:relative;margin:0 0 10px;padding:6px 12px 8px;font-size:14px;line-height:1.55;color:var(--on-paper);background:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.cs.page.chron .timeline-item:nth-child(even){margin-left:14px;background:#fffaf0}
+.cs.page.chron .timeline-item:before{content:"";position:absolute;left:-27px;top:9px;width:13px;height:15px;background:var(--gold);clip-path:var(--hexclip);box-shadow:inset 0 0 0 20px var(--gold)}
+.cs.page.chron .timeline-item:nth-child(even):before{left:-41px}
+.cs.page.chron .timeline-item small{display:inline-block;margin:0 8px 2px -4px;padding:0 8px;font:800 11px/1.6 var(--font);color:var(--gold);background:var(--ink);transform:skewX(-10deg)}
+/* 下一章: four notices pinned to the board, the nearest one first in her line. */
+.cs.page.plans .progress-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px;margin:6px 6px 4px 2px}
+.cs.page.plans .pg-plan{position:relative;padding:16px 14px 10px;color:var(--on-paper);background:#fff;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.cs.page.plans .pg-plan:nth-child(odd){transform:rotate(-.6deg)}.cs.page.plans .pg-plan:nth-child(even){transform:rotate(.5deg) translateY(4px)}
+.cs.page.plans .pg-plan .bk-no{left:-6px;top:-10px}
+.cs.page.plans .objective-row>div:first-child{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.cs.page.plans .objective-row span{font:400 20px/1.25 var(--display);color:var(--on-paper)}
+.cs.page.plans .objective-row b{font:800 15px var(--font);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cs.page.plans .objective-progress{height:12px;margin:6px 0 8px;background:#e7e1d0;border:2px solid var(--ink);transform:skewX(-10deg)}
+.cs.page.plans .objective-progress i{display:block;height:100%;background:var(--gold)}
+.cs.page.plans .pg-plan p{font-size:12.5px;line-height:1.5;color:var(--on-paper-2)}
+.cs.page.plans .reward-line{margin:8px 0 0;padding:4px 8px;font-size:13px;color:var(--on-paper);background:var(--paper-2);border:2px dashed rgba(13,14,22,.45)}
+.cs.page.plans .reward-line img{width:22px;height:22px}
+.cs.page.plans .generation-stats{gap:14px;margin:20px 4px 4px;color:var(--on-paper-2)}
+.cs.page.plans .generation-stats b{font-size:26px;color:var(--on-paper);background:linear-gradient(transparent 58%,var(--gold) 58%);padding:0 4px}
+.cs.page.plans .pg-forever{margin:10px 6px 18px 2px;padding:12px 16px;color:#f7f1e3;background:var(--ink);border:0;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%)}
+.cs.page.plans .pg-forever h3{font:400 20px/1.3 var(--display);color:var(--gold)}
+.cs.page.plans .pg-forever p{font-size:13px;color:#d9d4c4}
+@media (min-width:721px),(max-height:520px) and (orientation:landscape){
+  .cs.page .cs-say{left:calc(100% - var(--leafw) + 30px);right:74px;top:calc(12px + env(safe-area-inset-top,0px));width:auto}
+  .cs.page .cs-say .bubble{min-height:58px;border-radius:14px 30px 30px 26px;padding:8px 18px 10px 20px}
+  .cs.page .cs-say .bubble b{display:inline;margin-right:8px}
+  .cs.page .cs-say .bubble p{display:inline;font-size:15px}
+  .cs.page .cs-say .bubble:after{left:-13px;right:auto;top:52%;transform:skew(24deg,0) rotate(-38deg) scaleX(-1)}
+  .cs.page .cs-leaf{padding:104px 26px calc(14px + var(--safe-b)) 66px}
+}
+@media (max-height:520px) and (orientation:landscape){.cs.page .cs-leaf{padding:92px 14px 8px 52px}.cs.page .cs-say .bubble p{font-size:13px}.cs.page.plans .progress-plans{grid-template-columns:1fr}}
+@media (min-width:721px) and (max-width:1023px){.cs.page.plans .progress-plans{grid-template-columns:1fr}}
+@media (max-width:720px){
+  .cs.page{--stage:clamp(150px,23dvh,220px);--girl:min(calc(var(--stage)*1.5),62vw);--gx:74%}
+  .cs.page .cs-say{left:8px;top:calc(54px + env(safe-area-inset-top,0px));width:calc(var(--gx) - var(--girl)*.24 - 12px)}
+  .cs.page .cs-say .bubble p{font-size:12px;line-height:1.4}
+  .cs.page .cs-id{display:none}.cs.page .cs-ribbon{display:none}
+  .cs.page .cs-leaf{padding:30px 14px calc(10px + var(--safe-b)) 12px}
+  .cs.page.plans .progress-plans{grid-template-columns:1fr;gap:14px}
+  .cs.page.menu .menu-copy b{font-size:20px}
+}
+
+/* ---- Roster: the signature trait on every card, and a way into the cells that looks like a button ---- */
+.card-name small .card-quirk{font-style:normal;font-weight:800;color:var(--on-paper);background:linear-gradient(transparent 55%,color-mix(in srgb,var(--hero,#ffc83d) 60%,#fff) 55%);padding:0 2px}
+.card-name small .card-quirk.off{color:var(--on-paper-2);background:none;text-decoration:line-through;text-decoration-color:rgba(13,14,22,.4)}
+#open-jail{display:inline-flex;align-items:center;gap:6px;min-height:40px;margin:0 0 10px;padding:6px 20px 6px 14px;font:400 18px var(--display);color:var(--on-paper);background:var(--gold);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transform:skewX(-8deg)}
+#open-jail:hover{transform:skewX(-8deg) translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+/* The rally preview's summary: the mascot is a thumbnail beside the sentence, never a poster. */
+.rally-summary-card{display:flex;align-items:center;gap:12px}
+.rally-summary-card>img{flex:none;width:56px;height:64px;object-fit:cover;object-position:50% 0}
+.rally-summary-card>div{flex:1;min-width:0}
+/* Second-layer sheets (previews, settings, the prison registry): a black manga panel cut on a slant, the banner a speech bubble. */
+.reading>.comic-sheet{position:relative;padding-top:24px;border:0;box-shadow:none;background:radial-gradient(rgba(255,255,255,.055) 1px,transparent 1.4px) 0 0/6px 6px,rgba(13,14,22,.93);clip-path:polygon(0 14px,100% 0,100% 100%,0 100%)}
+.reading>.comic-sheet>.comic-banner:first-child{position:relative;margin:0 6px 16px 34px;padding:10px 20px 11px 18px;border-radius:10px 28px 26px 24px;background:var(--paper);box-shadow:5px 5px 0 var(--ink)}
+.reading>.comic-sheet>.comic-banner:first-child>img{position:relative;margin:-10px 0 -11px -52px;width:74px;height:74px;object-fit:contain;filter:drop-shadow(2px 0 0 var(--paper)) drop-shadow(-2px 0 0 var(--paper)) drop-shadow(0 -2px 0 var(--paper)) drop-shadow(0 2px 0 var(--paper))}
+.reading>.comic-sheet>.comic-banner:first-child>img.letter-face{width:66px;height:66px;margin:-6px 0 -6px -48px;border:3px solid var(--ink);filter:none}
+.reading>.comic-sheet>.comic-banner:first-child b{font:400 20px/1.3 var(--display)}
+@media (max-width:720px){
+  .reading>.comic-sheet>.comic-banner:first-child{margin-left:26px}
+  .reading>.comic-sheet>.comic-banner:first-child>img{width:58px;height:58px;margin-left:-42px}
+  .reading>.comic-sheet>.comic-banner:first-child>img.letter-face{width:52px;height:52px;margin-left:-38px}
+}
+/* The fine print of training lives one tap down. */
+.cs-how{margin-top:4px;font-size:12px;line-height:1.5;color:var(--on-paper-2)}
+.cs-how summary{cursor:pointer;font-weight:700;color:#7a5a12}
+.cs-how p{margin-top:3px}
+
+/* ---- A phone held sideways: a third of the height, so lessons and the right column are packed differently ---- */
+@media (max-height:520px) and (orientation:landscape){
+  /* The lesson's line is a caption along the top, between the goals box and the treasury: the middle of the map stays free for the thing it points at. */
+  .bubble.hint{left:calc(min(244px,34vw) + 22px);right:calc(224px + var(--sa-l) + var(--sa-r));top:calc(6px + var(--sa-t));bottom:auto;width:auto;max-width:none;max-height:110px;overflow:auto;padding:5px 11px 6px;border-radius:12px}
+  .bubble.hint .bubble-copy,.bubble.hint p{font-size:12.5px;line-height:1.4}
+  .bubble.hint:after{display:none}
+  /* Passing notices go to the foot of the map, clear of the lesson's caption and the treasury. */
+  .lesson .toast-container{top:auto;bottom:calc(70px + var(--safe-b));max-width:min(46vw,340px)}
+  /* A lesson's goals box keeps to its corner here too, so the caption has the top of the screen. */
+  .goals:has(.order),.goals:has(#quest-done),.goals:has(#quest-practice){width:min(244px,34vw)}
+}
+@media (max-height:520px) and (min-width:721px){
+  .ledger{max-width:204px}
+  .bubble.hint{right:calc(226px + var(--sa-l) + var(--sa-r))}
+}
+/* Short screens have no room for a legend under the layer switch: the pills explain themselves on the tile card. */
+@media (max-height:600px){.map-legend{display:none!important}}
+/* Wide screens: a passing notice stays in the gap between the goals box and the treasury. */
+@media (min-width:721px) and (min-height:521px){.toast-container{max-width:max(260px,calc(100vw - 700px))}}
+/* A passing toast keeps clear of the army rail on phones. */
+@media (max-width:720px){.toast-container .toast{max-width:calc(100vw - 196px)}}
+/* While a lesson makes the end-turn dial breathe, the undo button steps aside so the glow does not sit on it. */
+@media (min-width:1024px){.undo:has(+ .dial.guide-target){translate:calc(-1 * var(--sa-r) - 18px) 0}}
+
+/* The full summary row is the disclosure target on both the title and in-game menus. */
+.art-pack{margin:8px 0;min-width:0}
+.art-pack summary{cursor:pointer;font-weight:700;min-height:36px;padding:6px 0;box-sizing:border-box}
+.art-pack [hidden]{display:none!important}
+.art-pack .form-actions{display:flex;flex-wrap:wrap;gap:6px}
+.art-pack figure{margin:8px 0;text-align:center}
+.art-pack figure img{display:block;max-width:100%;height:auto;max-height:44vh;object-fit:contain;margin:auto}
+.art-pack figcaption,.art-pack [data-pack="status"]{overflow-wrap:anywhere}

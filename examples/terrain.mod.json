@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "example.crystal-steppe-pack",
+  "name": "新地貌 · 晶露荒原",
+  "terrains": [
+    {
+      "id": "example.crystal-steppe",
+      "name": "晶露荒原",
+      "color": "#a8b5c9",
+      "icon": "crystal",
+      "description": "晨雾在石英簇间凝结；商队愿意为这里的晶石停留。",
+      "yield": { "gold": 3, "supply": 0 },
+      "defense": 2,
+      "passable": true
+    }
+  ],
+  "tiles": [
+    { "q": 20, "r": -10, "terrainId": "example.crystal-steppe", "ownerId": null, "troops": 0 },
+    { "q": 20, "r": -9, "terrainId": "example.crystal-steppe", "ownerId": null, "troops": 0 },
+    { "q": 19, "r": -9, "terrainId": "example.crystal-steppe", "ownerId": null, "troops": 0 }
+  ]
+}

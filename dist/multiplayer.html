@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN" data-edition="sfw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e1a">
+  <title>联机大厅 · 萌萌幻奏</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css?v=1118-1603">
+  <link rel="stylesheet" href="comic-ui.css?v=1118-1603">
+  <link rel="stylesheet" href="saga.css?v=1118-1603">
+  <link rel="stylesheet" href="battle.css?v=1118-1603">
+  <link rel="stylesheet" href="multiplayer.css?v=1118-1603">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✦</span><span>萌萌幻奏<small>MISTBOUND · ONLINE</small></span></a>
+    <nav aria-label="游戏版本"><a id="edition-sfw" href="https://mistbound.galbands.com/multiplayer.html">普通版</a><a id="edition-ng" href="https://ng.mistbound.galbands.com/multiplayer.html">NG 版</a></nav>
+    <span id="account" class="account">正在核验登录…</span>
+  </header>
+  <div id="connection" class="connection" role="status" hidden></div>
+  <main id="main"><div class="loading">正在进入雾海…</div></main>
+  <dialog id="modal" class="screen sheet-mode page-screen" aria-label="游戏详情">
+    <div class="screen-head"><h2 id="modal-title"></h2><div class="screen-purse" id="modal-purse"></div><button class="screen-close" id="close-modal" aria-label="返回地图">×</button></div>
+    <div id="modal-body" class="screen-body"></div>
+  </dialog>
+  <div class="speech-layer" id="speech-layer"><div class="bubble" id="bubble" hidden><div id="bubble-copy"></div></div></div>
+  <section id="title-screen" hidden></section>
+  <aside id="chat" class="chat" aria-label="房间聊天" hidden>
+    <button id="chat-toggle" class="chat-title" aria-expanded="true"><span>房间频道</span><span id="chat-badge">−</span></button>
+    <div id="chat-content">
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions text"></div>
+      <form id="chat-form" class="chat-form"><label class="sr-only" for="chat-text">聊天消息</label><input id="chat-text" maxlength="300" placeholder="在房间频道发言…" autocomplete="off"><button type="submit">发送</button></form>
+    </div>
+  </aside>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="confirm-dialog"><form method="dialog"><h2 id="confirm-title">确认操作</h2><p id="confirm-copy"></p><div class="dialog-actions"><button value="cancel" class="secondary">取消</button><button id="confirm-ok" value="confirm">确认</button></div></form></dialog>
+  <script type="module" src="multiplayer.mjs?v=1118-1603"></script>
+</body>
+</html>

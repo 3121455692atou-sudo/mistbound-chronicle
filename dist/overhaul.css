@@ -1,0 +1,493 @@
+/* 2026-11 single-player overhaul: map tools, honest prices, in-place forms. Built on the army card (.ap-*) and the comic page (.cs-*). */
+.ap-flag.tool{display:grid;place-items:center;color:var(--ink)}
+.ap-flag.tool svg{width:19px;height:19px;margin-top:-5px}
+.pick-price{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;vertical-align:middle}
+.pick-price .pp{display:inline-flex;align-items:center;gap:3px;padding:2px 9px 2px 4px;border-radius:999px;background:#fff6d8;box-shadow:inset 0 0 0 1.5px var(--ink);font:800 14px/1.25 var(--font);color:var(--on-paper);font-variant-numeric:tabular-nums}
+.pick-price .pp img{width:18px;height:18px}
+.pick-price .pp.ap{padding:2px 9px;background:var(--ink);color:var(--gold);font-weight:700;font-size:12px}
+.map-tool .ap-goal h4 small{margin-left:2px}
+#map-pick-note.nudge{animation:ap-nudge .32s}
+.map-tool .ap-goal p+p{margin-top:3px}
+
+/* ---------- 内政：科技页（像《文明6》《钢铁雄心4》那样：阶是列、分支是行、每项一张卡，连线只走直角） ---------- */
+.cs.gov[data-tab=tech] [data-gov-page=tech],.governance[data-tab=tech] [data-gov-page=tech]{display:flex}
+.tt{display:flex;flex-direction:column;gap:10px;width:100%;min-width:0;color:var(--on-paper)}
+/* The research strip: what is being learned, then the queue as chips. */
+.tt-now{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;padding:6px 12px;background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--ink)}
+.tt-now>.tt-ic{width:26px;height:30px}
+.tt-now.idle{display:block;background:#fff;box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--gold)}
+.tt-now.idle b{display:block;font:400 18px/1.3 var(--display)}
+.tt-now.idle small{font-size:12.5px;line-height:1.5;color:var(--on-paper-2)}
+.tt-nowtx{flex:1 1 300px;min-width:0;display:grid;grid-template-columns:auto minmax(50px,1fr) auto;align-items:center;gap:2px 10px}
+.tt-nowtx b{font:400 17px/1.25 var(--display);white-space:nowrap}
+.tt-nowtx .tt-bar{margin:0}
+.tt-nowtx small{font-size:12px;white-space:nowrap;color:var(--on-paper-2)}
+.tt-bar{display:block;height:6px;margin:4px 0 2px;background:rgba(13,14,22,.12);box-shadow:inset 0 0 0 1px var(--ink)}
+.tt-bar u{display:block;height:100%;background:var(--c,var(--gold))}
+.tt-queue{flex:1 1 230px;min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:5px 6px}
+.tt-queue small{margin-right:2px;font-size:12px;font-weight:800;color:var(--on-paper-2)}
+.tt-queue.none{display:block;font-size:12px;color:var(--on-paper-2)}
+.tt-queue i{font-style:normal;font-weight:900;color:var(--on-paper-2)}
+.tt-qchip{padding:2px 9px 2px 13px;font:800 12.5px/1.3 var(--font);color:var(--on-paper);background:#fff;border-radius:999px;box-shadow:inset 0 0 0 2px var(--ink),inset 7px 0 0 var(--c);cursor:pointer}
+/* Hex icon, shared by cards, strip and the detail card. Only the icon is clipped; numbers live on the card, never inside this. */
+.tt-ic{position:relative;flex:none;display:grid;place-items:center;width:30px;height:34px;background:var(--ink);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.tt-ic:before{content:"";position:absolute;inset:2.5px;background:#fff;clip-path:inherit}
+.tt-ic svg{position:relative;width:16px;height:16px;color:var(--ink)}
+.tt-ic.big{width:50px;height:57px}
+.tt-ic.big svg{width:24px;height:24px}
+.tt-now .tt-ic:before,.tt-card .tt-ic:before{background:var(--c)}
+/* The board. Computer: branches are columns, tiers run down, everything fits. Phone (below): tiers run sideways and scroll. */
+.tt-board{min-width:0;background:#fffdf6;box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--ink)}
+.tt-tree{--flow:down;position:relative;display:grid;grid-template-columns:30px repeat(6,minmax(0,1fr));grid-auto-rows:50px;grid-template-rows:30px;column-gap:12px;row-gap:20px;padding:10px 14px 16px 8px}
+.tt-edges{position:absolute;left:0;top:0;pointer-events:none}
+.tt-bands rect{opacity:.15;stroke:none}
+.tt-edges path{fill:none;stroke:#b3aa93;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tt-edges path.lit{stroke:var(--ink);stroke-width:2.5}
+.tt-edges path.road-under{stroke:var(--ink);stroke-width:8}
+.tt-edges path.road{stroke:var(--gold);stroke-width:4.5}
+.tt-edges path.dim{opacity:.35}
+.tt-corner{grid-row:1;grid-column:1}
+.tt-lane{grid-row:1;grid-column:var(--lane);position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:4px;font-size:13px;font-weight:900;color:var(--on-paper);box-shadow:inset 0 -5px 0 var(--c)}
+.tt-lane svg{width:16px;height:16px;color:var(--ink)}
+.tt-tier{grid-column:1;grid-row:var(--tier);position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;color:var(--on-paper-2)}
+.tt-tier b{font:400 17px/1 var(--display);color:var(--on-paper)}
+.tt-tier small{margin-top:2px;font-size:10px}
+/* Cards. */
+.tt-node{grid-row:var(--tier);grid-column:var(--lane);position:relative;z-index:1;container-type:inline-size;min-width:0;display:flex;align-items:center;gap:7px;padding:0 8px 0 7px;text-align:left;color:var(--on-paper);background:#fff;border-radius:3px;box-shadow:inset 0 0 0 2px var(--ink),3px 3px 0 var(--ink);cursor:pointer;transition:transform .12s cubic-bezier(.3,1.7,.5,1),opacity .15s}
+.tt-node:hover{transform:translateY(-1px)}
+.tt-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.tt-tx b{overflow:hidden;font:400 15px/1.15 var(--display);white-space:nowrap;text-overflow:ellipsis}
+.tt-tx small{overflow:hidden;font-size:11px;line-height:1.2;white-space:nowrap;text-overflow:ellipsis;font-variant-numeric:tabular-nums;color:var(--on-paper-2)}
+.tt-un{position:absolute;top:4px;right:5px;display:flex;gap:2px}
+.tt-un svg{width:12px;height:12px;color:var(--on-paper-2)}
+.tt-node .tt-bar{position:absolute;left:8px;right:8px;bottom:5px;height:4px;margin:0}
+.tt-node.known{background:color-mix(in srgb,var(--c) 32%,#fff)}
+.tt-node.known .tt-ic:before{background:var(--c)}
+.tt-node.ready .tt-ic:before{background:color-mix(in srgb,var(--c) 45%,#fff)}
+.tt-node.ready{box-shadow:inset 0 0 0 2px var(--ink),inset 0 -4px 0 var(--c),3px 3px 0 var(--ink)}
+.tt-node.locked{background:#f4efe2;box-shadow:inset 0 0 0 2px #a59e8d,3px 3px 0 #d3ccb9}
+.tt-node.locked .tt-ic{background:#a59e8d}
+.tt-node.locked .tt-ic:before{background:#ece6d6}
+.tt-node.locked .tt-ic svg{opacity:.55}
+.tt-node.locked .tt-tx b{color:#68635a}
+.tt-node.active{background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink),0 0 0 3px var(--gold),3px 3px 0 3px var(--ink)}
+.tt-node.active .tt-ic:before{background:var(--gold)}
+.tt-node.road{box-shadow:inset 0 0 0 2px var(--ink),0 0 0 3px var(--gold),3px 3px 0 3px var(--ink)}
+.tt-node.dim{opacity:.42}
+.tt-node.on{z-index:2;transform:translateY(-2px);box-shadow:inset 0 0 0 3px var(--ink),0 0 0 4px var(--gold),5px 6px 0 4px var(--ink)}
+/* Step numbers and queue places sit whole on the card's top-left corner, outside it, so nothing cuts them. */
+.tt-node:has(>em){padding-left:15px}
+.tt-node em{position:absolute;z-index:1;left:-11px;top:-11px;min-width:23px;height:23px;padding:0 5px;font:900 13px/23px var(--font);font-style:normal;text-align:center;font-variant-numeric:tabular-nums;color:var(--ink);background:var(--gold);border-radius:12px;box-shadow:0 0 0 2px var(--ink)}
+.tt-node em.tt-q{color:var(--gold);background:var(--ink);box-shadow:0 0 0 2px var(--gold)}
+.tt-legend{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;font-size:12px;color:var(--on-paper-2)}
+.tt-legend span{display:inline-flex;align-items:center;gap:4px}
+.tt-legend span:before{content:"";width:14px;height:10px;border-radius:2px;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.tt-legend .k:before{background:#c8e8b4}
+.tt-legend .r:before{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink),inset 0 -3px 0 var(--gold)}
+.tt-legend .l:before{background:#f4efe2;box-shadow:inset 0 0 0 1.5px #a59e8d}
+.tt-legend .u:before{display:none}
+.tt-legend svg{width:12px;height:12px}
+/* The card under the strip: what it does, what it needs, how far away, one burst. */
+.tt-card{--text:#f7f1e3;--muted:#b9bfcf;display:flex;align-items:center;gap:12px;padding:10px 14px 10px 12px;color:#f3eee2;background:var(--ink);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);box-shadow:inset 0 5px 0 var(--c)}
+.tt-card header{flex:0 0 172px;min-width:0}
+.tt-card h3{font:400 23px/1.15 var(--display);color:var(--gold)}
+.tt-card header small{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+.tt-mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.tt-line{margin-top:4px;font-size:12px;line-height:1.45;color:#e9e2d1}
+.tt-chips{display:flex;flex-wrap:wrap;gap:5px}
+.tt-chips span{padding:2px 9px;font-size:12px;font-weight:800;border-radius:999px}
+.tt-chips .fx{color:var(--ink);background:var(--c)}
+.tt-chips .un{color:#ffe08a;box-shadow:inset 0 0 0 1.5px #8a6d1f}
+.tt-pre{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+.tt-pre small{margin-right:2px;font-size:12px;font-weight:800;color:var(--muted)}
+.tt-pre button{display:inline-flex;align-items:center;gap:3px;padding:1px 9px;font:700 12px/1.45 var(--font);color:#ffcfc4;background:rgba(255,255,255,.06);border-radius:999px;box-shadow:inset 0 0 0 1.5px rgba(255,154,134,.65);cursor:pointer}
+.tt-pre button.ok{color:#d6f3c2;box-shadow:inset 0 0 0 1.5px rgba(143,209,106,.65)}
+.tt-pre svg{width:11px;height:11px}
+.tt-need{font-size:12px;line-height:1.5;color:#ffe08a}
+.tt-why{font-size:12px;font-weight:700;color:#ff9a86}
+.tt-foot{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tt-foot .cs-burst{margin:0}
+/* Narrow cards drop the icon; the column colour already says the branch. */
+@container (max-width:110px){.tt-node .tt-ic,.tt-node .tt-un{display:none}.tt-node .tt-tx{margin-right:-3px}}
+/* Short computer screens: shorter cards so all seven tiers fit under the card above. */
+@media (min-width:721px) and (max-height:820px){.tt-tree{grid-auto-rows:38px;grid-template-rows:26px;row-gap:12px;padding-top:6px}.tt-tx b{font-size:14px;line-height:1.1}.tt-tx small{font-size:10.5px}.tt-node .tt-bar{bottom:3px}.tt-legend{display:none}}
+/* The comic page grows on big screens (cs-leaf zoom); the tech page grows less, so the tree keeps room for seven tiers. */
+@media (min-width:1000px) and (min-height:640px){.cs.gov[data-tab=tech] .cs-leaf>[data-gov-page=tech]{zoom:1}}
+@media (min-width:1600px) and (min-height:900px){.cs.gov[data-tab=tech] .cs-leaf>[data-gov-page=tech]{zoom:1.3}}
+@media (max-width:720px){
+  .tt-card{flex-wrap:wrap;gap:6px 10px;padding:9px 10px 8px}
+  .tt-card header{flex:1 1 40%}
+  .tt-mid{order:3;flex-basis:100%}
+  .tt-foot{flex-direction:row}
+  .tt-card h3{font-size:20px}
+  .tt-ic.big{width:42px;height:48px}
+  .tt-line{display:none}
+  .tt-nowtx{grid-template-columns:auto 1fr}
+  .tt-nowtx small{grid-column:1/-1}
+  .tt-board{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  .tt-tree{--flow:right;width:max-content;grid-template-columns:46px repeat(7,112px);grid-template-rows:24px;grid-auto-rows:46px;column-gap:30px;row-gap:16px;padding:8px 14px 14px 0}
+  .tt-lane{grid-column:1;grid-row:var(--lane);position:sticky;left:0;z-index:3;flex-direction:column;gap:1px;font-size:11px;background:#fff;box-shadow:inset -5px 0 0 var(--c),2px 0 0 var(--ink)}
+  .tt-tier{grid-row:1;grid-column:var(--tier);flex-direction:row;gap:2px}
+  .tt-tier b{font-size:14px}
+  .tt-tier small{margin:0;font-size:12px}
+  .tt-node{grid-row:var(--lane);grid-column:var(--tier);gap:5px;padding:0 6px 0 5px}
+  .tt-ic{width:24px;height:28px}
+  .tt-ic svg{width:13px;height:13px}
+  .tt-tx b{font-size:13.5px}
+  .tt-tx small{font-size:10px}
+  .tt-un{top:3px;right:3px}
+  .tt-un svg{width:10px;height:10px}
+}
+
+/* ---------- 内政：货币 ---------- */
+.gv-money .mn-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px;margin:6px 0}
+.gv-money .mn-stats span{display:flex;flex-direction:column;align-items:center;padding:5px 2px 4px;background:#fff;box-shadow:inset 0 0 0 2px var(--ink)}
+.gv-money .mn-stats b{font:800 17px/1.2 var(--font);font-variant-numeric:tabular-nums;color:var(--on-paper)}
+.gv-money .mn-stats small{font-size:11px;color:var(--on-paper-2)}
+.gv-money .mn-stats .good{box-shadow:inset 0 0 0 2px var(--ink),inset 0 -5px 0 #73ce9d}
+.gv-money .mn-stats .bad{box-shadow:inset 0 0 0 2px var(--ink),inset 0 -5px 0 #f0452f}
+.gv-money .mn-stats .bad b{color:#b52a18}
+.gv-money .mn-say{margin:2px 0 6px}
+.gv-money .mn-acts .hx{position:relative;--hxw:66px}
+.gv-money .mn-acts small{font-size:11px;font-weight:700}
+.mn-rate{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.mn-rate b{font:400 16px var(--display);margin-right:4px}
+.mn-rate button{min-width:56px;min-height:36px;padding:4px 10px;font-weight:800;color:var(--on-paper);background:#fff;box-shadow:inset 0 0 0 2px var(--ink);transform:skewX(-8deg)}
+.mn-rate button.now{background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink),inset 0 -4px 0 #73ce9d}
+.mn-rate button.on{background:var(--gold)}
+.mn-rate small{flex-basis:100%;font-size:12px;color:var(--on-paper-2)}
+
+/* ---------- 内政：城市 ---------- */
+.city-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin:6px 0}
+.city-card{display:flex;align-items:center;gap:10px;min-height:64px;padding:6px 12px 6px 8px;text-align:left;color:var(--on-paper);background:#fff;box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--ink)}
+.city-card:active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--ink),2px 2px 0 var(--ink)}
+.city-face{flex:none;width:46px;height:52px;overflow:hidden;background:var(--ink);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.city-face img{width:100%;height:150%;object-fit:cover;object-position:50% 8%}
+.city-face i{display:grid;place-items:center;height:100%;font-style:normal;font-size:22px;font-weight:900;color:#ff9a86}
+.city-text{flex:1;min-width:0;display:flex;flex-direction:column}
+.city-text b{font:400 17px/1.2 var(--display)}
+.city-text small{font-size:12px;color:var(--on-paper-2)}
+.city-lib{display:block;height:5px;margin:3px 0 1px;background:rgba(13,14,22,.12)}
+.city-lib u{display:block;width:var(--p);height:100%;background:linear-gradient(90deg,#73ce9d,#ffc83d 60%,#f0452f)}
+.city-card>svg{flex:none;width:18px;height:18px}
+
+/* ---------- 地块花瓣：卡片里的表单 ---------- */
+.tag.ring-form{max-width:330px;min-width:260px}
+.ring-form .rf-say{margin:4px 0 6px;font-size:12px;line-height:1.5;color:var(--text)}
+.ring-form .rf-say b{color:var(--gold)}
+.ring-form .alarm{margin-top:4px;font-size:12px;font-weight:700;color:#ff9a86}
+.rf-faces{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px}
+.rf-face{display:flex;flex-direction:column;align-items:center;gap:1px;width:56px;padding:0;color:var(--text);background:none}
+.rf-face i{display:block;width:46px;height:52px;overflow:hidden;background:#3d4258;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.rf-face i img{width:100%;height:150%;object-fit:cover;object-position:50% 8%}
+.rf-face b{max-width:56px;font-size:11px;font-weight:700;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rf-face.on i{background:var(--gold);padding:3px}
+.rf-face.on i img{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.rf-face.on b{color:var(--gold)}
+.rf-models{display:flex;gap:6px;margin:4px 0}
+.rf-model{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0;padding:5px 3px 4px;color:var(--text);background:#262b40;box-shadow:inset 0 0 0 2px #3d4258}
+.rf-model img{width:46px;height:34px;object-fit:contain}
+.rf-model b{font-size:12px;font-weight:800}
+.rf-model small{font-size:10px;line-height:1.25;color:var(--muted);text-align:center}
+.rf-model.on{box-shadow:inset 0 0 0 3px var(--gold);background:#3a3420}
+.rf-model.off{opacity:.55}
+.rf-count{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12px}
+.rf-count button{width:34px;height:34px;font-size:18px;font-weight:900;color:var(--ink);background:var(--gold);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.rf-count button:disabled{background:#5b5a66}
+.rf-count b{min-width:20px;text-align:center;font-size:18px}
+.rf-count small{color:var(--muted)}
+.rf-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px}
+.rf-foot .cs-burst{margin:4px 0}
+.ring-form .cs-link{margin:2px 0 6px}
+.petal.on{filter:drop-shadow(0 0 0 var(--gold)) drop-shadow(0 0 6px var(--gold))}
+.ap-mini-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.ap-mini.red{color:#fff;background:#b52a18}
+
+/* ---------- 牢房：肖申克 ---------- */
+.shawshank{margin-top:14px;padding:10px 12px;color:var(--text);background:#1b1d29;box-shadow:inset 0 0 0 2px #5b5a66}
+.shawshank h3{display:flex;align-items:center;gap:8px;font:400 19px var(--display);color:#c9cbd6}
+.shawshank h3 img{width:44px;height:34px;object-fit:contain;filter:grayscale(.6)}
+.shawshank h3 small{font:600 12px var(--font);color:var(--muted)}
+.shaw-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.shaw-face{display:flex;flex-direction:column;align-items:center;width:64px}
+.shaw-face i{display:block;width:52px;height:60px;overflow:hidden;background:#3d4258;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);filter:grayscale(.85) brightness(.85)}
+.shaw-face i img{width:100%;height:150%;object-fit:cover;object-position:50% 8%}
+.shaw-face b{font-size:12px}
+.shaw-face small{font-size:10px;color:var(--muted)}
+
+/* ---------- 国库下的角标：研究、稀有罪袋 ---------- */
+.quick.tech{border-color:#7cc7ff;color:#cfe9ff}
+.quick.tech.idle{border-color:var(--gold);color:var(--gold)}
+.map-quick .quick.tech span{max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quick.tech.idle{animation:quick-ping 1.6s ease-in-out infinite}
+.census .census-rare{display:inline;padding:0 4px;font:inherit;color:inherit;background:rgba(255,200,61,.18);border-radius:4px;text-decoration:underline dotted;text-underline-offset:3px}
+.census .census-rare b{color:var(--gold)}
+
+/* ---------- 大工程卡片 ---------- */
+.gp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;max-height:208px;overflow-y:auto;margin:4px 0;overscroll-behavior:contain}
+.gp-card{display:flex;flex-direction:column;align-items:center;gap:0;padding:4px 2px 3px;color:var(--text);background:#262b40;box-shadow:inset 0 0 0 2px #3d4258;min-width:0}
+.gp-card img{width:44px;height:34px;object-fit:contain}
+.gp-card b{max-width:100%;font-size:12px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gp-card small{max-width:100%;font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gp-card.wonder{box-shadow:inset 0 0 0 2px #8a6d1f}
+.gp-card.wonder b{color:#ffe08a}
+.gp-card.on{box-shadow:inset 0 0 0 3px var(--gold);background:#3a3420}
+.gp-card.off{opacity:.55}
+.cs-burst[aria-disabled=true]{filter:grayscale(1);opacity:.6}
+
+/* ---------- 编队卡：主力/自由、方针、改道 ---------- */
+.ap-modes{display:inline-flex;margin-left:6px;box-shadow:inset 0 0 0 2px var(--ink);transform:skewX(-8deg)}
+.ap-modes button{min-height:30px;padding:2px 9px;font-weight:800;font-size:12px;color:var(--on-paper-2);background:#fff}
+.ap-modes button[aria-pressed=true]{color:var(--on-paper);background:var(--gold)}
+.ap-modes button[data-army-mode=free][aria-pressed=true]{color:#fff;background:#3d6f8e}
+.ap-free-row{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:6px;padding-top:6px;border-top:2px solid rgba(13,14,22,.14)}
+.ap-free-row button{min-height:30px;padding:2px 10px;font-size:12px;font-weight:800;color:var(--on-paper);background:#fff;box-shadow:inset 0 0 0 2px var(--ink),inset 0 -4px 0 var(--c,transparent)}
+.ap-free-row button[aria-pressed=true]{background:var(--gold)}
+.ap-free-row small{font-size:12px;color:var(--on-paper-2)}
+.ap-mini.on{color:var(--on-paper);background:var(--gold)}
+.ap-mini-row .ap-hint{flex-basis:100%;margin:2px 0 0;font-size:12px;color:var(--on-paper-2)}
+
+/* ---------- 诸国：多选 ---------- */
+.dip-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.dip-top .form-hint{margin:0}
+.dip-kinds{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.dip-kinds button{min-height:38px;padding:4px 14px;font-weight:800;color:var(--text);background:var(--ink-2);border:2px solid var(--text);transform:skewX(-8deg)}
+.dip-kinds button[aria-checked=true]{color:var(--on-paper);background:var(--gold);border-color:var(--gold)}
+.banners.picking .banner{cursor:pointer}
+.banners.picking .banner.locked{opacity:.5}
+.banners.picking .banner.picked{outline:4px solid var(--gold);outline-offset:-4px}
+.pick-box{position:absolute;z-index:6;right:8px;top:8px;display:grid;place-items:center;width:36px;height:36px;font-size:24px;font-weight:900;color:var(--on-paper);background:#fff;box-shadow:inset 0 0 0 3px var(--ink)}
+.banner.picked .pick-box{background:var(--gold)}
+.pick-note{display:inline-block;margin:2px 0;padding:1px 8px;font-size:12px;font-style:normal;font-weight:800;color:var(--on-paper);background:#fff}
+.pick-note.yes{background:#9ee3b5}.pick-note.no{background:#ffc2b8}.pick-note.off{color:var(--text);background:#3d4258}
+.dip-bar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 10px 8px 14px;color:var(--text);background:var(--ink);border-top:3px solid var(--gold);box-shadow:0 -6px 14px rgba(0,0,0,.35)}
+.dip-bar>div{flex:1;min-width:0}
+.dip-bar b{display:block;font:400 19px var(--display);color:var(--gold)}
+.dip-bar small{display:block;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- 会谈：可组合条款 ---------- */
+.cs-terms.deal{align-items:stretch}
+.cs-term.land{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.deal-step{display:inline-flex;align-items:center;gap:6px}
+.deal-step button{width:28px;height:28px;font-size:17px;font-weight:900;color:var(--on-paper);background:var(--gold);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.deal-step button:disabled{background:#c9c4b4}
+.deal-step em{min-width:18px;font-style:normal;font-weight:900;font-size:16px;text-align:center}
+.deal-sum{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin:6px 0 2px;font-size:13px}
+.deal-sum b{font-size:16px}
+.deal-sum .city-lib{flex-basis:100%}
+.cs.book[data-tab=realm] [data-book-page=realm]{display:grid}
+.mn-amounts{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0}
+.mn-amounts button{min-width:44px;min-height:30px;padding:2px 9px;font-weight:800;color:var(--on-paper);background:#fff;border-radius:3px}
+.mn-amounts button[aria-pressed=true]{background:var(--gold)}
+/* Phones: the 大工程 cards become one swipeable row so the price and 开工！ stay on screen. */
+@media (max-width:720px){
+  .gp-grid{display:flex;gap:6px;max-height:none;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;padding-bottom:2px}
+  .gp-card{flex:0 0 92px;scroll-snap-align:start}
+  .rf-faces{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+  .rf-face{flex:0 0 56px}
+  .tag.ring-form{min-width:0}
+  .mn-rate button{min-width:48px}
+  .dip-bar{flex-wrap:wrap}
+  .dip-bar>div{flex-basis:100%}
+}
+/* A form needs its price and burst on screen: the phone sheet may grow for forms (the ring moves up above it). */
+.tag.tile-sheet.ring-form{max-height:min(50dvh,380px)}
+.ap-modes button{white-space:nowrap}
+@media (max-width:720px){.ap-modes{margin-left:2px}.ap-modes button{min-height:28px;padding:2px 6px}.ap-head h3{font-size:18px}}
+/* The gov page paints h3 with a highlighter and p in paper ink; inside the dark card both must be light. */
+.cs.gov .tt-card h3,.governance .tt-card h3{padding:0;font:400 23px/1.15 var(--display);color:var(--gold);background:none}
+.cs.gov .tt-card p,.governance .tt-card p{color:var(--text)}
+.cs.gov .tt-card .tt-need{color:#ffe08a}
+.cs.gov .tt-card .tt-why{color:#ff9a86}
+.cs.gov .tt-card small{color:var(--muted)}
+
+/* ---------- 会谈：和约条款（可组合） ---------- */
+.cs-terms.treaty{display:flex;flex-wrap:wrap;gap:6px}
+.cs-terms.treaty .cs-term{flex:1 1 104px;min-width:96px}
+.cs-terms.treaty .cs-term.off{opacity:.45}
+.cs-term.pay{flex:2 1 220px!important;display:flex;flex-direction:column;align-items:stretch;gap:4px}
+.pay-steps{display:flex;gap:4px}
+.pay-steps button{flex:1;display:flex;flex-direction:column;align-items:center;min-height:40px;padding:2px 4px;font-weight:800;font-size:12px;color:var(--on-paper);background:#fff;box-shadow:inset 0 0 0 2px var(--ink)}
+.pay-steps button small{font-size:10px;font-weight:600;color:var(--on-paper-2)}
+.pay-steps button[aria-pressed=true]{background:var(--gold)}
+.cs-term.land.off{opacity:.55}
+.treaty-idle{display:block;margin:4px 0 0;font-size:12px;color:var(--on-paper-2)}
+/* 每回合自动探索: fog card and 内政 · 边境 share one row of steps. */
+.pay-steps.auto-explore{margin:8px 0 6px}
+.pay-steps.auto-explore button{min-height:36px;justify-content:center}
+.auto-explore-note{display:block;line-height:1.45}
+/* 集结 / 会师 / 变卖 as ring forms */
+.ring-form .ring-steps{margin:6px 0}
+.ring-form .ring-check{display:flex;align-items:center;gap:6px;margin:4px 0;font-size:12px;color:var(--text);cursor:pointer}
+.ring-form .ring-check input{width:16px;height:16px;margin:0;accent-color:var(--gold)}
+.ring-roster{list-style:none;margin:6px 0 2px;padding:0;display:grid;gap:5px}
+.ring-roster li{display:flex;align-items:center;gap:8px;min-width:0}
+.ring-roster i{width:30px;height:30px;flex:none;border-radius:50%;overflow:hidden;background:var(--ink-2);box-shadow:0 0 0 2px var(--gold)}
+.ring-roster img{width:100%;height:100%;object-fit:cover;object-position:50% 14%}
+.ring-roster span{display:flex;flex-direction:column;min-width:0}
+.ring-roster b{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ring-roster small{font-size:11px;color:var(--muted)}
+/* A long ring form scrolls inside its card instead of running under the bottom tabs. */
+.flower .tag.ring-form:not(.tile-sheet){max-height:calc(100dvh - 150px);overflow-y:auto;overscroll-behavior:contain}
+/* 稀有 sits between the census spans: keep the dot separators, and on a phone give it its own line instead of running off the screen. */
+.census .census-rare+span:before{content:" · "}
+.census .census-rare{margin-left:4px}
+@media (max-width:720px){.census .census-rare{display:inline-block;margin:2px 0 0 0}.census{line-height:1.5}}
+/* 内政: the paper leaf takes 58vw, so on laptop widths the realm/turn ribbon beside the girl shrank to "我… 第1…". It only repeats the HUD; hide it there. */
+@media (max-width:1366px){.cs.gov .cs-ribbon{display:none}}
+/* ---------- 差事：闲人去管地 ---------- */
+.quick.duty{border-color:#8fd16a;color:#d6f3c2}
+.duty-now{display:flex;align-items:center;gap:8px;margin:6px 0 2px;padding:5px 8px 5px 5px;background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink),3px 3px 0 var(--ink)}
+.duty-now i,.duty-pick i,.duty-plan i{flex:none;width:36px;height:36px;overflow:hidden;border-radius:50%;background:#ede6d3;box-shadow:0 0 0 2px var(--ink)}
+.duty-now i img,.duty-pick i img,.duty-plan i img{width:100%;height:auto;object-fit:cover;object-position:50% 8%;transform:scale(1.6);transform-origin:50% 18%}
+.duty-now span{flex:1;min-width:0;display:flex;flex-direction:column}
+.duty-now b{font:400 16px/1.2 var(--display)}
+.duty-now small{font-size:12px;color:var(--on-paper-2)}
+.duty-head{margin:8px 0 2px;font-size:12px;font-weight:900;color:var(--on-paper-2)}
+.duty-pick{display:flex;flex-direction:column;gap:4px;margin:0;padding:0;list-style:none}
+.duty-pick button{display:flex;align-items:center;gap:8px;width:100%;padding:4px 8px 4px 4px;text-align:left;color:var(--on-paper);background:#fff;border-radius:999px;box-shadow:inset 0 0 0 2px rgba(13,14,22,.25);cursor:pointer}
+.duty-pick button[aria-pressed=true]{background:#fff6d8;box-shadow:inset 0 0 0 2.5px var(--ink),0 0 0 3px var(--gold)}
+.duty-pick span,.duty-plan span{min-width:0;display:flex;flex-direction:column}
+.duty-pick b,.duty-plan b,.duty-now b{color:#14141c}
+.duty-pick b,.duty-plan b{font-size:14px;font-weight:800;line-height:1.2}
+.duty-pick small,.duty-plan small,.duty-now small{color:#5b5a66}
+.duty-pick small,.duty-plan small{overflow:hidden;font-size:11.5px;line-height:1.3;color:var(--on-paper-2);white-space:nowrap;text-overflow:ellipsis}
+.duty-jobs{margin-top:6px}
+.duty-jobs button[aria-disabled=true]{opacity:.45}
+.duty-plan{display:flex;flex-direction:column;gap:4px;max-height:min(40dvh,300px);margin:6px 0;padding:0;overflow-y:auto;list-style:none}
+.duty-plan li{display:flex;align-items:center;gap:8px;padding:3px 8px 3px 3px;border-radius:999px;background:#fff}
+.duty-plan li.on{background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink)}
+@media (max-width:720px){.map-tool .duty-plan li{margin-right:86px}}
+/* ---------- 内政：要事（每页顶上，点按钮直接去办；关于地块的直接去地图） ---------- */
+.gv-todo{margin:0 0 16px;padding:8px 10px 10px;background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--ink)}
+.gv-todo-head{display:flex;align-items:center;gap:6px;margin:0 0 6px}
+.gv-todo-head svg{width:16px;height:16px;color:var(--ink)}
+.gv-todo-head b{font:400 18px/1.1 var(--display);color:var(--on-paper)}
+.gv-todo-head small{font-size:12px;color:var(--on-paper-2)}
+.gv-todo ul{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.gv-todo li{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 8px;background:#fff;border-radius:4px;box-shadow:inset 0 0 0 1.5px rgba(13,14,22,.18)}
+.gv-todo li.bad{background:#ffe9e3;box-shadow:inset 0 0 0 2px #c0271a}
+.gv-todo li>svg{flex:none;width:18px;height:18px;color:var(--ink)}
+.gv-todo li span{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.35;color:var(--on-paper)}
+.gv-todo li em{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px;font-style:normal}
+.gv-go{padding:4px 11px;font:800 13px/1.2 var(--font);color:var(--ink);background:var(--gold);border-radius:999px;box-shadow:inset 0 0 0 2px var(--ink),2px 2px 0 var(--ink);cursor:pointer;white-space:nowrap}
+.gv-go:active{transform:translate(1px,1px);box-shadow:inset 0 0 0 2px var(--ink)}
+.gv-plain{margin:2px 0 8px;font-size:14px;line-height:1.6;color:var(--on-paper)}
+.gv-fold>summary{cursor:pointer;font-weight:800;color:#8a6d1f}
+.recovery-fold{margin-top:6px}
+.recovery-fold>summary{padding:6px 0;font-size:14px}
+.recovery-fold[open]>summary{margin-bottom:6px}
+.dev-plan{display:flex;flex-direction:column;gap:4px;max-height:min(40dvh,300px);margin:4px 0;padding:0;overflow-y:auto;list-style:none}
+.dev-plan li{display:flex;align-items:center;gap:8px;padding:4px 8px;background:#fff;border-radius:6px}
+.dev-plan li.on{background:#fff6d8;box-shadow:inset 0 0 0 2px var(--ink)}
+.dev-plan li>i{flex:none;display:grid;place-items:center;width:22px;height:22px;font:900 12px/1 var(--font);font-style:normal;color:var(--gold);background:var(--ink);border-radius:50%}
+.dev-plan span{min-width:0;display:flex;flex-direction:column}
+.dev-plan b{font-size:13.5px;color:#14141c}
+.dev-plan small{font-size:11.5px;color:#5b5a66}
+@media (max-width:720px){.gv-todo li{flex-wrap:wrap;row-gap:4px}.gv-todo li em{margin-left:auto}.gv-todo li span{font-size:13.5px}.map-tool .dev-plan li{margin-right:86px}}
+/* A wide button on the 内政 paper that leaves for the map or another tab. */
+.gv-link{display:flex;align-items:center;gap:8px;width:100%;margin:8px 0 4px;padding:9px 12px;text-align:left;font:800 15px/1.3 var(--font);color:var(--on-paper);background:#fff;box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--gold);cursor:pointer}
+.gv-link svg{flex:none;width:18px;height:18px;color:var(--ink)}
+.gv-link span{margin-left:auto;font-weight:900}
+.gv-link:hover{background:#fff6d8}
+.gv-link:active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--ink),2px 2px 0 var(--gold)}
+@media (max-width:720px){.map-tool .dev-plan b,.map-tool .dev-plan small,.map-tool .duty-plan b,.map-tool .duty-plan small{white-space:normal;overflow:visible;text-overflow:clip}.map-tool .dev-plan li,.map-tool .duty-plan li{margin-right:78px}}
+
+/* ---- 2026-11-15 四次整改 ---------------------------------------------------------------------
+   Petals and the hub: the hexagon is drawn by .hex (ink) and :before (paper), never by clipping the
+   button, so no word is ever cut. A line wider than the hexagon at its height rides on an ink plate
+   above the neighbours (.spill, set by fitPetals). Only the hexagon itself takes clicks. */
+.petal{clip-path:none;background:none}
+.petal>.hex{position:absolute;inset:0;z-index:-2;background:var(--ink);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.petal:before{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.flower .petal{pointer-events:none}
+.flower .petal>.hex{pointer-events:auto}
+.petal b,.petal small{position:relative;white-space:nowrap}
+.petal.spilling{z-index:4}
+.petal{--halo:var(--paper)}.petal.primary,.petal.quest{--halo:var(--gold)}.petal.danger{--halo:var(--red)}.petal.back{--halo:var(--ink-3)}.petal.urgent{--halo:#ffe1da}.petal[aria-disabled=true],.petal:disabled{--halo:#d9d4c7}
+.petal b,.petal small{text-shadow:0 0 2px var(--halo),0 0 2px var(--halo),0 0 3px var(--halo)}
+.flower .petal b.spill,.flower .petal small.spill{padding:1px 7px;border-radius:999px;color:#fff6dc;background:var(--ink);text-shadow:none;box-shadow:0 0 0 1.5px #fff6dc,0 2px 6px rgba(0,0,0,.45)}
+.flower .petal small.spill{margin-top:1px;font-weight:700}
+.flower .petal[aria-disabled=true] small.spill{color:#ffc4b6}
+.flower .petal.primary .spill{box-shadow:0 0 0 1.5px var(--gold),0 2px 6px rgba(0,0,0,.45)}
+.ring-hub{clip-path:none;background:none}
+.ring-hub>.hex{position:absolute;inset:0;z-index:-2;background:var(--gold);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.ring-hub:before{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.ring-hub b,.ring-hub small{position:relative;max-width:none;overflow:visible;text-overflow:clip;white-space:nowrap}
+.ring-hub.spilling{z-index:5}
+.ring-hub .spill{padding:1px 6px;border-radius:999px;background:var(--ink);box-shadow:0 0 0 1.5px var(--gold)}
+/* What a petal does, in full, beside the ring: never a native tooltip that can be cut off. */
+.petal-tip{position:fixed;z-index:60;max-width:260px;padding:7px 11px 8px;color:var(--on-paper);background:var(--paper);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font:13px/1.55 var(--font);pointer-events:none}
+.petal-tip[hidden]{display:none}
+.petal-tip b{display:block;margin-bottom:1px;font:400 15px/1.3 var(--display)}
+
+/* 余令去探索: a labelled switch tucked against the dial's left side. Hidden while no command is left. */
+.left-explore{position:absolute;z-index:7;right:158px;bottom:calc(92px + var(--safe-b));display:flex;align-items:center;gap:6px;height:30px;padding:0 6px 0 9px;color:var(--text);background:var(--ink);border:2px solid var(--text);border-radius:15px;font:700 13px/1 var(--font);white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.4);translate:calc(-1 * var(--sa-r)) 0;transition:background .15s,color .15s}
+.left-explore[hidden]{display:none}
+.left-explore svg{width:15px;height:15px;flex:none}
+.left-explore .knob{position:relative;flex:none;width:28px;height:16px;border-radius:8px;background:var(--ink-3);box-shadow:inset 0 0 0 1.5px var(--muted)}
+.left-explore .knob:after{content:"";position:absolute;left:3px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--muted);transition:transform .15s,background .15s}
+.left-explore:hover{background:var(--ink-3)}
+.left-explore[aria-checked=true]{color:var(--on-paper);background:var(--gold);border-color:var(--ink)}
+.left-explore[aria-checked=true] .knob{background:var(--ink);box-shadow:none}
+.left-explore[aria-checked=true] .knob:after{transform:translateX(12px);background:var(--gold)}
+.flower-side .left-explore,.sheet-open .left-explore,.army-sheet .left-explore,.army-side .left-explore,.ap-empty .left-explore{visibility:hidden}
+@media (max-width:720px){.left-explore{right:56px;bottom:calc(112px + var(--safe-b));height:28px;font-size:12px}}
+@media (max-height:520px){.left-explore{right:112px;bottom:calc(52px + var(--safe-b));height:26px;font-size:12px}}
+.left-explore-switch{display:flex;align-items:center;gap:10px;width:fit-content;min-height:40px;margin-top:6px;font-size:14px;font-weight:700;cursor:pointer}
+.left-explore-switch input{width:20px;height:20px;margin:0;accent-color:var(--gold)}
+.ring-form .left-explore-switch{min-height:34px;font-size:13px}
+
+/* The map buttons stay where they are while a ring is open (the ring docks to their left). */
+.flower-side .view-tools{visibility:visible}
+
+/* Tile card: who works the tile (差事), and why the border button brought you here. */
+.tag .duty-line{display:flex;align-items:center;gap:6px;margin-top:4px;color:#bff0d6}
+.tag .duty-line .pface{position:relative;flex:none;width:22px;height:22px;overflow:hidden;border-radius:50%;background:var(--paper-2);border:2px solid #7fe0b0}
+.tag .duty-line .pface img{position:absolute;left:50%;top:0;width:190%;max-width:none;transform:translateX(-50%)}
+.front-banner{display:flex;align-items:center;gap:8px;margin:4px 0 5px;padding:5px 6px 5px 9px;color:var(--on-paper);background:var(--gold);border:2px solid var(--ink);font-size:12px;line-height:1.45}
+.front-banner span{flex:1;min-width:0}
+.front-banner b{margin-right:6px;font-weight:800}
+.front-next{flex:none;padding:4px 9px;color:var(--text);background:var(--ink);font-weight:800;font-size:12px;white-space:nowrap}
+.front-next:hover{background:var(--ink-3)}
+/* The detail line sits in the hexagon's wide middle band: content lifted a few pixels, the key number a little higher. */
+.petal{padding-bottom:6px}
+.petal svg{margin-top:4px}
+.petal .pface{margin-top:3px}
+.petal kbd{top:5px}
+@media (max-width:720px),(max-height:520px){.petal svg{margin-top:2px}.petal .pface{margin-top:2px}}
+
+/* ---- 世界地图 (2026-11-15) ---------------------------------------------------------------------
+   New game: two map cards (无限大陆 / 世界地图); the world card opens the real Earth with every start ringed
+   and a row of start chips. Clicking near a ring on the map picks that start. */
+.map-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0 10px}
+.map-pick{display:flex;flex-direction:column;gap:4px;text-align:left;padding:10px 12px;color:var(--text);background:var(--ink-2);border:3px solid var(--ink-3)}
+.map-pick b{font:400 clamp(17px,2.1vw,20px)/1.25 var(--display)}
+.map-pick small{font-size:13px;line-height:1.55;color:var(--muted)}
+.map-pick:hover{border-color:var(--muted)}
+.map-pick.on{border-color:var(--gold);box-shadow:0 0 14px rgba(255,200,61,.5)}
+.earth-pick{margin:0 0 10px}
+.earth-preview{display:block;width:100%;height:auto;background:#173954;border:3px solid var(--ink);cursor:pointer}
+.earth-starts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.earth-starts button{padding:6px 10px;font-size:13px;font-weight:700;color:var(--text);background:var(--ink-2);border:2px solid var(--ink-3)}
+.earth-starts button:hover{border-color:var(--muted)}
+.earth-starts button[aria-pressed=true]{color:var(--on-paper);background:var(--gold);border-color:var(--ink)}
+@media (max-width:600px){.map-picks{grid-template-columns:1fr}.earth-starts button{padding:6px 8px;font-size:12px}}
+/* Map buttons say what they are: a caption under each round button. */
+.mini-row{padding-bottom:15px}
+.mini[data-cap]{position:relative}
+.mini[data-cap]:after{content:attr(data-cap);position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font:700 11px/1.2 var(--font);color:var(--text);text-shadow:0 1px 2px #000,0 0 4px #000;white-space:nowrap;pointer-events:none}
+.mini[hidden]{display:none}
+/* 世界全图 */
+.world-overview{display:flex;flex-direction:column;gap:8px}
+.world-canvas{cursor:crosshair}
+.world-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;font-weight:700;color:var(--text)}
+.world-legend span{display:inline-flex;align-items:center;gap:5px}
+.world-legend i{width:12px;height:12px;border:2px solid var(--text)}
+.lever .lever-world{position:relative;color:var(--gold);font-weight:700}
+.lever .lever-world:before{content:"";position:absolute;left:0;top:5px;bottom:5px;border-left:2px solid var(--muted)}
+.lever .lever-world[hidden]{display:none}
+.lever .lever-world:hover{background:var(--ink-3)}
+.cs-duty-foot{margin-top:12px;padding-top:10px;border-top:2px dashed rgba(13,14,22,.22);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.cs-duty-foot>small{font:500 12px/1.35 var(--font);color:var(--on-paper-2)}
+.cs-hall-btn{padding:6px 12px;min-height:36px;font:700 13px/1.2 var(--font);box-shadow:2px 2px 0 var(--ink);cursor:pointer;margin-left:auto}
